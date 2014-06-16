@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayout;
+import android.support.v7.widget.GridLayout.LayoutParams;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -59,11 +60,13 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	private ImageButton button;
 	private TextView mFortune;
 	private CommonLog log = CommonLog.getInstance();
+	private View view;
+	private FrontFotruneAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_frontpage, null);
+		view = inflater.inflate(R.layout.fragment_frontpage, null);
 		initViews(view);
 		log.i(PhoneUtil.getDeviceId((TelephonyManager) (getActivity()
 				.getSystemService(Context.TELEPHONY_SERVICE))));
@@ -77,6 +80,15 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 		initData(view);
 		// createNavMenu1(view);
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (null != adapter) {
+			viewPager.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initData(final View view) {
@@ -104,15 +116,23 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 								createNavMenu1(wealthEntities, view);
 								ArrayList<CategoryEntity> categoryEntities = commonData
 										.getCategoryMapList();
-								viewPager.setAdapter(new FrontFotruneAdapter(
-										getActivity()
-												.getSupportFragmentManager(),
-										categoryEntities));
+								if (null == adapter) {
+									adapter = new FrontFotruneAdapter(
+											getActivity()
+													.getSupportFragmentManager(),
+											categoryEntities);
+									viewPager.setAdapter(adapter);
+									viewPager.setOffscreenPageLimit(1);
+								} else {
+									adapter.notifyDataSetChanged();
+								}
+								viewPager.setCurrentItem(0);
 								imageButton.setText("会员："
 										+ commonData.getCommonData()
 												.getUserAmount());
-								mFortune.setText("我的财富："+commonData.getCommonData()
-										.getUserwealth());
+								mFortune.setText("我的财富："
+										+ commonData.getCommonData()
+												.getUserwealth());
 							}
 						}
 
@@ -136,7 +156,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 		// viewPager.setAdapter(new
 		// FrontFotruneAdapter(getActivity().getSupportFragmentManager(),
 		// temp));
-		viewPager.setPageTransformer(true, new DepthPageTransformer());
+		// viewPager.setPageTransformer(true, new DepthPageTransformer());
 		button = (ImageButton) view.findViewById(R.id.imageview);
 		button.setOnClickListener(this);
 		mFortune = (TextView) view.findViewById(R.id.tv_fortune);
@@ -183,7 +203,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 		int padding = 5;
 		gridLayout.setPadding(padding, 0, padding, 0);
 		int itemSpace = 5;
-		int minimumItemHeight = 60;
+		int minimumItemHeight = 54;
 		int itemWidth = (gridLayoutWidth - padding * 2
 				- gridLayout.getPaddingLeft() - gridLayout.getPaddingRight() - itemSpace * 2) / 2;
 		for (WealthEntity entity : wealthEntities) {
@@ -193,7 +213,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 							gridLayout, false);
 			ll.setOnClickListener(this);
 			ll.setTag(entity);
-			ll.setBackgroundResource(R.drawable.selector_menu_icon);
+			ll.setBackgroundResource(R.drawable.selector_gridlayout_bg);
 			// ImageView imageView = (ImageView) ll
 			// .findViewById(R.id.icon_imageView);
 			// loadImage(item, imageView);
@@ -204,8 +224,9 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 
 			lp = new GridLayout.LayoutParams(ll.getLayoutParams());
 			lp.width = itemWidth;
-			lp.height = itemWidth / 3 < minimumItemHeight ? minimumItemHeight
-					: itemWidth / 3;
+			// lp.height = itemWidth / 3 < minimumItemHeight ? minimumItemHeight
+			// : itemWidth / 3;
+			lp.height = LayoutParams.WRAP_CONTENT;
 			lp.leftMargin = lp.rightMargin = lp.topMargin = lp.bottomMargin = itemSpace;
 			spec = GridLayout
 					.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);

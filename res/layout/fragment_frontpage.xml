@@ -50,7 +50,7 @@
                     android:layout_marginRight="10dip"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/arrow_left" >
+                    android:src="@drawable/front_sacn" >
                 </ImageButton>
             </RelativeLayout>
 
@@ -77,7 +77,7 @@
                 <View
                     android:layout_width="4dip"
                     android:layout_height="fill_parent"
-                    android:background="#01AEF0" />
+                    android:background="@drawable/front_blue_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                 <View
                     android:layout_width="4dip"
                     android:layout_height="fill_parent"
-                    android:background="#01AEF0" />
+                    android:background="@drawable/front_blue_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"

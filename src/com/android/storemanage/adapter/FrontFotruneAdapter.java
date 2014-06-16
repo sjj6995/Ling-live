@@ -38,7 +38,6 @@ public class FrontFotruneAdapter extends FragmentStatePagerAdapter {
 		}
 		ArrayList<CategoryEntity> str = new ArrayList<CategoryEntity>();
 		str.addAll(temp);
-		// bundle.putStringArrayList("text",str);
 		bundle.putSerializable("text", str);
 		fragment.setArguments(bundle);
 		return fragment;

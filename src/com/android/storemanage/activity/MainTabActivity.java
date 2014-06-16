@@ -38,7 +38,6 @@ public class MainTabActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_tab_layout);
-
 		initView();
 	}
 
@@ -68,7 +67,7 @@ public class MainTabActivity extends FragmentActivity {
 	}
 
 	/**
-	 * ��Tab��ť����ͼ�������
+	 * 
 	 */
 	private View getTabItemView(int index) {
 		View view = layoutInflater.inflate(R.layout.tab_item_view, null);

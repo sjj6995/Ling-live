@@ -74,7 +74,7 @@ public class CategoryAdapter extends BaseAdapter {
 			Picasso.with(context)
 					.load(JFConfig.HOST_URL + entity.getCategoryBigimgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
-			holder.llLayout.setBackgroundResource(colors[postion]);
+//			holder.llLayout.setBackgroundResource(colors[postion]);
 		}
 		return convertView;
 	}

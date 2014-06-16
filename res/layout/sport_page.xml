@@ -23,8 +23,13 @@
             android:checked="true"
             android:gravity="center"
             android:text="默认"
-            android:textSize="15sp"
-            android:textColor="@color/selector_radio_button_text_color" />
+            android:textColor="@color/selector_radio_button_text_color"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="#5581A4" />
 
         <RadioButton
             android:id="@+id/rb_fortune"
@@ -36,8 +41,13 @@
             android:checked="false"
             android:gravity="center"
             android:text="财富排行"
-            android:textSize="15sp"
-            android:textColor="@color/selector_radio_button_text_color" />
+            android:textColor="@color/selector_radio_button_text_color"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="#5581A4" />
 
         <RadioButton
             android:id="@+id/rb_update_time"
@@ -49,8 +59,8 @@
             android:checked="false"
             android:gravity="center"
             android:text="更新时间"
-            android:textSize="15sp"
-            android:textColor="@color/selector_radio_button_text_color" />
+            android:textColor="@color/selector_radio_button_text_color"
+            android:textSize="15sp" />
     </RadioGroup>
 
     <ListView
