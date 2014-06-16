@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/app_bg_content_margin"
+        android:paddingRight="@dimen/app_bg_content_margin"
+        android:orientation="horizontal"
+        >
+        <ImageView 
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:id="@+id/iv_pride_icon"
+            />
+        
+        <RelativeLayout 
+            android:layout_width="0dip"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            >
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_pride_name"
+                android:textSize="18sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                />
+            
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_pride_name"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                />
+            
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                >
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(本奖品只能使用一次)"
+                    />
+                
+                <Button 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="使用"
+                    android:id="@+id/btn_use"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

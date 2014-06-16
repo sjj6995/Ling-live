@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/cr_bg_dialog_alert"
+    android:orientation="vertical" >
+
+    <com.android.storemanage.view.SpecialTextView
+        android:id="@+id/tv_alert_msg"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:textSize="14sp"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="企业服务无法连接"
+        android:background="@android:color/transparent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

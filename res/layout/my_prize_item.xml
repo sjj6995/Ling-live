@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:paddingLeft="16dip"
+    android:paddingRight="10dp"
+    android:layout_height="wrap_content" >
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_has_used_or_not"
+        android:background="#EB1028"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:text="未使用"
+        android:textColor="@android:color/white"
+        android:padding="5dip"
+        />
+    
+    <ImageView 
+        android:layout_width="72dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/iv_icon"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_launcher"
+        />
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/iv_icon"
+        android:layout_below="@id/tv_has_used_or_not"
+        android:layout_marginRight="20dip"
+        android:layout_marginLeft="5dip"
+        >
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:id="@+id/tv_name"
+            android:textColor="#5581A4"
+            android:text="马尔代夫7日游"
+            android:layout_marginBottom="5dip"
+            />
+        
+        <include layout="@layout/horizontal_line"/>
+        
+         <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:id="@+id/tv_validate_time"
+            android:textColor="#FF8A00"
+            android:text="有效期剩余10天"
+            android:layout_marginTop="5dip"
+            />
+         
+         <LinearLayout 
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="3dip"
+             android:orientation="horizontal"
+             >
+             <TextView 
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="财富值:"
+                 android:textSize="13sp"
+                 />
+             <TextView 
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="200"
+                 android:layout_marginLeft="3dip"
+                 android:textSize="13sp"
+                 android:textColor="#FF8A00"
+                 />
+         </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

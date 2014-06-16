@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@color/app_bg_color"
+        android:orientation="vertical" >
+
+        <include layout="@layout/title_layout" />
+
+        <TextView
+            android:id="@+id/tv_fortune"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:text="财富：2"
+            android:textColor="@color/text_view_color"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="10dip"
+                android:text="手机号码：1888888888"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="10dip"
+                android:text="邮箱：188888@qq.com"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
+                android:id="@+id/tv_my_prize"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_right"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:onClick="gotoMyPrize"
+                android:padding="10dip"
+                android:text="我的奖品"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@android:color/white"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_about_us"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="gotoAboutUs"
+                android:padding="10dip"
+                android:text="关于我们"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
+                android:id="@+id/tv_opinion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="opinionComment"
+                android:padding="10dip"
+                android:text="意见反馈"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
+                android:id="@+id/tv_current_version"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:onClick="getNewVersion"
+                android:padding="10dip"
+                android:text="版本号：1.0.0"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
+                android:id="@+id/tv_share_to_friends"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:onClick="shareToFriends"
+                android:padding="10dip"
+                android:text="分享至好友圈"
+                android:textColor="@color/text_view_color"
+                android:textSize="17sp" />
+
+            <include layout="@layout/horizontal_line" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

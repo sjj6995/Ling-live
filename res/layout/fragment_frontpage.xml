@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.android.storemanage.view.CustomScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/white"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="45dip"
+                android:background="#5581A4"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/ib_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dip"
+                    android:background="@android:color/transparent"
+                    android:text="会员：8888"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="首页"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:id="@+id/imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dip"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/arrow_left" >
+                </ImageButton>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_fortune"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:text="我的财富：3"
+                android:textColor="@color/text_view_color"
+                android:textSize="10dip" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="20dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="4dip"
+                    android:layout_height="fill_parent"
+                    android:background="#01AEF0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dip"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="兑换区" />
+            </LinearLayout>
+
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/menu_gridlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="4" >
+            </android.support.v7.widget.GridLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="20dip"
+                android:layout_marginBottom="5dip"
+                android:layout_marginTop="5dip"
+                android:layout_marginLeft="5dip"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="4dip"
+                    android:layout_height="fill_parent"
+                    android:background="#01AEF0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dip"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="分类区" />
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vPager"
+                android:layout_width="fill_parent"
+                android:layout_height="150dip"
+                android:background="#ffffff"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation" />
+        </LinearLayout>
+    </com.android.storemanage.view.CustomScrollView>
+
+</LinearLayout>
