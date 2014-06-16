@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="iliad_custom_rules">
+	<target name="iliad-clean-release" depends="clean, release">
+	    
+	</target>
+</project>
