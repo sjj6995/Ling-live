@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class FrontFotruneAdapter extends FragmentStatePagerAdapter {
+	private int mChildCount = 0;
 
 	private ArrayList<CategoryEntity> lists;
 
@@ -44,9 +45,24 @@ public class FrontFotruneAdapter extends FragmentStatePagerAdapter {
 	}
 
 	@Override
+	public int getItemPosition(Object object) {
+		if (mChildCount > 0) {
+			mChildCount--;
+			return POSITION_NONE;
+		}
+		return super.getItemPosition(object);
+	}
+
+	@Override
+	public void notifyDataSetChanged() {
+		mChildCount = getCount();
+		super.notifyDataSetChanged();
+	}
+
+	@Override
 	public int getCount() {
-		return lists.size() % JFConfig.PAGE_COUNT == 0 ? lists.size() / JFConfig.PAGE_COUNT
-				: lists.size() / JFConfig.PAGE_COUNT + 1;
+		return lists.size() % JFConfig.PAGE_COUNT == 0 ? lists.size()
+				/ JFConfig.PAGE_COUNT : lists.size() / JFConfig.PAGE_COUNT + 1;
 	}
 
 }
