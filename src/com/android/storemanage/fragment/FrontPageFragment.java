@@ -3,29 +3,6 @@ package com.android.storemanage.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.android.storemanage.R;
-import com.android.storemanage.activity.WealthPrizeActivity;
-import com.android.storemanage.adapter.ClassifyAdapter;
-import com.android.storemanage.adapter.FrontFotruneAdapter;
-import com.android.storemanage.entity.CategoryEntity;
-import com.android.storemanage.entity.CollectionData;
-import com.android.storemanage.entity.InnerData;
-import com.android.storemanage.entity.OuterData;
-import com.android.storemanage.entity.WealthEntity;
-import com.android.storemanage.entity.WealthPrizeEntity;
-import com.android.storemanage.net.AsyncHttpResponseHandler;
-import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
-import com.android.storemanage.utils.CommonLog;
-import com.android.storemanage.utils.CommonUtil;
-import com.android.storemanage.utils.DepthPageTransformer;
-import com.android.storemanage.utils.JFConfig;
-import com.android.storemanage.utils.PhoneUtil;
-import com.android.storemanage.view.CRAlertDialog;
-import com.squareup.picasso.Picasso;
-import com.zxing.activity.CaptureActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,9 +18,27 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSON;
+import com.android.storemanage.R;
+import com.android.storemanage.activity.WealthPrizeActivity;
+import com.android.storemanage.adapter.FrontFotruneAdapter;
+import com.android.storemanage.entity.CategoryEntity;
+import com.android.storemanage.entity.CollectionData;
+import com.android.storemanage.entity.InnerData;
+import com.android.storemanage.entity.OuterData;
+import com.android.storemanage.entity.WealthEntity;
+import com.android.storemanage.net.AsyncHttpResponseHandler;
+import com.android.storemanage.net.RequestParams;
+import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.utils.CommonLog;
+import com.android.storemanage.utils.CommonUtil;
+import com.android.storemanage.utils.JFConfig;
+import com.android.storemanage.utils.PhoneUtil;
+import com.android.storemanage.view.CRAlertDialog;
+import com.wlnet.wl.android.camera.CaptureActivity;
 
 /**
  * @author liujiao 首页
@@ -66,7 +61,14 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_frontpage, null);
+		if (view==null) {
+			view = inflater.inflate(R.layout.fragment_frontpage, null);
+		}
+		ViewGroup parent = (ViewGroup) view.getParent();
+		if (parent != null) {
+			parent.removeView(view);
+			return view;
+		}
 		initViews(view);
 		log.i(PhoneUtil.getDeviceId((TelephonyManager) (getActivity()
 				.getSystemService(Context.TELEPHONY_SERVICE))));
@@ -118,8 +120,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 										.getCategoryMapList();
 								if (null == adapter) {
 									adapter = new FrontFotruneAdapter(
-											getActivity()
-													.getSupportFragmentManager(),
+													getChildFragmentManager(),
 											categoryEntities);
 									viewPager.setAdapter(adapter);
 									viewPager.setOffscreenPageLimit(1);
@@ -167,8 +168,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	 * 扫描二维码
 	 */
 	private void gotoScanRequest() {
-		Intent intent = new Intent(getActivity(), CaptureActivity.class);
-		startActivityForResult(intent, REQUEST_SCAN);
+		startActivityForResult(new Intent(getActivity(), CaptureActivity.class),REQUEST_SCAN);
 	}
 
 	@Override
