@@ -41,7 +41,6 @@ import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.HttpVersion;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -191,13 +190,13 @@ public class AsyncHttpClient {
         return this.httpContext;
     }
 
-    /**
-     * Sets an optional CookieStore to use when making requests
-     * @param cookieStore The CookieStore implementation to use, usually an instance of {@link PersistentCookieStore}
-     */
-    public void setCookieStore(CookieStore cookieStore) {
-        httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-    }
+//    /**
+//     * Sets an optional CookieStore to use when making requests
+//     * @param cookieStore The CookieStore implementation to use, usually an instance of {@link PersistentCookieStore}
+//     */
+//    public void setCookieStore(CookieStore cookieStore) {
+//        httpContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+//    }
 
     /**
      * Overrides the threadpool implementation used when queuing/pooling

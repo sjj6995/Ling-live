@@ -84,15 +84,6 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 		return view;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		if (null != adapter) {
-			viewPager.setAdapter(adapter);
-			adapter.notifyDataSetChanged();
-		}
-	}
-
 	private void initData(final View view) {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
@@ -120,7 +111,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 										.getCategoryMapList();
 								if (null == adapter) {
 									adapter = new FrontFotruneAdapter(
-													getChildFragmentManager(),
+											getChildFragmentManager(),
 											categoryEntities);
 									viewPager.setAdapter(adapter);
 									viewPager.setOffscreenPageLimit(1);

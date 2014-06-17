@@ -9,4 +9,5 @@
     <string name="please_input_corret_phone">手机号格式不正确，请重新输入</string>
     <string name="please_input_corret_email">邮箱格式不正确，请重新输入</string>
     <string name="pLease_check_network">目前网络未连接，请检查您的网络设置</string>
+    <string name="please_waiting">请稍后...</string>
 </resources>

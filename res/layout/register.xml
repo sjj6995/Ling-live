@@ -14,18 +14,20 @@
         android:layout_marginLeft="@dimen/app_bg_content_margin"
         android:layout_marginRight="@dimen/app_bg_content_margin"
         android:layout_marginTop="30dip"
-        android:background="@android:color/white"
+        android:background="@drawable/rect_white_gray_line"
         android:orientation="vertical" >
 
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher"
+            android:background="@null"
+            android:drawableLeft="@drawable/phone_bg"
             android:drawablePadding="8dip"
             android:hint="@string/please_input_phone"
             android:inputType="phone"
-            android:padding="10dip" />
+            android:padding="10dip"
+            android:textSize="@dimen/button_text_siez" />
 
         <include layout="@layout/horizontal_line" />
 
@@ -33,11 +35,13 @@
             android:id="@+id/et_email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_launcher"
+            android:background="@null"
+            android:drawableLeft="@drawable/email_bg"
             android:drawablePadding="8dip"
             android:hint="@string/please_input_email"
             android:inputType="textEmailAddress"
-            android:padding="10dip" />
+            android:padding="10dip"
+            android:textSize="@dimen/button_text_siez" />
     </LinearLayout>
 
     <Button
@@ -47,11 +51,11 @@
         android:layout_marginLeft="@dimen/app_bg_content_margin"
         android:layout_marginRight="@dimen/app_bg_content_margin"
         android:layout_marginTop="20dip"
-        android:background="@color/button_normal_color"
+        android:background="@drawable/regist_bg"
+        android:onClick="gotoRegister"
         android:paddingBottom="8dip"
         android:paddingTop="8dip"
         android:text="确定"
-        android:onClick="gotoRegister"
         android:textColor="@android:color/white"
         android:textSize="@dimen/button_text_siez" />
 

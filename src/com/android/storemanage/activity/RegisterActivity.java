@@ -1,6 +1,5 @@
 package com.android.storemanage.activity;
 
-
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.entity.InnerData;
@@ -15,11 +14,13 @@ import com.android.storemanage.utils.PhoneUtil;
 import com.android.storemanage.view.CRAlertDialog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -30,12 +31,15 @@ public class RegisterActivity extends BaseActivity {
 	private TextView tView;
 	private EditText mPhonEditText;
 	private EditText mEmailEditText;
+	private ImageButton ib;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		tView = (TextView) findViewById(R.id.tv_title);
+		ib = (ImageButton) findViewById(R.id.ib_back);
+		ib.setVisibility(View.INVISIBLE);
 		mPhonEditText = (EditText) findViewById(R.id.et_phone);
 		mEmailEditText = (EditText) findViewById(R.id.et_email);
 		tView.setText("注册");
@@ -47,11 +51,13 @@ public class RegisterActivity extends BaseActivity {
 		if (TextUtils.isEmpty(phoneString)) {
 			dialog = new CRAlertDialog(this);
 			dialog.show(getString(R.string.please_input_corret_phone), 1000);
+			return;
 		}
 		String email = mEmailEditText.getText().toString();
 		if (TextUtils.isEmpty(email)) {
 			dialog = new CRAlertDialog(this);
 			dialog.show(getString(R.string.please_input_corret_email), 1000);
+			return;
 		}
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
@@ -60,21 +66,31 @@ public class RegisterActivity extends BaseActivity {
 							.getSystemService(Context.TELEPHONY_SERVICE)));
 			params.put("phonenumber", phoneString);
 			params.put("useremail", email);
+			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.REGISTER, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {
 							log.i("content===" + content);
-							OuterData outerData = JSON.parseObject(content,OuterData.class);
+							dismissProgressDialog();
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
 							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData().get(0);
-							log.i("commonData"+commonData.getCommonData().getMsg());
-							
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {// 注册成功
+								Intent intent = new Intent(mContext,
+										MainTabActivity.class);
+								startActivity(intent);
+							}
+
 						}
 
 						@Override
 						public void onFailure(Throwable arg0, String arg1) {
 							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
 						}
 					});
 		} else {
