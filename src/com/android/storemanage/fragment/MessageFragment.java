@@ -16,14 +16,11 @@ import com.android.storemanage.net.XDHttpClient;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
-import com.android.storemanage.utils.PhoneUtil;
 import com.android.storemanage.view.CRAlertDialog;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +34,7 @@ import android.widget.TextView;
  * @author liujiao 消息界面
  * 
  */
-public class MessageFragment extends Fragment implements OnItemClickListener {
+public class MessageFragment extends BaseFragment implements OnItemClickListener {
 	private ImageButton imageButton;
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
@@ -54,10 +51,15 @@ public class MessageFragment extends Fragment implements OnItemClickListener {
 	private void initData() {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
+			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
+					dismissProgressDialog();
+					if(TextUtils.isEmpty(content)){
+						return;
+					}
 					OuterData outerData = JSON.parseObject(content, OuterData.class);
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
@@ -71,6 +73,7 @@ public class MessageFragment extends Fragment implements OnItemClickListener {
 				@Override
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
 				}
 			});
 		} else {

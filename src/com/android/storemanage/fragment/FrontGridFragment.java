@@ -3,8 +3,8 @@ package com.android.storemanage.fragment;
 import java.util.ArrayList;
 
 import com.android.storemanage.R;
-import com.android.storemanage.activity.CategoryDetailActivity;
-import com.android.storemanage.adapter.CategoryAdapter;
+import com.android.storemanage.activity.CategoryListActivity;
+import com.android.storemanage.adapter.ClassifyBigAdapter;
 import com.android.storemanage.entity.CategoryEntity;
 
 import android.content.Intent;
@@ -40,7 +40,7 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 		GridView gridview = (GridView) view.findViewById(R.id.gridview);
 		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments()
 				.getSerializable(ARG_TEXT);
-		gridview.setAdapter(new CategoryAdapter(getActivity(), list));
+		gridview.setAdapter(new ClassifyBigAdapter(getActivity(), list));
 		gridview.setOnItemClickListener(this);
 		return view;
 	}
@@ -50,7 +50,7 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 		CategoryEntity entity = (CategoryEntity) arg0.getItemAtPosition(arg2);
 		if (null != entity) {
 			Intent intent = new Intent(getActivity(),
-					CategoryDetailActivity.class);
+					CategoryListActivity.class);
 			intent.putExtra("categoryId", entity.getCategoryId());
 			intent.putExtra("categoryName", entity.getCategoryTitle());
 			startActivity(intent);

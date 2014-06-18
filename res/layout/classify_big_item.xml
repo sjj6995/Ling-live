@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="fill_parent"
-        android:layout_height="60dip"
+        android:layout_height="70dip"
         android:scaleType="fitXY"
         android:background="@android:color/transparent"
         android:src="@drawable/img_empty" />

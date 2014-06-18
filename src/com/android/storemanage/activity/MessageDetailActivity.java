@@ -54,34 +54,32 @@ public class MessageDetailActivity extends BaseActivity {
 	private void initData(final String messageIdString2) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
+			showProgressDialog(R.string.please_waiting);
 			params.put("messageId", messageIdString2);
-			XDHttpClient.get(JFConfig.MESSAGE_DETAIL, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
-								List<MessageDetailEntity> msgEntity = innderData
-										.getData().get(0)
-										.getMessageDetailMapList();
-								listView.setAdapter(new MessageDetailAdapter(
-										mContext, msgEntity));
-							}
-						}
+			XDHttpClient.get(JFConfig.MESSAGE_DETAIL, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						List<MessageDetailEntity> msgEntity = innderData.getData().get(0).getMessageDetailMapList();
+						listView.setAdapter(new MessageDetailAdapter(mContext, msgEntity));
+					}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);

@@ -1,17 +1,15 @@
 package com.android.storemanage.fragment;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
+import java.io.File;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.activity.AboutUsActivity;
 import com.android.storemanage.activity.CommentActivity;
 import com.android.storemanage.activity.MyPrizeActivity;
-import com.android.storemanage.adapter.MessageAdapter;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
-import com.android.storemanage.entity.MessageEntity;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.UserInforEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
@@ -21,6 +19,7 @@ import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
+import com.squareup.picasso.Picasso;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -35,13 +34,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,14 +48,16 @@ import android.widget.Toast;
  * @author liujiao 我的
  * 
  */
-public class MyFragment extends Fragment implements OnClickListener {
+public class MyFragment extends BaseFragment implements OnClickListener {
 	private ImageButton imageButton;
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private TextView mPhoneTextView;
 	private TextView mFotuneTextView, mEmailtTextView, mMyFortuneTextView;
-	private TextView mShareTextView, mCurrentVersionTextView, mAboutUsTextView, mOpinionTextView;
+	private TextView mShareTextView, mCurrentVersionTextView, mAboutUsTextView, mOpinionTextView, mCacheSize;
 	private IWXAPI api;
+	private RelativeLayout rl;
+	private long cacheSize;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,10 +70,15 @@ public class MyFragment extends Fragment implements OnClickListener {
 	private void initData() {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
+			params.put("", "");
 			XDHttpClient.get(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
 					OuterData outerData = JSON.parseObject(content, OuterData.class);
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData collectionData = innderData.getData().get(0);
@@ -86,6 +92,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 				@Override
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
 				}
 			});
 		} else {
@@ -104,7 +111,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mEmailtTextView.setText(entity.getUsermail());
 		String version = CommonUtil.getVersion(getActivity());
 		if (!TextUtils.isEmpty(version)) {
-			mCurrentVersionTextView.setText("版本号："+version);
+			mCurrentVersionTextView.setText("版本号：" + version);
 		}
 	}
 
@@ -128,6 +135,14 @@ public class MyFragment extends Fragment implements OnClickListener {
 		mCurrentVersionTextView.setOnClickListener(this);
 		mShareTextView = (TextView) view.findViewById(R.id.tv_share_to_friends);
 		mShareTextView.setOnClickListener(this);
+		mCacheSize = (TextView) view.findViewById(R.id.tv_cachesize);
+		cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
+		// mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
+		cacheSize = imageLoader.getDiskCache().getDirectory().length();
+		mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
+		rl = (RelativeLayout) view.findViewById(R.id.rl);
+		rl.setOnClickListener(this);
+
 	}
 
 	@Override
@@ -147,6 +162,21 @@ public class MyFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.tv_my_prize:// 我的奖品
 			gotoMyPrize(v);
+			break;
+		case R.id.rl:
+			Picasso.with(getActivity()).getSnapshot().dump();
+			File downloadCacheFolder = application.getCacheDir();
+			File filePath = new File(downloadCacheFolder, "picasso-cache");
+			String[] filelist = filePath.list();
+			for (int i = 0; i < filelist.length; i++) {
+				File delfile = new File(filePath + "\\" + filelist[i]);
+				if (!delfile.isDirectory()) {
+					delfile.delete();
+				}
+			}
+			log.i("filePath------" + filePath.getAbsolutePath() + "---" + filePath.exists());
+			cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
+			mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
 			break;
 
 		default:
@@ -194,14 +224,12 @@ public class MyFragment extends Fragment implements OnClickListener {
 	 *            分享到朋友圈
 	 */
 	public void shareToFriends(View view) {
-		sendReq(getActivity(), "测试", BitmapFactory.decodeResource(
-				getActivity().getResources(), R.drawable.ic_launcher),
-				Req.WXSceneTimeline);
+		sendReq(getActivity(), "测试",
+				BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher), Req.WXSceneTimeline);
 	}
-	
+
 	public void sendReq(Context context, String text, Bitmap bmp, int type) {
-		api = WXAPIFactory.createWXAPI(context, JFConfig.WECHAT_SHARA_APP_IP,
-				true);
+		api = WXAPIFactory.createWXAPI(context, JFConfig.WECHAT_SHARA_APP_IP, true);
 		api.registerApp(JFConfig.WECHAT_SHARA_APP_IP);
 
 		if (!api.isWXAppInstalled()) {
@@ -213,8 +241,7 @@ public class MyFragment extends Fragment implements OnClickListener {
 		String url = "http://www.kdt360.com/download/download.html";// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
-		WXMediaMessage localWXMediaMessage = new WXMediaMessage(
-				localWXWebpageObject);
+		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
 		localWXMediaMessage.title = "快递通";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
 		localWXMediaMessage.description = text;
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
@@ -253,13 +280,11 @@ public class MyFragment extends Fragment implements OnClickListener {
 			j = bitmap.getHeight();
 		}
 		while (true) {
-			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0,
-					80, 80), null);
+			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0, 80, 80), null);
 			if (paramBoolean)
 				bitmap.recycle();
 			ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
-			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100,
-					localByteArrayOutputStream);
+			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100, localByteArrayOutputStream);
 			localBitmap.recycle();
 			byte[] arrayOfByte = localByteArrayOutputStream.toByteArray();
 			try {

@@ -17,4 +17,8 @@
     <color name="gridview_bg_6">#FC8D71</color>
     <color name="gridview_bg_7">#8098C4</color>
     <color name="gridview_bg_0">#8098C4</color>
+    
+     <color name="button_dialog_pressed">#344f7a</color>
+     <color name="button_disabled">#2075b932</color>
+      <color name="button_dialog_normal">#6B88B7</color>
 </resources>

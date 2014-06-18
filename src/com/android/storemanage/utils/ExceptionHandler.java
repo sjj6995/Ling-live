@@ -166,14 +166,14 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 		// 保存文件
 		long timetamp = System.currentTimeMillis();
 		String time = format.format(new Date());
-		String fileName = "lange-" + time + "-" + timetamp + ".txt";
+		String fileName = "caifu-" + time + "-" + timetamp + ".txt";
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 			try {
 				File dir = new File(Environment.getExternalStorageDirectory()
 						.getAbsolutePath() + File.separator + "log");
 				Log.i("CrashHandler", dir.toString());
-//				dir.getParentFile().mkdirs();
+				dir.getParentFile().mkdirs();
 				if (!dir.exists())
 					dir.mkdir();
 				FileOutputStream fos = new FileOutputStream(new File(dir,

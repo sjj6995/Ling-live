@@ -7,11 +7,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.GridLayout.LayoutParams;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +44,7 @@ import com.wlnet.wl.android.camera.CaptureActivity;
  * @author liujiao 首页
  * 
  */
-public class FrontPageFragment extends Fragment implements OnClickListener {
+public class FrontPageFragment extends BaseFragment implements OnClickListener {
 
 	private TextView imageButton;
 	private TextView titleTextView;
@@ -59,9 +59,8 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	private FrontFotruneAdapter adapter;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		if (view==null) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		if (view == null) {
 			view = inflater.inflate(R.layout.fragment_frontpage, null);
 		}
 		ViewGroup parent = (ViewGroup) view.getParent();
@@ -70,8 +69,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 			return view;
 		}
 		initViews(view);
-		log.i(PhoneUtil.getDeviceId((TelephonyManager) (getActivity()
-				.getSystemService(Context.TELEPHONY_SERVICE))));
+		log.i(PhoneUtil.getDeviceId((TelephonyManager) (getActivity().getSystemService(Context.TELEPHONY_SERVICE))));
 		DisplayMetrics dm = new DisplayMetrics();
 		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 		width = dm.widthPixels;// 宽度
@@ -87,52 +85,44 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	private void initData(final View view) {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
-			params.put("phoneimei", PhoneUtil
-					.getDeviceId((TelephonyManager) (getActivity()
-							.getSystemService(Context.TELEPHONY_SERVICE))));
-			XDHttpClient.get(JFConfig.HOME_PAGE, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
-								List<WealthEntity> wealthEntities = commonData
-										.getWealthareaMapList();
-								createNavMenu1(wealthEntities, view);
-								ArrayList<CategoryEntity> categoryEntities = commonData
-										.getCategoryMapList();
-								if (null == adapter) {
-									adapter = new FrontFotruneAdapter(
-											getChildFragmentManager(),
-											categoryEntities);
-									viewPager.setAdapter(adapter);
-									viewPager.setOffscreenPageLimit(1);
-								} else {
-									adapter.notifyDataSetChanged();
-								}
-								viewPager.setCurrentItem(0);
-								imageButton.setText("会员："
-										+ commonData.getCommonData()
-												.getUserAmount());
-								mFortune.setText("我的财富："
-										+ commonData.getCommonData()
-												.getUserwealth());
-							}
+			params.put("phoneimei", PhoneUtil.getDeviceId((TelephonyManager) (getActivity()
+					.getSystemService(Context.TELEPHONY_SERVICE))));
+			showProgressDialog(R.string.please_waiting);
+			XDHttpClient.get(JFConfig.HOME_PAGE, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						List<WealthEntity> wealthEntities = commonData.getWealthareaMapList();
+						createNavMenu1(wealthEntities, view);
+						ArrayList<CategoryEntity> categoryEntities = commonData.getCategoryMapList();
+						if (null == adapter) {
+							adapter = new FrontFotruneAdapter(getChildFragmentManager(), categoryEntities);
+							viewPager.setAdapter(adapter);
+							viewPager.setOffscreenPageLimit(1);
+						} else {
+							adapter.notifyDataSetChanged();
 						}
+						viewPager.setCurrentItem(0);
+						imageButton.setText("会员：" + commonData.getCommonData().getUserAmount());
+						mFortune.setText("我的财富：" + commonData.getCommonData().getUserwealth());
+					}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(getActivity());
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -159,7 +149,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	 * 扫描二维码
 	 */
 	private void gotoScanRequest() {
-		startActivityForResult(new Intent(getActivity(), CaptureActivity.class),REQUEST_SCAN);
+		startActivityForResult(new Intent(getActivity(), CaptureActivity.class), REQUEST_SCAN);
 	}
 
 	@Override
@@ -180,28 +170,23 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 	 * @param menuEntity
 	 */
 	protected void createNavMenu1(List<WealthEntity> wealthEntities, View v) {
-		int maxRows = wealthEntities.size() % 2 == 0 ? wealthEntities.size() / 2
-				: wealthEntities.size() / 2 + 1;
-		GridLayout gridLayout = (GridLayout) v
-				.findViewById(R.id.menu_gridlayout);
+		int maxRows = wealthEntities.size() % 2 == 0 ? wealthEntities.size() / 2 : wealthEntities.size() / 2 + 1;
+		GridLayout gridLayout = (GridLayout) v.findViewById(R.id.menu_gridlayout);
 		gridLayout.setRowCount(maxRows > 4 ? 4 : maxRows);
 		gridLayout.setColumnCount(4);
 		GridLayout.LayoutParams lp = null;
 		GridLayout.Spec spec = null;
 
-		int gridLayoutWidth = width - gridLayout.getPaddingLeft()
-				- gridLayout.getPaddingRight();
+		int gridLayoutWidth = width - gridLayout.getPaddingLeft() - gridLayout.getPaddingRight();
 		int padding = 5;
 		gridLayout.setPadding(padding, 0, padding, 0);
 		int itemSpace = 5;
 		int minimumItemHeight = 54;
-		int itemWidth = (gridLayoutWidth - padding * 2
-				- gridLayout.getPaddingLeft() - gridLayout.getPaddingRight() - itemSpace * 2) / 2;
+		int itemWidth = (gridLayoutWidth - padding * 2 - gridLayout.getPaddingLeft() - gridLayout.getPaddingRight() - itemSpace * 2) / 2;
 		for (WealthEntity entity : wealthEntities) {
 			// TODO 版本升级功能稳定后删除 更新menuItem
-			RelativeLayout ll = (RelativeLayout) getActivity()
-					.getLayoutInflater().inflate(R.layout.icon_menu_item,
-							gridLayout, false);
+			RelativeLayout ll = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.icon_menu_item,
+					gridLayout, false);
 			ll.setOnClickListener(this);
 			ll.setTag(entity);
 			ll.setBackgroundResource(R.drawable.selector_gridlayout_bg);
@@ -209,8 +194,7 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 			// .findViewById(R.id.icon_imageView);
 			// loadImage(item, imageView);
 
-			TextView label = (TextView) ll
-					.findViewById(R.id.description_textView);
+			TextView label = (TextView) ll.findViewById(R.id.description_textView);
 			label.setText(entity.getWealthareaTitle());
 
 			lp = new GridLayout.LayoutParams(ll.getLayoutParams());
@@ -219,11 +203,9 @@ public class FrontPageFragment extends Fragment implements OnClickListener {
 			// : itemWidth / 3;
 			lp.height = LayoutParams.WRAP_CONTENT;
 			lp.leftMargin = lp.rightMargin = lp.topMargin = lp.bottomMargin = itemSpace;
-			spec = GridLayout
-					.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);
+			spec = GridLayout.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);
 			lp.columnSpec = spec;
-			spec = GridLayout
-					.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);
+			spec = GridLayout.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);
 			lp.rowSpec = spec;
 			ll.setLayoutParams(lp);
 			gridLayout.addView(ll);

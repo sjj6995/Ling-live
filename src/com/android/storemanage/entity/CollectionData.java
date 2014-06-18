@@ -11,7 +11,16 @@ public class CollectionData {
 	private UserInforEntity userInfoMap;//用户信息
 	private List<WealthEntity> wealthareaMapList;//财富专区
 	private List<WealthPrizeEntity> wealrhareaPrizeMapList;//财富奖区
+	private List<BrandEntity> brandMapList;//分类详情
 	
+	public List<BrandEntity> getBrandMapList() {
+		return brandMapList;
+	}
+
+	public void setBrandMapList(List<BrandEntity> brandMapList) {
+		this.brandMapList = brandMapList;
+	}
+
 	public List<WealthPrizeEntity> getWealrhareaPrizeMapList() {
 		return wealrhareaPrizeMapList;
 	}

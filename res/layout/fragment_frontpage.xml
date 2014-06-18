@@ -29,7 +29,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dip"
                     android:background="@android:color/transparent"
-                    android:text="会员：8888"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -59,9 +58,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dip"
-                android:text="我的财富：3"
                 android:textColor="@color/text_view_color"
-                android:textSize="10dip" />
+                android:textSize="12sp" />
 
             <include layout="@layout/horizontal_line" />
 

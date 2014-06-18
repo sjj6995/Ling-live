@@ -39,7 +39,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sport_page);
+		setContentView(R.layout.common_listview_page);
 		title = (TextView) findViewById(R.id.tv_title);
 		listview = (ListView) findViewById(R.id.lv_sport);
 		wealthIdString = getIntent().getStringExtra("wealthId");
@@ -62,11 +62,16 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 			RequestParams params = new RequestParams();
 			params.put("wealthareaId", wealthId);
 			params.put("sortType", sortType+"");
+			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.WEALTH_PRIZE, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {
 							log.i("content===" + content);
+							dismissProgressDialog();
+							if(TextUtils.isEmpty(content)){
+								return;
+							}
 							OuterData outerData = JSON.parseObject(content,
 									OuterData.class);
 							InnerData innderData = outerData.getData().get(0);
@@ -87,6 +92,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 						@Override
 						public void onFailure(Throwable arg0, String arg1) {
 							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
 						}
 					});
 		} else {

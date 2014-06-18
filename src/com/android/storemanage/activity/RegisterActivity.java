@@ -2,6 +2,8 @@ package com.android.storemanage.activity;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
+import com.android.storemanage.dialog.RetryDialog;
+import com.android.storemanage.dialog.RetryDialog.OnConfirmClick;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.CollectionData;
@@ -61,38 +63,51 @@ public class RegisterActivity extends BaseActivity {
 		}
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
-			params.put("phoneimei", PhoneUtil
-					.getDeviceId((TelephonyManager) mContext
-							.getSystemService(Context.TELEPHONY_SERVICE)));
+			params.put("phoneimei",
+					PhoneUtil.getDeviceId((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE)));
 			params.put("phonenumber", phoneString);
 			params.put("useremail", email);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.REGISTER, params,
-					new AsyncHttpResponseHandler() {
+			XDHttpClient.get(JFConfig.REGISTER, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					// if ("true".equals(commonData.getCommonData()
+					// .getReturnStatus())) {// 注册成功
+					Intent intent = new Intent(mContext, MainTabActivity.class);
+					startActivity(intent);
+					finish();
+					// }
+
+				}
+
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+					RetryDialog dialog = new RetryDialog(mContext);
+					dialog.setOnConfirmClick(new OnConfirmClick() {
+
 						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {// 注册成功
-								Intent intent = new Intent(mContext,
-										MainTabActivity.class);
-								startActivity(intent);
+						public void onClick(View view) {
+							switch (view.getId()) {
+							case R.id.sureBtn:// 确定
+								gotoRegister(null);
+								break;
+							case R.id.cancelBtn:// 取消
+								finish();
+								break;
 							}
-
-						}
-
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
 						}
 					});
+					dialog.show();
+
+				}
+			});
 		} else {
 			dialog = new CRAlertDialog(mContext);
 			dialog.show(mContext.getString(R.string.pLease_check_network), 2000);

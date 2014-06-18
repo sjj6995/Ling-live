@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CategoryAdapter extends BaseAdapter {
+public class ClassifyBigAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<CategoryEntity> entities;
@@ -27,13 +27,13 @@ public class CategoryAdapter extends BaseAdapter {
 			R.color.gridview_bg_3, R.color.gridview_bg_4,
 			R.color.gridview_bg_5, R.color.gridview_bg_6, R.color.gridview_bg_7 };
 
-	public CategoryAdapter(Context context, List<CategoryEntity> entities) {
+	public ClassifyBigAdapter(Context context, List<CategoryEntity> entities) {
 		super();
 		this.context = context;
 		this.entities = entities;
 	}
 
-	public CategoryAdapter() {
+	public ClassifyBigAdapter() {
 		super();
 	}
 
@@ -59,7 +59,7 @@ public class CategoryAdapter extends BaseAdapter {
 		CategoryEntity entity = entities.get(postion);
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = View.inflate(context, R.layout.category_item, null);
+			convertView = View.inflate(context, R.layout.classify_big_item, null);
 			holder.ivImageView = (ImageView) convertView
 					.findViewById(R.id.iv_icon);
 			holder.tView = (TextView) convertView.findViewById(R.id.text);
