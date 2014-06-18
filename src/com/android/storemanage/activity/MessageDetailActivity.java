@@ -69,7 +69,7 @@ public class MessageDetailActivity extends BaseActivity {
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						List<MessageDetailEntity> msgEntity = innderData.getData().get(0).getMessageDetailMapList();
+						List<MessageDetailEntity> msgEntity =commonData.getMessageDetailMapList();
 						listView.setAdapter(new MessageDetailAdapter(mContext, msgEntity));
 					}
 				}

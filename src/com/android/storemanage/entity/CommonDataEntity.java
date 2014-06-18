@@ -3,8 +3,17 @@ package com.android.storemanage.entity;
 public class CommonDataEntity {
 	private String returnStatus;
 	private String msg;
-	private int userwealth;
-	private int userAmount;
+	private int userwealth;//用户的财富
+	private int userAmount;//用户数量
+	private int userAddWealthValue;//用户增加的财富值
+
+	public int getUserAddWealthValue() {
+		return userAddWealthValue;
+	}
+
+	public void setUserAddWealthValue(int userAddWealthValue) {
+		this.userAddWealthValue = userAddWealthValue;
+	}
 
 	public int getUserwealth() {
 		return userwealth;

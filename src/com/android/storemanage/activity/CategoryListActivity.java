@@ -18,6 +18,9 @@ import com.android.storemanage.view.CRAlertDialog;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -43,7 +46,63 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 		categoryIdString = getIntent().getStringExtra("categoryId");
 		listView = (ListView) findViewById(R.id.lv_sport);
 		((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra("categoryName"));
-		rbDefault.setChecked(true);
+//		rbDefault.setChecked(true);
+		initData(categoryIdString, cBrandId);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+                 BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
+                 if(null != entity){
+                	 sendToServerGetUserWealth(entity.getcBrandId(),"");
+                 }
+			}
+		});
+	}
+
+	/**
+	 * 用户点击某品牌后给用户增加相应的财富值
+	 * @param categoryId
+	 * @param string
+	 */
+	protected void sendToServerGetUserWealth(String categoryId, String string) {
+		if (CommonUtil.checkNetState(mContext)) {
+			RequestParams params = new RequestParams();
+			params.put("cBrandId", categoryId);
+			params.put("userId", "11111");
+			showProgressDialog(R.string.please_waiting);
+			XDHttpClient.get(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					CRAlertDialog dialog = new CRAlertDialog(mContext);
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						int addValue= commonData.getCommonData().getUserAddWealthValue();
+						dialog.show("恭喜，你获得了"+addValue+"个财富值", 2000);
+					} else {
+						dialog.show(commonData.getCommonData().getMsg(), 2000);
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
+		} else {
+			CRAlertDialog dialog = new CRAlertDialog(mContext);
+			dialog.show(getString(R.string.pLease_check_network), 2000);
+		}
 	}
 
 	private void initData(String categoryIdString2, int cBrandId2) {

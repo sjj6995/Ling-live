@@ -52,7 +52,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
-                    android:text="起：2014年6月3日"
+                    android:text=""
                     android:textColor="#FF8A00"
                     android:textSize="11sp" />
 
@@ -61,7 +61,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dip"
-                    android:text="止：2014年6月3日"
+                    android:text=""
                     android:textColor="#FF8A00"
                     android:textSize="11sp" />
             </LinearLayout>

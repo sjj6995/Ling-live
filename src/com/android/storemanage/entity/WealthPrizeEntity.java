@@ -11,9 +11,9 @@ public class WealthPrizeEntity {
 	private String wPrizeId;
 	private String wealthareaId;
 	private String wPrizeExpirydate;
-	private String wPrizeNeedwealth;
-	private String wPrizeRemainnumber;
-	private String wPrizeTotalnumber;
+	private int wPrizeNeedwealth;
+	private int wPrizeRemainnumber;
+	private int wPrizeTotalnumber;
 	private String wPrizeImgdomain;
 	private String wPrizeSfnew;
 	private String wPrizeImgpath;
@@ -58,22 +58,22 @@ public class WealthPrizeEntity {
 	public void setwPrizeExpirydate(String wPrizeExpirydate) {
 		this.wPrizeExpirydate = wPrizeExpirydate;
 	}
-	public String getwPrizeNeedwealth() {
+	public int getwPrizeNeedwealth() {
 		return wPrizeNeedwealth;
 	}
-	public void setwPrizeNeedwealth(String wPrizeNeedwealth) {
+	public void setwPrizeNeedwealth(int wPrizeNeedwealth) {
 		this.wPrizeNeedwealth = wPrizeNeedwealth;
 	}
-	public String getwPrizeRemainnumber() {
+	public int getwPrizeRemainnumber() {
 		return wPrizeRemainnumber;
 	}
-	public void setwPrizeRemainnumber(String wPrizeRemainnumber) {
+	public void setwPrizeRemainnumber(int wPrizeRemainnumber) {
 		this.wPrizeRemainnumber = wPrizeRemainnumber;
 	}
-	public String getwPrizeTotalnumber() {
+	public int getwPrizeTotalnumber() {
 		return wPrizeTotalnumber;
 	}
-	public void setwPrizeTotalnumber(String wPrizeTotalnumber) {
+	public void setwPrizeTotalnumber(int wPrizeTotalnumber) {
 		this.wPrizeTotalnumber = wPrizeTotalnumber;
 	}
 	public String getwPrizeImgdomain() {

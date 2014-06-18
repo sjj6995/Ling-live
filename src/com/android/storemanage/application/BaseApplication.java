@@ -8,10 +8,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.Build;
-import android.os.StrictMode;
-import android.util.Config;
 
 public class BaseApplication extends Application {
 	private static BaseApplication application;

@@ -5,10 +5,12 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.adapter.MessageDetailAdapter;
+import com.android.storemanage.adapter.WealthPrizeAdapter;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.MessageDetailEntity;
 import com.android.storemanage.entity.OuterData;
+import com.android.storemanage.entity.WealthPrizeEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.XDHttpClient;
@@ -18,6 +20,9 @@ import com.android.storemanage.view.CRAlertDialog;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
@@ -28,7 +33,8 @@ import android.widget.TextView;
  * @author liujiao 财富奖区
  * 
  */
-public class WealthPrizeActivity extends BaseActivity implements OnCheckedChangeListener {
+public class WealthPrizeActivity extends BaseActivity implements
+		OnCheckedChangeListener {
 	private TextView title;
 	private ListView listview;
 	private String wealthIdString;
@@ -54,14 +60,22 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 		if (TextUtils.isEmpty(wealthIdString)) {
 			return;
 		}
-		initData(wealthIdString,sortType);
+		initData(wealthIdString, sortType);
+		listview.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				
+			}
+		});
 	}
 
-	private void initData(final String wealthId,final int sortType) {
+	private void initData(final String wealthId, final int sortType) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("wealthareaId", wealthId);
-			params.put("sortType", sortType+"");
+			params.put("sortType", sortType + "");
 			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.WEALTH_PRIZE, params,
 					new AsyncHttpResponseHandler() {
@@ -69,7 +83,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 						public void onSuccess(int statusCode, String content) {
 							log.i("content===" + content);
 							dismissProgressDialog();
-							if(TextUtils.isEmpty(content)){
+							if (TextUtils.isEmpty(content)) {
 								return;
 							}
 							OuterData outerData = JSON.parseObject(content,
@@ -81,11 +95,10 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 									+ commonData.getCommonData().getMsg());
 							if ("true".equals(commonData.getCommonData()
 									.getReturnStatus())) {
-//								List<MessageDetailEntity> msgEntity = innderData
-//										.getData().get(0)
-//										.getMessageDetailMapList();
-//								listView.setAdapter(new MessageDetailAdapter(
-//										mContext, msgEntity));
+								List<WealthPrizeEntity> msgEntity = commonData
+										.getWealrhareaPrizeMapList();
+								listview.setAdapter(new WealthPrizeAdapter(
+										mContext, msgEntity));
 							}
 						}
 
@@ -99,7 +112,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
 		}
-		
+
 	}
 
 	@Override

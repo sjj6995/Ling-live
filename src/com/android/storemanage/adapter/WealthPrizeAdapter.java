@@ -5,6 +5,7 @@ import java.util.List;
 import com.android.storemanage.R;
 import com.android.storemanage.entity.MessageDetailEntity;
 import com.android.storemanage.entity.MessageEntity;
+import com.android.storemanage.entity.WealthPrizeEntity;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
@@ -19,16 +20,16 @@ import android.widget.TextView;
 /**
  * @author unknow 消息详情内容填充
  */
-public class MessageDetailAdapter extends BaseAdapter {
+public class WealthPrizeAdapter extends BaseAdapter {
 	private Context mContext;
-	private List<MessageDetailEntity> lists;
+	private List<WealthPrizeEntity> lists;
 
-	public MessageDetailAdapter() {
+	public WealthPrizeAdapter() {
 		super();
 	}
 
-	public MessageDetailAdapter(Context mContext,
-			List<MessageDetailEntity> lists) {
+	public WealthPrizeAdapter(Context mContext,
+			List<WealthPrizeEntity> lists) {
 		super();
 		this.mContext = mContext;
 		this.lists = lists;
@@ -53,39 +54,34 @@ public class MessageDetailAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (null == convertView) {
-			convertView = View.inflate(mContext, R.layout.message_detail_item,
+			convertView = View.inflate(mContext, R.layout.wealth_prize_item,
 					null);
 			holder = new ViewHolder();
 			holder.ivImageView = (ImageView) convertView
 					.findViewById(R.id.iv_icon);
 			holder.tvFromTimeTextView = (TextView) convertView
 					.findViewById(R.id.tv_from_time);
-			holder.tvMessageDescTextView = (TextView) convertView
-					.findViewById(R.id.tv_message_desc);
-			holder.tvMessageNameTextView = (TextView) convertView
-					.findViewById(R.id.tv_message_name);
+			holder.tvWealthTextView = (TextView) convertView
+					.findViewById(R.id.tv_need_fortune);
+			holder.totalCounTextView = (TextView) convertView
+					.findViewById(R.id.tv_total);
+			holder.leftCountTextView = (TextView) convertView.findViewById(R.id.tv_left);
 			holder.tvToTimeTextView = (TextView) convertView
 					.findViewById(R.id.tv_to_time);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		MessageDetailEntity entity = lists.get(position);
+		WealthPrizeEntity entity = lists.get(position);
 		if (null != entity) {
 			holder.tvFromTimeTextView
-					.setText("起：" + entity.getmDetailPubdate());
-			holder.tvToTimeTextView.setText("止：" + entity.getmDetailOpptime());
-			holder.tvMessageNameTextView.setText(entity.getmDetailTitle());
-			String detail = entity.getmDetailDetail();
-			if (TextUtils.isEmpty(detail)) {
-				holder.tvMessageDescTextView.setVisibility(View.GONE);
-			} else {
-				holder.tvMessageDescTextView.setText(detail);
-				holder.tvMessageDescTextView.setVisibility(View.VISIBLE);
-			}
-			// holder.tvNewTextView.setText(entity.getMessageSfnew());
+					.setText(entity.getwPrizeStarttime());
+			holder.tvToTimeTextView.setText(entity.getwPrizeExpirydate());
+			holder.leftCountTextView.setText(entity.getwPrizeRemainnumber()+"个");
+			holder.totalCounTextView.setText(entity.getwPrizeTotalnumber()+"个");
+			holder.tvWealthTextView.setText(entity.getwPrizeNeedwealth()+"");
 			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getmDetailImgpath())
+					.load(JFConfig.HOST_URL + entity.getwPrizeImgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;
@@ -93,10 +89,12 @@ public class MessageDetailAdapter extends BaseAdapter {
 
 	class ViewHolder {
 		ImageView ivImageView;
-		TextView tvMessageNameTextView;
+		TextView tvTitleTextView;
+		TextView totalCounTextView;
+		TextView leftCountTextView;
+		TextView tvWealthTextView;
 		TextView tvFromTimeTextView;
 		TextView tvToTimeTextView;
-		TextView tvMessageDescTextView;
 
 	}
 

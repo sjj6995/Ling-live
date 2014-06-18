@@ -3,65 +3,65 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-    
-    <LinearLayout 
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/app_bg_content_margin"
-        android:paddingRight="@dimen/app_bg_content_margin"
         android:orientation="horizontal"
-        >
-        <ImageView 
+        android:paddingLeft="@dimen/app_bg_content_margin"
+        android:paddingRight="@dimen/app_bg_content_margin" >
+
+        <ImageView
+            android:id="@+id/iv_icon"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="100dip"
+            android:layout_weight="1.5"
             android:background="@android:color/transparent"
-            android:id="@+id/iv_pride_icon"
-            />
-        
-        <RelativeLayout 
+            android:src="@drawable/img_empty" />
+
+        <RelativeLayout
             android:layout_width="0dip"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
             android:layout_marginLeft="10dip"
-            >
-            <TextView 
+            android:layout_weight="3.5" >
+
+            <TextView
+                android:id="@+id/tv_pride_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_pride_name"
-                android:textSize="18sp"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                />
-            
-            <TextView 
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_validate_time"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_pride_name"
-                android:textSize="14sp"
                 android:layout_centerVertical="true"
-                />
-            
-            <LinearLayout 
+                android:textSize="14sp" />
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
-                >
-                <TextView 
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal" >
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(本奖品只能使用一次)"
-                    />
-                
-                <Button 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="使用"
+                    android:text="(本奖品只能使用一次)" />
+
+                <Button
                     android:id="@+id/btn_use"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="gotoUse"
+                    android:text="使用" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
 </LinearLayout>
