@@ -10,11 +10,27 @@ public class CollectionData {
 	private ArrayList<CategoryEntity> categoryMapList;// 分类集合
 	private UserInforEntity userInfoMap;//用户信息
 	private List<WealthEntity> wealthareaMapList;//财富专区
-	private List<WealthPrizeEntity> wealrhareaPrizeMapList;//财富奖区
+	private List<WealthPrizeEntity> wealrhareaPrizeMapList;//财富奖区列表
 	private List<BrandEntity> brandMapList;//分类详情
 	private List<UserPrizeEntity> userPrizeMapList;//用户奖品集合
-	private WealthPrizeEntity prizeDetailMap;
+	private WealthPrizeEntity prizeDetailMap;//财富奖区详情
+	private AppVersionEntity appVersionData;//版本信息
 	
+	
+	/**
+	 * @return the appVersionData
+	 */
+	public AppVersionEntity getAppVersionData() {
+		return appVersionData;
+	}
+
+	/**
+	 * @param appVersionData the appVersionData to set
+	 */
+	public void setAppVersionData(AppVersionEntity appVersionData) {
+		this.appVersionData = appVersionData;
+	}
+
 	public WealthPrizeEntity getPrizeDetailMap() {
 		return prizeDetailMap;
 	}

@@ -35,6 +35,7 @@
         <activity android:name=".activity.UserPrizeDetailActivity"></activity>
         <activity android:name="com.zxing.activity.CaptureActivity"></activity>
         <activity android:name=".activity.WealthDetailActivity"></activity>
+        <activity android:name=".activity.SplashActivity"></activity>
         <activity android:name="com.android.storemanage.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"

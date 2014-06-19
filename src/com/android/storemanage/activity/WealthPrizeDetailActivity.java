@@ -55,7 +55,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("wPrizeId", wPrizeId);
-			params.put("userId", "111");
+			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.EXCHANGE_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override

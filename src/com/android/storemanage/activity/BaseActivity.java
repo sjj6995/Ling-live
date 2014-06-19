@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +22,7 @@ public class BaseActivity extends Activity {
 	protected Context mContext;
 	protected CommonLog log;
 	protected DisplayImageOptions options;
+	protected SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class BaseActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		application = BaseApplication.getApplication();
 		mContext = this;
+		sp = getSharedPreferences(RegisterActivity.class.getSimpleName(), MODE_PRIVATE);
 		log = CommonLog.getInstance();
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
 				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)

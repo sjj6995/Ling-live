@@ -1,5 +1,6 @@
 package com.android.storemanage.application;
 
+import com.android.storemanage.activity.RegisterActivity;
 import com.android.storemanage.utils.ExceptionHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -8,11 +9,13 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 public class BaseApplication extends Application {
 	private static BaseApplication application;
+	private SharedPreferences sp;
 	private String userId = "1111";
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -35,6 +38,8 @@ public class BaseApplication extends Application {
 		// StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
 		// }
 		initImageLoader(getApplicationContext());
+		sp = getSharedPreferences(RegisterActivity.class.getSimpleName(), MODE_PRIVATE);
+		userId = sp.getString("userId", "");
 
 	}
 

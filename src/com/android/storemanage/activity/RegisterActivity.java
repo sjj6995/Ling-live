@@ -17,6 +17,7 @@ import com.android.storemanage.view.CRAlertDialog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -73,11 +74,15 @@ public class RegisterActivity extends BaseActivity {
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
 					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
 					OuterData outerData = JSON.parseObject(content, OuterData.class);
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
 					// if ("true".equals(commonData.getCommonData()
 					// .getReturnStatus())) {// 注册成功
+					sp.edit().putString("userId", commonData.getCommonData().getRegistered()).commit();
 					Intent intent = new Intent(mContext, MainTabActivity.class);
 					startActivity(intent);
 					finish();

@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="注销会清除您所有的数据，下次登录需重新填写用户名及密码"
+            android:id="@+id/content"
             android:lineSpacingExtra="6dip"
             android:textColor="#6b6b74"
             android:textSize="16sp" />

@@ -61,7 +61,7 @@ public class MyPrizeActivity extends BaseActivity {
 	private void initData(String string) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
-			params.put("userId", "11111");
+			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.GET_MY_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override

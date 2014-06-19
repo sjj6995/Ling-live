@@ -24,4 +24,6 @@ public class JFConfig {
 	public static final String USE_PRIZE = "ajax.sword?tid=UserService_userUsePrize";// 使用奖品
 	public static final String SCAN_REQUEST = "ajax.sword?tid=QRcodeService_userScanQRcode";//扫描二维码
 	public static final String USER_FEEDBACK = "ajax.sword?tid=FeedbackService_userFeedback";//意见反馈
+	public static final String CHECK_UPDATE = "ajax.sword?tid=AppVersionService_userUpdateApp";//版本更新
+	public static final String CHECK_ISORNOT_REGISTERED = "ajax.sword?tid=UserService_checkRegister";
 }

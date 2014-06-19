@@ -11,6 +11,24 @@ public class CommonDataEntity {
 	private String useSuccess;// 使用是否成功
 	private String reason;// 使用失败的原因
 	private String feedbackSuccess;//是否意见反馈成功
+	private String registered;//true表示已注册，false为未注册
+	
+	
+	
+
+	/**
+	 * @return the registered
+	 */
+	public String getRegistered() {
+		return registered;
+	}
+
+	/**
+	 * @param registered the registered to set
+	 */
+	public void setRegistered(String registered) {
+		this.registered = registered;
+	}
 
 	/**
 	 * @return the feedbackSuccess
