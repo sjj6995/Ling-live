@@ -131,11 +131,11 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 
 	protected void fillData(WealthPrizeEntity entity) {
 		if (null != entity) {
-			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getwPrizeImgpath())
+			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getWPrizeImgpath())
 					.placeholder(R.drawable.img_empty).into(iv);
 
-			wealthTitle.setText(entity.getwPrizeTitle());
-			wealthValue.setText(entity.getwPrizeTotalnumber());
+			wealthTitle.setText(entity.getWPrizeTitle());
+			wealthValue.setText(entity.getWPrizeTotalnumber());
 		}
 	}
 }

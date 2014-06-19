@@ -70,7 +70,7 @@ public class WealthPrizeActivity extends BaseActivity implements
 				WealthPrizeEntity entity = (WealthPrizeEntity) arg0.getItemAtPosition(arg2);
 				if(null != entity){
 					Intent itt = new Intent(WealthPrizeActivity.this, WealthPrizeDetailActivity.class);
-					itt.putExtra("wPrizeId", entity.getwPrizeId());
+					itt.putExtra("wPrizeId", entity.getWPrizeId());
 					startActivity(itt);
 				}
 			}

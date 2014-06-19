@@ -14,6 +14,7 @@
             android:layout_width="80dip"
             android:layout_height="80dip"
             android:id="@+id/iv_icon"
+            android:scaleType="fitXY"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_launcher" />
 
@@ -83,6 +84,6 @@
         android:textColor="#646464"
         android:layout_marginTop="5dip"
         android:id="@+id/tv_message_desc"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

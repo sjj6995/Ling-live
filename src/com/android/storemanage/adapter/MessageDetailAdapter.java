@@ -73,10 +73,10 @@ public class MessageDetailAdapter extends BaseAdapter {
 		MessageDetailEntity entity = lists.get(position);
 		if (null != entity) {
 			holder.tvFromTimeTextView
-					.setText("起：" + entity.getmDetailPubdate());
-			holder.tvToTimeTextView.setText("止：" + entity.getmDetailOpptime());
-			holder.tvMessageNameTextView.setText(entity.getmDetailTitle());
-			String detail = entity.getmDetailDetail();
+					.setText("起：" + entity.getMDetailPubdate());
+			holder.tvToTimeTextView.setText("止：" + entity.getMDetailOpptime());
+			holder.tvMessageNameTextView.setText(entity.getMDetailTitle());
+			String detail = entity.getMDetailDetail();
 			if (TextUtils.isEmpty(detail)) {
 				holder.tvMessageDescTextView.setVisibility(View.GONE);
 			} else {
@@ -85,7 +85,7 @@ public class MessageDetailAdapter extends BaseAdapter {
 			}
 			// holder.tvNewTextView.setText(entity.getMessageSfnew());
 			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getmDetailImgpath())
+					.load(JFConfig.HOST_URL + entity.getMDetailImgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;

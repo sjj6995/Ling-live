@@ -55,7 +55,7 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
-					sendToServerGetUserWealth(entity.getcBrandId(), "", entity.getcBrandImgdomain());
+					sendToServerGetUserWealth(entity.getCBrandId(), "", entity.getCBrandImgdomain());
 				}
 			}
 		});

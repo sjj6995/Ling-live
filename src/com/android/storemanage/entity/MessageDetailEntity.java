@@ -16,46 +16,46 @@ public class MessageDetailEntity {
 	private String mDetailImgsize;
 	private String mDetailImgdomain;
 	private String mDetailImgid;
-	public String getmDetailTitle() {
+	public String getMDetailTitle() {
 		return mDetailTitle;
 	}
-	public void setmDetailTitle(String mDetailTitle) {
+	public void setMDetailTitle(String mDetailTitle) {
 		this.mDetailTitle = mDetailTitle;
 	}
-	public String getmDetailPubdate() {
+	public String getMDetailPubdate() {
 		return mDetailPubdate;
 	}
-	public void setmDetailPubdate(String mDetailPubdate) {
+	public void setMDetailPubdate(String mDetailPubdate) {
 		this.mDetailPubdate = mDetailPubdate;
 	}
-	public String getmDetailOpptime() {
+	public String getMDetailOpptime() {
 		return mDetailOpptime;
 	}
-	public void setmDetailOpptime(String mDetailOpptime) {
+	public void setMDetailOpptime(String mDetailOpptime) {
 		this.mDetailOpptime = mDetailOpptime;
 	}
-	public String getmDetailImgname() {
+	public String getMDetailImgname() {
 		return mDetailImgname;
 	}
-	public void setmDetailImgname(String mDetailImgname) {
+	public void setMDetailImgname(String mDetailImgname) {
 		this.mDetailImgname = mDetailImgname;
 	}
-	public String getmDetailImgpath() {
+	public String getMDetailImgpath() {
 		return mDetailImgpath;
 	}
-	public void setmDetailImgpath(String mDetailImgpath) {
+	public void setMDetailImgpath(String mDetailImgpath) {
 		this.mDetailImgpath = mDetailImgpath;
 	}
-	public String getmDetailId() {
+	public String getMDetailId() {
 		return mDetailId;
 	}
-	public void setmDetailId(String mDetailId) {
+	public void setMDetailId(String mDetailId) {
 		this.mDetailId = mDetailId;
 	}
-	public String getmDetailDetail() {
+	public String getMDetailDetail() {
 		return mDetailDetail;
 	}
-	public void setmDetailDetail(String mDetailDetail) {
+	public void setMDetailDetail(String mDetailDetail) {
 		this.mDetailDetail = mDetailDetail;
 	}
 	public String getMessageId() {
@@ -64,22 +64,22 @@ public class MessageDetailEntity {
 	public void setMessageId(String messageId) {
 		this.messageId = messageId;
 	}
-	public String getmDetailImgsize() {
+	public String getMDetailImgsize() {
 		return mDetailImgsize;
 	}
-	public void setmDetailImgsize(String mDetailImgsize) {
+	public void setMDetailImgsize(String mDetailImgsize) {
 		this.mDetailImgsize = mDetailImgsize;
 	}
-	public String getmDetailImgdomain() {
+	public String getMDetailImgdomain() {
 		return mDetailImgdomain;
 	}
-	public void setmDetailImgdomain(String mDetailImgdomain) {
+	public void setMDetailImgdomain(String mDetailImgdomain) {
 		this.mDetailImgdomain = mDetailImgdomain;
 	}
-	public String getmDetailImgid() {
+	public String getMDetailImgid() {
 		return mDetailImgid;
 	}
-	public void setmDetailImgid(String mDetailImgid) {
+	public void setMDetailImgid(String mDetailImgid) {
 		this.mDetailImgid = mDetailImgid;
 	}
 	

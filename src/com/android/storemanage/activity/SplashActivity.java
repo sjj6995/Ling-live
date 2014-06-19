@@ -10,6 +10,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.service.UpdateService;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.utils.PhoneUtil;
@@ -84,7 +85,7 @@ public class SplashActivity extends BaseActivity {
 		}
 	}
 
-	private void chooseDifferentStatus(CollectionData commonData) {
+	private void chooseDifferentStatus(final CollectionData commonData) {
 		int appversionNeedUpdate = commonData.getAppVersionData().getSfNeedUpdate();
 		final RetryDialog dialog = new RetryDialog(mContext);
 		switch (appversionNeedUpdate) {
@@ -97,7 +98,7 @@ public class SplashActivity extends BaseActivity {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						
+						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -116,6 +117,7 @@ public class SplashActivity extends BaseActivity {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
+						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -182,6 +184,12 @@ public class SplashActivity extends BaseActivity {
 		Intent itt = new Intent(this, RegisterActivity.class);
 		startActivity(itt);
 		finish();
+	}
+	
+	private void gotoUpdateService(String url) {
+		Intent itt = new Intent(this, UpdateService.class);
+		itt.putExtra("url", url);
+		startService(itt);
 	}
 
 	private void gotoMain() {

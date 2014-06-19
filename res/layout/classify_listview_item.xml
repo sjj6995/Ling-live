@@ -25,6 +25,7 @@
             android:id="@+id/iv_icon"
             android:layout_width="36dip"
             android:layout_height="36dip"
+            android:scaleType="fitXY"
             android:background="@android:color/transparent"
             android:src="@drawable/img_empty" />
 
@@ -33,7 +34,8 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="17sp" />
+            android:layout_marginLeft="5dip"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_click_times"
@@ -51,7 +53,7 @@
             android:gravity="right"
             android:text=""
             android:textColor="#5581A4"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
 </RelativeLayout>
