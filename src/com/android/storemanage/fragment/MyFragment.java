@@ -168,13 +168,13 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			File downloadCacheFolder = application.getCacheDir();
 			File filePath = new File(downloadCacheFolder, "picasso-cache");
 			String[] filelist = filePath.list();
+			log.i("filePath------" + filelist.length);
 			for (int i = 0; i < filelist.length; i++) {
 				File delfile = new File(filePath + "\\" + filelist[i]);
 				if (!delfile.isDirectory()) {
 					delfile.delete();
 				}
 			}
-			log.i("filePath------" + filePath.getAbsolutePath() + "---" + filePath.exists());
 			cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
 			mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
 			break;

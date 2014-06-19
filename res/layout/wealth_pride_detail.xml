@@ -40,6 +40,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:textColor="#FF8A00"
+                android:text="自领取之日起10日内有效"
                 android:textSize="14sp" />
 
             <LinearLayout
@@ -52,17 +54,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(本奖品只能使用一次)" />
+                    android:id="@+id/tv_wealth_value"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:textColor="#FF8A00"/>
 
                 <Button
                     android:id="@+id/btn_use"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="gotoUse"
-                    android:layout_marginLeft="5dip"
+                    android:onClick="gotoExchange"
                     android:textColor="@android:color/white"
                     android:background="@drawable/selector_radious_button_blue"
-                    android:text="使用" />
+                    android:text="兑  换" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

@@ -38,7 +38,7 @@ import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.utils.PhoneUtil;
 import com.android.storemanage.view.CRAlertDialog;
-import com.wlnet.wl.android.camera.CaptureActivity;
+import com.zxing.activity.CaptureActivity;
 
 /**
  * @author liujiao 首页
@@ -154,14 +154,63 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(data == null){
+			return;
+		}
 		if (requestCode == REQUEST_SCAN) {
 			if (resultCode == Activity.RESULT_OK) {
 				String resultString = data.getStringExtra("result");
-
-				// String resultId =
+				if(!TextUtils.isEmpty(resultString)){
+					sendMessageToServer(resultString);
+				}
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	/**
+	 * @param resultString
+	 * 扫描二维码后发送网络请求
+	 */
+	private void sendMessageToServer(String resultString) {
+		if (CommonUtil.checkNetState(getActivity())) {
+			RequestParams params = new RequestParams();
+			params.put("userId", application.getUserId());
+			params.put("qrcodeInfo", resultString);
+			showProgressDialog(R.string.please_waiting);
+			XDHttpClient.get(JFConfig.SCAN_REQUEST, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					CRAlertDialog dialog = new CRAlertDialog(getActivity());
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						int userAddValue = commonData.getCommonData().getUserAddWealthValue();
+						if(userAddValue >0){
+							dialog.show("您增加了"+userAddValue+"个财富值", 2000);
+						}
+					}else{
+						dialog.show("服务器内部错误", 2000);
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
+		} else {
+			CRAlertDialog dialog = new CRAlertDialog(getActivity());
+			dialog.show(getString(R.string.pLease_check_network), 2000);
+		}
 	}
 
 	/**
@@ -181,7 +230,6 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 		int padding = 5;
 		gridLayout.setPadding(padding, 0, padding, 0);
 		int itemSpace = 5;
-		int minimumItemHeight = 54;
 		int itemWidth = (gridLayoutWidth - padding * 2 - gridLayout.getPaddingLeft() - gridLayout.getPaddingRight() - itemSpace * 2) / 2;
 		for (WealthEntity entity : wealthEntities) {
 			// TODO 版本升级功能稳定后删除 更新menuItem
@@ -190,17 +238,12 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			ll.setOnClickListener(this);
 			ll.setTag(entity);
 			ll.setBackgroundResource(R.drawable.selector_gridlayout_bg);
-			// ImageView imageView = (ImageView) ll
-			// .findViewById(R.id.icon_imageView);
-			// loadImage(item, imageView);
 
 			TextView label = (TextView) ll.findViewById(R.id.description_textView);
 			label.setText(entity.getWealthareaTitle());
 
 			lp = new GridLayout.LayoutParams(ll.getLayoutParams());
 			lp.width = itemWidth;
-			// lp.height = itemWidth / 3 < minimumItemHeight ? minimumItemHeight
-			// : itemWidth / 3;
 			lp.height = LayoutParams.WRAP_CONTENT;
 			lp.leftMargin = lp.rightMargin = lp.topMargin = lp.bottomMargin = itemSpace;
 			spec = GridLayout.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);

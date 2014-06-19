@@ -16,6 +16,7 @@ import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -46,27 +47,27 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 		categoryIdString = getIntent().getStringExtra("categoryId");
 		listView = (ListView) findViewById(R.id.lv_sport);
 		((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra("categoryName"));
-//		rbDefault.setChecked(true);
+		// rbDefault.setChecked(true);
 		initData(categoryIdString, cBrandId);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-                 BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
-                 if(null != entity){
-                	 sendToServerGetUserWealth(entity.getcBrandId(),"");
-                 }
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
+				if (null != entity) {
+					sendToServerGetUserWealth(entity.getcBrandId(), "", entity.getcBrandImgdomain());
+				}
 			}
 		});
 	}
 
 	/**
 	 * 用户点击某品牌后给用户增加相应的财富值
+	 * 
 	 * @param categoryId
 	 * @param string
 	 */
-	protected void sendToServerGetUserWealth(String categoryId, String string) {
+	protected void sendToServerGetUserWealth(String categoryId, String string, final String imageUrl) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("cBrandId", categoryId);
@@ -85,18 +86,26 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					CRAlertDialog dialog = new CRAlertDialog(mContext);
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						int addValue= commonData.getCommonData().getUserAddWealthValue();
-						dialog.show("恭喜，你获得了"+addValue+"个财富值", 2000);
+					int addValue = commonData.getCommonData().getUserAddWealthValue();
+					if ("true".equals(commonData.getCommonData().getReturnStatus()) && addValue > 0) {
+						dialog.show("恭喜，你获得了" + addValue + "个财富值", 2000);
 					} else {
-						dialog.show(commonData.getCommonData().getMsg(), 2000);
+						// dialog.show(commonData.getCommonData().getMsg(),
+						// 2000);
 					}
+
+					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
+					itt.putExtra("url", imageUrl);
+					startActivity(itt);
 				}
 
 				@Override
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
+					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
+					itt.putExtra("url", imageUrl);
+					startActivity(itt);
 				}
 			});
 		} else {

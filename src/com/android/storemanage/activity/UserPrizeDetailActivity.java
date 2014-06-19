@@ -30,7 +30,6 @@ public class UserPrizeDetailActivity extends BaseActivity {
 	private TextView tvTitleTextView;
 	private ImageView ivImageView;
 	private TextView tvValidateTextView;
-	private Button btnUseButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public class UserPrizeDetailActivity extends BaseActivity {
 		tvTitleTextView = (TextView) findViewById(R.id.tv_pride_name);
 		tvValidateTextView = (TextView) findViewById(R.id.tv_validate_time);
 		ivImageView = (ImageView) findViewById(R.id.iv_icon);
-		btnUseButton = (Button) findViewById(R.id.btn_use);
 	}
 
 	/**
@@ -62,6 +60,46 @@ public class UserPrizeDetailActivity extends BaseActivity {
 	 *            使用
 	 */
 	public void gotoUse(View view) {
+		if (CommonUtil.checkNetState(mContext)) {
+			RequestParams params = new RequestParams();
+			params.put("userprizeId", userPrizeId);
+			params.put("userId", "111");
+			showProgressDialog(R.string.please_waiting);
+			XDHttpClient.get(JFConfig.USE_PRIZE, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					CRAlertDialog dialog = new CRAlertDialog(mContext);
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						String isSuccess = commonData.getCommonData().getUseSuccess();
+						if (!TextUtils.isEmpty(isSuccess) && "true".equals(isSuccess)) {
+							dialog.show("使用成功", 2000);
+						} else {
+							dialog.show(commonData.getCommonData().getReason(), 2000);
+						}
+					} else {
+						dialog.show("服务器异常", 2000);
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
+		} else {
+			CRAlertDialog dialog = new CRAlertDialog(mContext);
+			dialog.show(getString(R.string.pLease_check_network), 2000);
+		}
 
 	}
 
@@ -71,40 +109,32 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			params.put("userId", "11111");
 			params.put("userprizeId", userPrizeId2);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.GET_PRIZE_DETAIL, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
+			XDHttpClient.get(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 
-							} else {
-								CRAlertDialog dialog = new CRAlertDialog(
-										mContext);
-								dialog.show(
-										commonData.getCommonData().getMsg(),
-										2000);
-							}
-						}
+					} else {
+						CRAlertDialog dialog = new CRAlertDialog(mContext);
+						dialog.show(commonData.getCommonData().getMsg(), 2000);
+					}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);

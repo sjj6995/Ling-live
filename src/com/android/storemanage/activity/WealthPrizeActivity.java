@@ -18,6 +18,7 @@ import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -66,7 +67,12 @@ public class WealthPrizeActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				
+				WealthPrizeEntity entity = (WealthPrizeEntity) arg0.getItemAtPosition(arg2);
+				if(null != entity){
+					Intent itt = new Intent(WealthPrizeActivity.this, WealthPrizeDetailActivity.class);
+					itt.putExtra("wPrizeId", entity.getwPrizeId());
+					startActivity(itt);
+				}
 			}
 		});
 	}

@@ -11,6 +11,15 @@ import android.content.Context;
 
 public class BaseApplication extends Application {
 	private static BaseApplication application;
+	private String userId = "1111";
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	@Override
 	public void onCreate() {

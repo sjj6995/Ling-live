@@ -19,5 +19,9 @@ public class JFConfig {
 	public static final String GET_WEALTH_BY_CLICK_BRANCH = "ajax.sword?tid=CategoryService_getWealthByClickBrand";// 给用户增加相应的财富值
 	public static final String GET_MY_PRIZE = "ajax.sword?tid=UserService_userPrizeList";// 我的奖品列表
 	public static final String GET_PRIZE_DETAIL = "ajax.sword?tid=UserService_userPrizeDetail";// 奖品详情
-	public static final String GET_WEALTH_RRIZE_DETAILL ="ajax.sword?tid=WealthareaService_getPrizeDetail";//财富详情
+	public static final String GET_WEALTH_RRIZE_DETAILL = "ajax.sword?tid=WealthareaService_getPrizeDetail";// 财富详情
+	public static final String EXCHANGE_PRIZE = "ajax.sword?tid=WealthareaService_exchangePrize";// 兑换奖品
+	public static final String USE_PRIZE = "ajax.sword?tid=UserService_userUsePrize";// 使用奖品
+	public static final String SCAN_REQUEST = "ajax.sword?tid=QRcodeService_userScanQRcode";//扫描二维码
+	public static final String USER_FEEDBACK = "ajax.sword?tid=FeedbackService_userFeedback";//意见反馈
 }
