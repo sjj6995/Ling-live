@@ -3,6 +3,7 @@
     <issue id="NewApi">
         <ignore path="src/com/android/storemanage/fragment/MyFragment.java" />
         <ignore path="src/com/zxing/camera/CameraManager.java" />
+        <ignore path="src\com\android\storemanage\service\UpdateService.java" />
     </issue>
     <issue id="ResourceAsColor" severity="ignore" />
 </lint>

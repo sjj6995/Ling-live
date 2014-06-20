@@ -85,8 +85,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 	private void initData(final View view) {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
-			params.put("phoneimei", PhoneUtil.getDeviceId((TelephonyManager) (getActivity()
-					.getSystemService(Context.TELEPHONY_SERVICE))));
+			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.HOME_PAGE, params, new AsyncHttpResponseHandler() {
 				@Override
@@ -154,13 +153,13 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(data == null){
+		if (data == null) {
 			return;
 		}
 		if (requestCode == REQUEST_SCAN) {
 			if (resultCode == Activity.RESULT_OK) {
 				String resultString = data.getStringExtra("result");
-				if(!TextUtils.isEmpty(resultString)){
+				if (!TextUtils.isEmpty(resultString)) {
 					sendMessageToServer(resultString);
 				}
 			}
@@ -170,7 +169,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 
 	/**
 	 * @param resultString
-	 * 扫描二维码后发送网络请求
+	 *            扫描二维码后发送网络请求
 	 */
 	private void sendMessageToServer(String resultString) {
 		if (CommonUtil.checkNetState(getActivity())) {
@@ -193,10 +192,10 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						int userAddValue = commonData.getCommonData().getUserAddWealthValue();
-						if(userAddValue >0){
-							dialog.show("您增加了"+userAddValue+"个财富值", 2000);
+						if (userAddValue > 0) {
+							dialog.show("您增加了" + userAddValue + "个财富值", 2000);
 						}
-					}else{
+					} else {
 						dialog.show("服务器内部错误", 2000);
 					}
 				}

@@ -22,28 +22,28 @@ public class WealthPrizeEntity {
 	private String wPrizeImgname;
 	private String wPrizeEndtime;
 	private String wPrizeTitle;
-	public String getwPrizeOpptime() {
+	public String getWPrizeOpptime() {
 		return wPrizeOpptime;
 	}
-	public void setwPrizeOpptime(String wPrizeOpptime) {
+	public void setWPrizeOpptime(String wPrizeOpptime) {
 		this.wPrizeOpptime = wPrizeOpptime;
 	}
-	public String getwPrizeImgsize() {
+	public String getWPrizeImgsize() {
 		return wPrizeImgsize;
 	}
-	public void setwPrizeImgsize(String wPrizeImgsize) {
+	public void setWPrizeImgsize(String wPrizeImgsize) {
 		this.wPrizeImgsize = wPrizeImgsize;
 	}
-	public String getwPrizeImgid() {
+	public String getWPrizeImgid() {
 		return wPrizeImgid;
 	}
-	public void setwPrizeImgid(String wPrizeImgid) {
+	public void setWPrizeImgid(String wPrizeImgid) {
 		this.wPrizeImgid = wPrizeImgid;
 	}
-	public String getwPrizeId() {
+	public String getWPrizeId() {
 		return wPrizeId;
 	}
-	public void setwPrizeId(String wPrizeId) {
+	public void setWPrizeId(String wPrizeId) {
 		this.wPrizeId = wPrizeId;
 	}
 	public String getWealthareaId() {
@@ -52,76 +52,76 @@ public class WealthPrizeEntity {
 	public void setWealthareaId(String wealthareaId) {
 		this.wealthareaId = wealthareaId;
 	}
-	public String getwPrizeExpirydate() {
+	public String getWPrizeExpirydate() {
 		return wPrizeExpirydate;
 	}
-	public void setwPrizeExpirydate(String wPrizeExpirydate) {
+	public void setWPrizeExpirydate(String wPrizeExpirydate) {
 		this.wPrizeExpirydate = wPrizeExpirydate;
 	}
-	public int getwPrizeNeedwealth() {
+	public int getWPrizeNeedwealth() {
 		return wPrizeNeedwealth;
 	}
-	public void setwPrizeNeedwealth(int wPrizeNeedwealth) {
+	public void setWPrizeNeedwealth(int wPrizeNeedwealth) {
 		this.wPrizeNeedwealth = wPrizeNeedwealth;
 	}
-	public int getwPrizeRemainnumber() {
+	public int getWPrizeRemainnumber() {
 		return wPrizeRemainnumber;
 	}
-	public void setwPrizeRemainnumber(int wPrizeRemainnumber) {
+	public void setWPrizeRemainnumber(int wPrizeRemainnumber) {
 		this.wPrizeRemainnumber = wPrizeRemainnumber;
 	}
-	public int getwPrizeTotalnumber() {
+	public int getWPrizeTotalnumber() {
 		return wPrizeTotalnumber;
 	}
-	public void setwPrizeTotalnumber(int wPrizeTotalnumber) {
+	public void setWPrizeTotalnumber(int wPrizeTotalnumber) {
 		this.wPrizeTotalnumber = wPrizeTotalnumber;
 	}
-	public String getwPrizeImgdomain() {
+	public String getWPrizeImgdomain() {
 		return wPrizeImgdomain;
 	}
-	public void setwPrizeImgdomain(String wPrizeImgdomain) {
+	public void setWPrizeImgdomain(String wPrizeImgdomain) {
 		this.wPrizeImgdomain = wPrizeImgdomain;
 	}
-	public String getwPrizeSfnew() {
+	public String getWPrizeSfnew() {
 		return wPrizeSfnew;
 	}
-	public void setwPrizeSfnew(String wPrizeSfnew) {
+	public void setWPrizeSfnew(String wPrizeSfnew) {
 		this.wPrizeSfnew = wPrizeSfnew;
 	}
-	public String getwPrizeImgpath() {
+	public String getWPrizeImgpath() {
 		return wPrizeImgpath;
 	}
-	public void setwPrizeImgpath(String wPrizeImgpath) {
+	public void setWPrizeImgpath(String wPrizeImgpath) {
 		this.wPrizeImgpath = wPrizeImgpath;
 	}
-	public String getwPrizeDetail() {
+	public String getWPrizeDetail() {
 		return wPrizeDetail;
 	}
-	public void setwPrizeDetail(String wPrizeDetail) {
+	public void setWPrizeDetail(String wPrizeDetail) {
 		this.wPrizeDetail = wPrizeDetail;
 	}
-	public String getwPrizeStarttime() {
+	public String getWPrizeStarttime() {
 		return wPrizeStarttime;
 	}
-	public void setwPrizeStarttime(String wPrizeStarttime) {
+	public void setWPrizeStarttime(String wPrizeStarttime) {
 		this.wPrizeStarttime = wPrizeStarttime;
 	}
-	public String getwPrizeImgname() {
+	public String getWPrizeImgname() {
 		return wPrizeImgname;
 	}
-	public void setwPrizeImgname(String wPrizeImgname) {
+	public void setWPrizeImgname(String wPrizeImgname) {
 		this.wPrizeImgname = wPrizeImgname;
 	}
-	public String getwPrizeEndtime() {
+	public String getWPrizeEndtime() {
 		return wPrizeEndtime;
 	}
-	public void setwPrizeEndtime(String wPrizeEndtime) {
+	public void setWPrizeEndtime(String wPrizeEndtime) {
 		this.wPrizeEndtime = wPrizeEndtime;
 	}
-	public String getwPrizeTitle() {
+	public String getWPrizeTitle() {
 		return wPrizeTitle;
 	}
-	public void setwPrizeTitle(String wPrizeTitle) {
+	public void setWPrizeTitle(String wPrizeTitle) {
 		this.wPrizeTitle = wPrizeTitle;
 	}
 	public WealthPrizeEntity() {

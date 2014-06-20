@@ -75,13 +75,13 @@ public class WealthPrizeAdapter extends BaseAdapter {
 		WealthPrizeEntity entity = lists.get(position);
 		if (null != entity) {
 			holder.tvFromTimeTextView
-					.setText(entity.getwPrizeStarttime());
-			holder.tvToTimeTextView.setText(entity.getwPrizeExpirydate());
-			holder.leftCountTextView.setText(entity.getwPrizeRemainnumber()+"个");
-			holder.totalCounTextView.setText(entity.getwPrizeTotalnumber()+"个");
-			holder.tvWealthTextView.setText(entity.getwPrizeNeedwealth()+"");
+					.setText(entity.getWPrizeStarttime());
+			holder.tvToTimeTextView.setText(entity.getWPrizeExpirydate());
+			holder.leftCountTextView.setText(entity.getWPrizeRemainnumber()+"个");
+			holder.totalCounTextView.setText(entity.getWPrizeTotalnumber()+"个");
+			holder.tvWealthTextView.setText(entity.getWPrizeNeedwealth()+"");
 			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getwPrizeImgpath())
+					.load(JFConfig.HOST_URL + entity.getWPrizeImgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;

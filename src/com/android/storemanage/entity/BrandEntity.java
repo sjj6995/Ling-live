@@ -15,10 +15,10 @@ public class BrandEntity {
 	private String cBrandImgname;
 	private int cBrandWealth;
 	
-	public String getcBrandImgid() {
+	public String getCBrandImgid() {
 		return cBrandImgid;
 	}
-	public void setcBrandImgid(String cBrandImgid) {
+	public void setCBrandImgid(String cBrandImgid) {
 		this.cBrandImgid = cBrandImgid;
 	}
 	public String getCategoryId() {
@@ -27,70 +27,70 @@ public class BrandEntity {
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
-	public int getcBrandClicknumber() {
+	public int getCBrandClicknumber() {
 		return cBrandClicknumber;
 	}
-	public void setcBrandClicknumber(int cBrandClicknumber) {
+	public void setCBrandClicknumber(int cBrandClicknumber) {
 		this.cBrandClicknumber = cBrandClicknumber;
 	}
-	public String getcBrandSfnew() {
+	public String getCBrandSfnew() {
 		return cBrandSfnew;
 	}
-	public void setcBrandSfnew(String cBrandSfnew) {
+	public void setCBrandSfnew(String cBrandSfnew) {
 		this.cBrandSfnew = cBrandSfnew;
 	}
-	public String getcBrandImgsize() {
+	public String getCBrandImgsize() {
 		return cBrandImgsize;
 	}
-	public void setcBrandImgsize(String cBrandImgsize) {
+	public void setCBrandImgsize(String cBrandImgsize) {
 		this.cBrandImgsize = cBrandImgsize;
 	}
-	public String getcBrandId() {
+	public String getCBrandId() {
 		return cBrandId;
 	}
-	public void setcBrandId(String cBrandId) {
+	public void setCBrandId(String cBrandId) {
 		this.cBrandId = cBrandId;
 	}
-	public String getcBrandOpptime() {
+	public String getCBrandOpptime() {
 		return cBrandOpptime;
 	}
-	public void setcBrandOpptime(String cBrandOpptime) {
+	public void setCBrandOpptime(String cBrandOpptime) {
 		this.cBrandOpptime = cBrandOpptime;
 	}
-	public String getcBrandImgdomain() {
+	public String getCBrandImgdomain() {
 		return cBrandImgdomain;
 	}
-	public void setcBrandImgdomain(String cBrandImgdomain) {
+	public void setCBrandImgdomain(String cBrandImgdomain) {
 		this.cBrandImgdomain = cBrandImgdomain;
 	}
-	public String getcBrandImgpath() {
+	public String getCBrandImgpath() {
 		return cBrandImgpath;
 	}
-	public void setcBrandImgpath(String cBrandImgpath) {
+	public void setCBrandImgpath(String cBrandImgpath) {
 		this.cBrandImgpath = cBrandImgpath;
 	}
-	public String getcBrangSite() {
+	public String getCBrangSite() {
 		return cBrangSite;
 	}
-	public void setcBrangSite(String cBrangSite) {
+	public void setCBrangSite(String cBrangSite) {
 		this.cBrangSite = cBrangSite;
 	}
-	public String getcBrandTitle() {
+	public String getCBrandTitle() {
 		return cBrandTitle;
 	}
-	public void setcBrandTitle(String cBrandTitle) {
+	public void setCBrandTitle(String cBrandTitle) {
 		this.cBrandTitle = cBrandTitle;
 	}
-	public String getcBrandImgname() {
+	public String getCBrandImgname() {
 		return cBrandImgname;
 	}
-	public void setcBrandImgname(String cBrandImgname) {
+	public void setCBrandImgname(String cBrandImgname) {
 		this.cBrandImgname = cBrandImgname;
 	}
-	public int getcBrandWealth() {
+	public int getCBrandWealth() {
 		return cBrandWealth;
 	}
-	public void setcBrandWealth(int cBrandWealth) {
+	public void setCBrandWealth(int cBrandWealth) {
 		this.cBrandWealth = cBrandWealth;
 	}
 	public BrandEntity() {

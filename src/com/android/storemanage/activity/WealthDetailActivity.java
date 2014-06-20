@@ -19,6 +19,7 @@ import com.android.storemanage.view.CRAlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 /**
  * @author unknow 财富详情
@@ -26,11 +27,14 @@ import android.webkit.WebView;
  */
 public class WealthDetailActivity extends BaseActivity {
 	private WebView webView;
+	private TextView tView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webview);
+		tView = (TextView) findViewById(R.id.tv_title);
+		tView.setText("奖品详情");
 		webView = (WebView) findViewById(R.id.webview);
 		String url = getIntent().getStringExtra("url");
 		if (!TextUtils.isEmpty(url)) {

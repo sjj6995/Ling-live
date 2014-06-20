@@ -7,40 +7,57 @@
     <uses-sdk
         android:minSdkVersion="4"
         android:targetSdkVersion="17" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name="com.android.storemanage.application.BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" android:name="com.android.storemanage.application.BaseApplication">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.SplashActivity"
-            android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> 
-        <activity android:name=".activity.MainTabActivity"></activity>
-        <activity android:name=".activity.MyPrizeActivity"></activity>   
-        <activity android:name=".activity.MessageDetailActivity"></activity> 
-        <activity android:name=".activity.CategoryListActivity"></activity>
-        <activity android:name=".activity.AboutUsActivity"></activity>
-        <activity android:name=".activity.CommentActivity"></activity>
-        <activity android:name=".activity.UserPrizeDetailActivity"></activity>
-        <activity android:name="com.zxing.activity.CaptureActivity"></activity>
-        <activity android:name=".activity.WealthDetailActivity"></activity>
-        <activity android:name=".activity.RegisterActivity"></activity>
-        <activity android:name="com.android.storemanage.wxapi.WXEntryActivity"
+        </activity>
+        <activity android:name=".activity.RegisterActivity" >
+        </activity>
+        <activity android:name=".activity.MyPrizeActivity" >
+        </activity>
+        <activity android:name=".activity.MessageDetailActivity" >
+        </activity>
+        <activity android:name=".activity.CategoryListActivity" >
+        </activity>
+        <activity android:name=".activity.AboutUsActivity" >
+        </activity>
+        <activity android:name=".activity.CommentActivity" >
+        </activity>
+        <activity android:name=".activity.UserPrizeDetailActivity" >
+        </activity>
+        <activity android:name="com.zxing.activity.CaptureActivity" >
+        </activity>
+        <activity android:name=".activity.WealthDetailActivity" >
+        </activity>
+        <activity android:name=".activity.MainTabActivity" >
+        </activity>
+        <activity
+            android:name="com.android.storemanage.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activity.WealthPrizeActivity"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name=".activity.WealthPrizeActivity" >
+        </activity>
     </application>
 
 </manifest>
