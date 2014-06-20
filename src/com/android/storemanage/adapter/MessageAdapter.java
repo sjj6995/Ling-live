@@ -52,16 +52,11 @@ public class MessageAdapter extends BaseAdapter {
 		if (null == convertView) {
 			convertView = View.inflate(mContext, R.layout.message_item, null);
 			holder = new ViewHolder();
-			holder.ivImageView = (ImageView) convertView
-					.findViewById(R.id.iv_icon);
-			holder.tvDateTextView = (TextView) convertView
-					.findViewById(R.id.tv_datetime);
-			holder.tvMessageDescTextView = (TextView) convertView
-					.findViewById(R.id.tv_message_desc);
-			holder.tvMessageNameTextView = (TextView) convertView
-					.findViewById(R.id.tv_message_name);
-			holder.tvNewTextView = (TextView) convertView
-					.findViewById(R.id.tv_new);
+			holder.ivImageView = (ImageView) convertView.findViewById(R.id.iv_icon);
+			holder.tvDateTextView = (TextView) convertView.findViewById(R.id.tv_datetime);
+			holder.tvMessageDescTextView = (TextView) convertView.findViewById(R.id.tv_message_desc);
+			holder.tvMessageNameTextView = (TextView) convertView.findViewById(R.id.tv_message_name);
+			holder.ivNewTextView = (ImageView) convertView.findViewById(R.id.iv_new);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -69,7 +64,8 @@ public class MessageAdapter extends BaseAdapter {
 		MessageEntity entity = lists.get(position);
 		if (null != entity) {
 			try {
-				holder.tvDateTextView.setText(CommonUtil.longToString(Long.parseLong(entity.getMessagePubdate()), "yyyy-MM-dd HH:mm"));
+				holder.tvDateTextView.setText(CommonUtil.longToString(Long.parseLong(entity.getMessagePubdate()),
+						"yyyy-MM-dd HH:mm"));
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {
@@ -77,14 +73,13 @@ public class MessageAdapter extends BaseAdapter {
 			}
 			holder.tvMessageNameTextView.setText(entity.getMessageTitle());
 			holder.tvMessageDescTextView.setText(entity.getMessageDetail());
-			if(!TextUtils.isEmpty(entity.getMessageSfnew()) && "1".equals(entity.getMessageSfnew())){
-				holder.tvNewTextView.setVisibility(View.VISIBLE);
-			}else{
-				holder.tvNewTextView.setVisibility(View.INVISIBLE);
+			if (!TextUtils.isEmpty(entity.getMessageSfnew()) && "1".equals(entity.getMessageSfnew())) {
+				holder.ivNewTextView.setVisibility(View.VISIBLE);
+			} else {
+				holder.ivNewTextView.setVisibility(View.INVISIBLE);
 			}
-			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getMessageImgpath()).placeholder(R.drawable.img_empty)
-					.into(holder.ivImageView);
+			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getMessageImgpath())
+					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;
 	}
@@ -93,7 +88,7 @@ public class MessageAdapter extends BaseAdapter {
 		ImageView ivImageView;
 		TextView tvMessageNameTextView;
 		TextView tvDateTextView;
-		TextView tvNewTextView;
+		ImageView ivNewTextView;
 		TextView tvMessageDescTextView;
 
 	}

@@ -1,6 +1,5 @@
 package com.android.storemanage.activity;
 
-
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.adapter.UserPrizeAdapter;
@@ -11,11 +10,10 @@ import com.android.storemanage.entity.UserPrizeEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.swipelistview.SwipeListView;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,30 +24,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * @author
- * 我的奖品
- *
+ * @author 我的奖品
+ * 
  */
 public class MyPrizeActivity extends BaseActivity {
-	
+
 	private TextView tView;
-    private ListView listView;
-	
+	private SwipeListView swipeListView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_prize);
 		tView = (TextView) findViewById(R.id.tv_title);
-		listView = (ListView) findViewById(R.id.lv_my_prize);
+		swipeListView = (SwipeListView) findViewById(R.id.lv_my_prize);
 		tView.setText("我的奖品");
 		initData("");
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		swipeListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 				UserPrizeEntity entity = (UserPrizeEntity) arg0.getItemAtPosition(position);
-				if(null != entity){
+				if (null != entity) {
 					Intent intent = new Intent(MyPrizeActivity.this, UserPrizeDetailActivity.class);
 					intent.putExtra("userprizeId", entity.getUserprizeId());
 					startActivity(intent);
@@ -76,7 +72,7 @@ public class MyPrizeActivity extends BaseActivity {
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						listView.setAdapter(new UserPrizeAdapter(mContext, commonData.getUserPrizeMapList()));
+						swipeListView.setAdapter(new UserPrizeAdapter(mContext, commonData.getUserPrizeMapList()));
 					} else {
 						CRAlertDialog dialog = new CRAlertDialog(mContext);
 						dialog.show(commonData.getCommonData().getMsg(), 2000);
@@ -93,7 +89,7 @@ public class MyPrizeActivity extends BaseActivity {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
 		}
-		
+
 	}
 
 }

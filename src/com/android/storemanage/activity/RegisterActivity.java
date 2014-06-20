@@ -80,13 +80,12 @@ public class RegisterActivity extends BaseActivity {
 					OuterData outerData = JSON.parseObject(content, OuterData.class);
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
-					// if ("true".equals(commonData.getCommonData()
-					// .getReturnStatus())) {// 注册成功
-					sp.edit().putString("userId", commonData.getCommonData().getRegistered()).commit();
-					Intent intent = new Intent(mContext, MainTabActivity.class);
-					startActivity(intent);
-					finish();
-					// }
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {// 注册成功
+						sp.edit().putString("userId", commonData.getCommonData().getUserId()).commit();
+						Intent intent = new Intent(mContext, MainTabActivity.class);
+						startActivity(intent);
+						finish();
+					}
 
 				}
 

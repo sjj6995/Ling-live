@@ -14,7 +14,7 @@ import android.content.SharedPreferences;
 public class BaseApplication extends Application {
 	private static BaseApplication application;
 	private SharedPreferences sp;
-	private String userId = "1111";
+	private String userId = "";
 
 	public String getUserId() {
 		return userId;
@@ -40,6 +40,7 @@ public class BaseApplication extends Application {
 		initImageLoader(getApplicationContext());
 		sp = getSharedPreferences(RegisterActivity.class.getSimpleName(), MODE_PRIVATE);
 		userId = sp.getString("userId", "");
+		setUserId(userId);
 
 	}
 

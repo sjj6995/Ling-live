@@ -66,9 +66,10 @@ public class SplashActivity extends BaseActivity {
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						chooseDifferentStatus(commonData);
 					} else {
-						CRAlertDialog dialog = new CRAlertDialog(mContext);
-						dialog.show("服务器内部错误", 2000);
-						finish();
+//						CRAlertDialog dialog = new CRAlertDialog(mContext);
+//						dialog.show("服务器内部错误", 2000);
+//						finish();
+						gotoMain();
 					}
 
 				}
@@ -87,7 +88,7 @@ public class SplashActivity extends BaseActivity {
 
 	private void chooseDifferentStatus(final CollectionData commonData) {
 		int appversionNeedUpdate = commonData.getAppVersionData().getSfNeedUpdate();
-		final RetryDialog dialog = new RetryDialog(mContext);
+		final RetryDialog dialog = new RetryDialog(getApplicationContext());
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
 			dialog.setConfirmText("必须更新");

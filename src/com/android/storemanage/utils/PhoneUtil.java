@@ -8,25 +8,24 @@ import android.text.TextUtils;
 
 public class PhoneUtil {
 
-  public static String getDeviceId(TelephonyManager tm) {
+	public static String getDeviceId(TelephonyManager tm) {
 
-    String id = tm.getDeviceId();
-    if (TextUtils.isEmpty(id)) {
-      id = "868856010904114";
-    }
-    CommonLog.getInstance().i("phoneimei==="+id);
-    return id;
+		// String id = tm.getDeviceId();
+		String id = "868856010904120";
+		if (TextUtils.isEmpty(id)) {
+			id = "868856010904117";
+		}
+		CommonLog.getInstance().i("phoneimei===" + id);
+		return id;
 
-  }
-  
-  public static String getMD5(String string) {
+	}
+
+	public static String getMD5(String string) {
 		byte[] source = string.getBytes();
-		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-				'a', 'b', 'c', 'd', 'e', 'f' };// 用来将字节转换成16进制表示的字符
+		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };// 用来将字节转换成16进制表示的字符
 		String s = null;
 		try {
-			java.security.MessageDigest md = java.security.MessageDigest
-					.getInstance("MD5");
+			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 			md.update(source);
 			byte tmp[] = md.digest();// MD5 的计算结果是一个 128 位的长整数，
 			// 用字节表示就是 16 个字节
@@ -47,6 +46,5 @@ public class PhoneUtil {
 		}
 		return s;
 	}
-
 
 }

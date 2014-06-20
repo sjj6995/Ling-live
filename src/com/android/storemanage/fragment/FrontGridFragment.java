@@ -6,10 +6,12 @@ import com.android.storemanage.R;
 import com.android.storemanage.activity.CategoryListActivity;
 import com.android.storemanage.adapter.ClassifyBigAdapter;
 import com.android.storemanage.entity.CategoryEntity;
+import com.android.storemanage.utils.DisplayUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +23,7 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 	private static final String ARG_TEXT = "text";
 	private static final String ARG_PAGER = "pager";
 
-	public static FrontGridFragment newInstance(ArrayList<String> text,
-			int pager) {
+	public static FrontGridFragment newInstance(ArrayList<String> text, int pager) {
 		FrontGridFragment f = new FrontGridFragment();
 
 		Bundle args = new Bundle();
@@ -34,13 +35,14 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.viewpager_item, container, false);
 		GridView gridview = (GridView) view.findViewById(R.id.gridview);
-		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments()
-				.getSerializable(ARG_TEXT);
-		gridview.setAdapter(new ClassifyBigAdapter(getActivity(), list));
+		@SuppressWarnings("unchecked")
+		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments().getSerializable(ARG_TEXT);
+		int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+		width = (width - DisplayUtil.dip2px(getActivity(), 5) * 5) / 4;
+		gridview.setAdapter(new ClassifyBigAdapter(getActivity(), list,width));
 		gridview.setOnItemClickListener(this);
 		return view;
 	}
@@ -49,8 +51,7 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		CategoryEntity entity = (CategoryEntity) arg0.getItemAtPosition(arg2);
 		if (null != entity) {
-			Intent intent = new Intent(getActivity(),
-					CategoryListActivity.class);
+			Intent intent = new Intent(getActivity(), CategoryListActivity.class);
 			intent.putExtra("categoryId", entity.getCategoryId());
 			intent.putExtra("categoryName", entity.getCategoryTitle());
 			startActivity(intent);

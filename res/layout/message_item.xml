@@ -34,18 +34,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_new"
+            <ImageView
+                android:id="@+id/iv_new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="1dip"
-                android:background="#ff0000"
-                android:textColor="@android:color/white"
-                android:text="new" />
+                android:background="@drawable/is_new"
+                />
         </RelativeLayout>
 
         <include layout="@layout/horizontal_line" />

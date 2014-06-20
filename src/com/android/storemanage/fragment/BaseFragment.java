@@ -21,6 +21,7 @@ public class BaseFragment extends Fragment {
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected BaseApplication application;
 	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

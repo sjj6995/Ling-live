@@ -4,33 +4,27 @@ import java.util.List;
 
 import com.android.storemanage.R;
 import com.android.storemanage.entity.CategoryEntity;
-import com.android.storemanage.entity.WealthEntity;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class ClassifyBigAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<CategoryEntity> entities;
-	private int[] colors = new int[] { R.color.gridview_bg_0,
-			R.color.gridview_bg_1, R.color.gridview_bg_2,
-			R.color.gridview_bg_3, R.color.gridview_bg_4,
-			R.color.gridview_bg_5, R.color.gridview_bg_6, R.color.gridview_bg_7 };
+	private int itemWidth;
 
-	public ClassifyBigAdapter(Context context, List<CategoryEntity> entities) {
+	public ClassifyBigAdapter(Context context, List<CategoryEntity> entities, int itemWidth) {
 		super();
 		this.context = context;
 		this.entities = entities;
+		this.itemWidth = itemWidth;
 	}
 
 	public ClassifyBigAdapter() {
@@ -39,8 +33,7 @@ public class ClassifyBigAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return entities.size() > JFConfig.PAGE_COUNT ? JFConfig.PAGE_COUNT : entities
-				.size();
+		return entities.size() > JFConfig.PAGE_COUNT ? JFConfig.PAGE_COUNT : entities.size();
 	}
 
 	@Override
@@ -60,28 +53,21 @@ public class ClassifyBigAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = View.inflate(context, R.layout.classify_big_item, null);
-			holder.ivImageView = (ImageView) convertView
-					.findViewById(R.id.iv_icon);
-			holder.tView = (TextView) convertView.findViewById(R.id.text);
-			holder.llLayout = (LinearLayout) convertView
-					.findViewById(R.id.ll_category);
+			holder.ivImageView = (ImageView) convertView.findViewById(R.id.iv_icon);
+			holder.llLayout = (LinearLayout) convertView.findViewById(R.id.ll_category);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if (null != entity) {
-			holder.tView.setText(entity.getCategoryTitle());
-			Picasso.with(context)
-					.load(JFConfig.HOST_URL + entity.getCategoryBigimgpath())
-					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
-//			holder.llLayout.setBackgroundResource(colors[postion]);
+			Picasso.with(context).load(JFConfig.HOST_URL + entity.getCategoryBigimgpath())
+					.placeholder(R.drawable.img_empty).resize(itemWidth, itemWidth).centerCrop().into(holder.ivImageView);
 		}
 		return convertView;
 	}
 
 	class ViewHolder {
 		ImageView ivImageView;
-		TextView tView;
 		LinearLayout llLayout;
 	}
 

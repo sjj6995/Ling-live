@@ -13,8 +13,21 @@ public class CommonDataEntity {
 	private String feedbackSuccess;//是否意见反馈成功
 	private String registered;//true表示已注册，false为未注册
 	
+	private String userId;//用户的id
 	
-	
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * @return the registered

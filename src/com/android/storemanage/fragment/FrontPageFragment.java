@@ -49,7 +49,6 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 	private TextView imageButton;
 	private TextView titleTextView;
 	private int width;
-	private List<String> lists;
 	private ViewPager viewPager;
 	private static final int REQUEST_SCAN = 1;
 	private ImageButton button;
@@ -73,10 +72,6 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 		DisplayMetrics dm = new DisplayMetrics();
 		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 		width = dm.widthPixels;// 宽度
-		lists = new ArrayList<String>();
-		for (int i = 0; i < 10; i++) {
-			lists.add(new String("标题" + i * 2 + "" + "主体内容" + i * 5));
-		}
 		initData(view);
 		// createNavMenu1(view);
 		return view;
