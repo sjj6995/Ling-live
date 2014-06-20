@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" android:name="com.android.storemanage.application.BaseApplication">
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.SplashActivity"
             android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
         <activity android:name=".activity.UserPrizeDetailActivity"></activity>
         <activity android:name="com.zxing.activity.CaptureActivity"></activity>
         <activity android:name=".activity.WealthDetailActivity"></activity>
-        <activity android:name=".activity.SplashActivity"></activity>
+        <activity android:name=".activity.RegisterActivity"></activity>
         <activity android:name="com.android.storemanage.wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"

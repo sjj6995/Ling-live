@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		userId = application.getUserId();
-		gotoCheckUpdate();
+//		gotoCheckUpdate();
 		if (TextUtils.isEmpty(userId)) {
 			gotoRegister();
 		} else {
@@ -50,12 +50,12 @@ public class SplashActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(mContext));
-			showProgressDialog(R.string.please_waiting);
+//			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
-					dismissProgressDialog();
+//					dismissProgressDialog();
 					if (TextUtils.isEmpty(content)) {
 						return;
 					}
@@ -75,7 +75,7 @@ public class SplashActivity extends BaseActivity {
 				@Override
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
-					dismissProgressDialog();
+//					dismissProgressDialog();
 				}
 			});
 		} else {
