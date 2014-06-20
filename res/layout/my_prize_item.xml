@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:paddingLeft="16dip"
+    android:id="@+id/front"
+    android:tag="front"
     android:paddingRight="10dp"
     android:paddingBottom="10dip"
     android:layout_height="wrap_content" >

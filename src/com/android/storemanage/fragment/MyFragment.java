@@ -54,13 +54,15 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	private CommonLog log = CommonLog.getInstance();
 	private TextView mPhoneTextView;
 	private TextView mFotuneTextView, mEmailtTextView, mMyFortuneTextView;
-	private TextView mShareTextView, mCurrentVersionTextView, mAboutUsTextView, mOpinionTextView, mCacheSize;
+	private TextView mShareTextView, mCurrentVersionTextView, mAboutUsTextView,
+			mOpinionTextView, mCacheSize;
 	private IWXAPI api;
 	private RelativeLayout rl;
 	private long cacheSize;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_my, null);
 		initViews(view);
 		initData();
@@ -71,30 +73,36 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			params.put("", "");
-			XDHttpClient.get(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData collectionData = innderData.getData().get(0);
-					log.i("commonData" + collectionData.getCommonData().getMsg());
-					if ("true".equals(collectionData.getCommonData().getReturnStatus())) {
-						UserInforEntity entity = collectionData.getUserInfoMap();
-						fillData(entity);
-					}
-				}
+			XDHttpClient.get(JFConfig.MY_INFOR, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData collectionData = innderData
+									.getData().get(0);
+							log.i("commonData"
+									+ collectionData.getCommonData().getMsg());
+							if ("true".equals(collectionData.getCommonData()
+									.getReturnStatus())) {
+								UserInforEntity entity = collectionData
+										.getUserInfoMap();
+								fillData(entity);
+							}
+						}
 
-				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
-					dismissProgressDialog();
-				}
-			});
+						@Override
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
+						}
+					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(getActivity());
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -106,9 +114,9 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (null == entity) {
 			return;
 		}
-		mPhoneTextView.setText(entity.getPhonemumber());
-		mFotuneTextView.setText(entity.getUserwealth());
-		mEmailtTextView.setText(entity.getUsermail());
+		mPhoneTextView.setText(entity.getPhonenumber());
+		mFotuneTextView.setText("财富：" + entity.getUserwealth());
+		mEmailtTextView.setText(entity.getUseremail());
 		String version = CommonUtil.getVersion(getActivity());
 		if (!TextUtils.isEmpty(version)) {
 			mCurrentVersionTextView.setText("版本号：" + version);
@@ -131,14 +139,15 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		mAboutUsTextView.setOnClickListener(this);
 		mOpinionTextView = (TextView) view.findViewById(R.id.tv_opinion);
 		mOpinionTextView.setOnClickListener(this);
-		mCurrentVersionTextView = (TextView) view.findViewById(R.id.tv_current_version);
+		mCurrentVersionTextView = (TextView) view
+				.findViewById(R.id.tv_current_version);
 		mCurrentVersionTextView.setOnClickListener(this);
 		mShareTextView = (TextView) view.findViewById(R.id.tv_share_to_friends);
 		mShareTextView.setOnClickListener(this);
 		mCacheSize = (TextView) view.findViewById(R.id.tv_cachesize);
 		cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
 		// mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
-		cacheSize = imageLoader.getDiskCache().getDirectory().length();
+		// cacheSize = imageLoader.getDiskCache().getDirectory().length();
 		mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
 		rl = (RelativeLayout) view.findViewById(R.id.rl);
 		rl.setOnClickListener(this);
@@ -224,12 +233,13 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 *            分享到朋友圈
 	 */
 	public void shareToFriends(View view) {
-		sendReq(getActivity(), "测试",
-				BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher), Req.WXSceneTimeline);
+		sendReq(getActivity(), "测试", BitmapFactory.decodeResource(getActivity()
+				.getResources(), R.drawable.ic_launcher), Req.WXSceneTimeline);
 	}
 
 	public void sendReq(Context context, String text, Bitmap bmp, int type) {
-		api = WXAPIFactory.createWXAPI(context, JFConfig.WECHAT_SHARA_APP_IP, true);
+		api = WXAPIFactory.createWXAPI(context, JFConfig.WECHAT_SHARA_APP_IP,
+				true);
 		api.registerApp(JFConfig.WECHAT_SHARA_APP_IP);
 
 		if (!api.isWXAppInstalled()) {
@@ -241,7 +251,8 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		String url = "http://www.kdt360.com/download/download.html";// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
-		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
+		WXMediaMessage localWXMediaMessage = new WXMediaMessage(
+				localWXWebpageObject);
 		localWXMediaMessage.title = "快递通";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
 		localWXMediaMessage.description = text;
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
@@ -280,11 +291,13 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			j = bitmap.getHeight();
 		}
 		while (true) {
-			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0, 80, 80), null);
+			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0,
+					80, 80), null);
 			if (paramBoolean)
 				bitmap.recycle();
 			ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
-			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100, localByteArrayOutputStream);
+			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+					localByteArrayOutputStream);
 			localBitmap.recycle();
 			byte[] arrayOfByte = localByteArrayOutputStream.toByteArray();
 			try {

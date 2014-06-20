@@ -61,7 +61,7 @@
                     android:onClick="gotoUse"
                     android:layout_marginLeft="5dip"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/selector_radious_button_blue"
+                    android:background="@drawable/selector_button_status"
                     android:text="使用" />
             </LinearLayout>
         </RelativeLayout>

@@ -38,7 +38,7 @@ public class BaseApplication extends Application {
 		// StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
 		// }
 		initImageLoader(getApplicationContext());
-		sp = getSharedPreferences(RegisterActivity.class.getSimpleName(), MODE_PRIVATE);
+		sp = getSharedPreferences("userinfor", MODE_PRIVATE);
 		userId = sp.getString("userId", "");
 		setUserId(userId);
 

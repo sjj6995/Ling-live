@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/app_bg_color"
-    android:orientation="vertical" >
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.android.storemanage">
 
     <include layout="@layout/title_layout" />
 
@@ -15,12 +15,13 @@
         android:cacheColorHint="@null"
         android:divider="@color/horizontal_line_color"
         android:dividerHeight="1dip"
-        swipe:swipeBackView="@+id/back"
         swipe:swipeCloseAllItemsWhenMoveList="true"
         swipe:swipeDrawableChecked="@drawable/choice_selected"
         swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
         swipe:swipeFrontView="@+id/front"
-        swipe:swipeMode="right" >
+        swipe:swipeBackView="@+id/back"
+        swipe:swipeMode="left"
+        app:swipeOffsetLeft="250dip" >
     </com.android.storemanage.swipelistview.SwipeListView>
 
 </LinearLayout>

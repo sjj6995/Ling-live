@@ -50,6 +50,8 @@
         </activity>
         <activity android:name=".activity.MainTabActivity" >
         </activity>
+        <activity android:name=".activity.WealthPrizeDetailActivity" >
+        </activity>
         <activity
             android:name="com.android.storemanage.wxapi.WXEntryActivity"
             android:exported="true"

@@ -1,10 +1,12 @@
 package com.android.storemanage.adapter;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.android.storemanage.R;
 import com.android.storemanage.entity.MessageDetailEntity;
 import com.android.storemanage.entity.MessageEntity;
+import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
@@ -72,8 +74,15 @@ public class MessageDetailAdapter extends BaseAdapter {
 		}
 		MessageDetailEntity entity = lists.get(position);
 		if (null != entity) {
-			holder.tvFromTimeTextView
-					.setText("起：" + entity.getMDetailPubdate());
+			try {
+				holder.tvFromTimeTextView
+						.setText("起：" + CommonUtil.longToString(Long.parseLong(entity.getMDetailPubdate()),
+								"yyyy年MM月dd日"));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			holder.tvToTimeTextView.setText("止：" + entity.getMDetailOpptime());
 			holder.tvMessageNameTextView.setText(entity.getMDetailTitle());
 			String detail = entity.getMDetailDetail();

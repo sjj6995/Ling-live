@@ -11,7 +11,7 @@ public class PhoneUtil {
 	public static String getDeviceId(TelephonyManager tm) {
 
 		// String id = tm.getDeviceId();
-		String id = "868856010904120";
+		String id = "868856010904121";
 		if (TextUtils.isEmpty(id)) {
 			id = "868856010904117";
 		}

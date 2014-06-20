@@ -12,7 +12,16 @@ public class CommonDataEntity {
 	private String reason;// 使用失败的原因
 	private String feedbackSuccess;//是否意见反馈成功
 	private String registered;//true表示已注册，false为未注册
+	private String deleteSuccess;//是否删除成功
 	
+	public String getDeleteSuccess() {
+		return deleteSuccess;
+	}
+
+	public void setDeleteSuccess(String deleteSuccess) {
+		this.deleteSuccess = deleteSuccess;
+	}
+
 	private String userId;//用户的id
 	
 	/**

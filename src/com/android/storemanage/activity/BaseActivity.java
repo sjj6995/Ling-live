@@ -30,7 +30,7 @@ public class BaseActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		application = BaseApplication.getApplication();
 		mContext = this;
-		sp = getSharedPreferences(RegisterActivity.class.getSimpleName(), MODE_PRIVATE);
+		sp = getSharedPreferences("userinfor", MODE_PRIVATE);
 		log = CommonLog.getInstance();
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
 				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)

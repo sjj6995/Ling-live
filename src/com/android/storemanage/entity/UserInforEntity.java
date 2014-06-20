@@ -5,20 +5,28 @@ package com.android.storemanage.entity;
  * 用户信息
  */
 public class UserInforEntity {
-	private String phonemumber;// 手机号码
+	private String phonenumber;// 手机号码
 	private String userwealth;// 用户财富
 	private String regtime;// 注册时间
-	private String usermail;// 邮箱
+	private String useremail;// 邮箱
 	private String userid;// 用户的id
 	private String phoneimei;// 手机串号
 	private String opptime;
 
-	public String getPhonemumber() {
-		return phonemumber;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
 
-	public void setPhonemumber(String phonemumber) {
-		this.phonemumber = phonemumber;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
+	public String getUseremail() {
+		return useremail;
+	}
+
+	public void setUseremail(String useremail) {
+		this.useremail = useremail;
 	}
 
 	public String getUserwealth() {
@@ -35,14 +43,6 @@ public class UserInforEntity {
 
 	public void setRegtime(String regtime) {
 		this.regtime = regtime;
-	}
-
-	public String getUsermail() {
-		return usermail;
-	}
-
-	public void setUsermail(String usermail) {
-		this.usermail = usermail;
 	}
 
 	public String getUserid() {
