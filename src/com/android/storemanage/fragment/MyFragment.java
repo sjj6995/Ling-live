@@ -114,9 +114,9 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (null == entity) {
 			return;
 		}
-		mPhoneTextView.setText(entity.getPhonenumber());
+		mPhoneTextView.setText("手机号码："+entity.getPhonenumber());
 		mFotuneTextView.setText("财富：" + entity.getUserwealth());
-		mEmailtTextView.setText(entity.getUseremail());
+		mEmailtTextView.setText("邮箱："+entity.getUseremail());
 		String version = CommonUtil.getVersion(getActivity());
 		if (!TextUtils.isEmpty(version)) {
 			mCurrentVersionTextView.setText("版本号：" + version);

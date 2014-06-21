@@ -29,6 +29,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dip"
                     android:background="@android:color/transparent"
+                    android:text="会员:"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -58,6 +59,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dip"
+                android:text="我的财富："
                 android:textColor="@color/text_view_color"
                 android:textSize="12sp" />
 
@@ -66,10 +68,10 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="20dip"
-                android:layout_marginBottom="5dip"
-                android:layout_marginTop="5dip"
-                android:layout_marginLeft="5dip"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="5dip"
                 android:orientation="horizontal" >
 
                 <View
@@ -80,8 +82,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_marginLeft="5dip"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dip"
                     android:gravity="center_vertical"
                     android:text="兑换区" />
             </LinearLayout>
@@ -97,8 +99,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="20dip"
                 android:layout_marginBottom="5dip"
-                android:layout_marginTop="5dip"
                 android:layout_marginLeft="5dip"
+                android:layout_marginTop="5dip"
                 android:orientation="horizontal" >
 
                 <View
@@ -109,19 +111,35 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_marginLeft="5dip"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dip"
                     android:gravity="center_vertical"
                     android:text="分类区" />
             </LinearLayout>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vPager"
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="150dip"
-                android:background="#ffffff"
-                android:flipInterval="30"
-                android:persistentDrawingCache="animation" />
+                android:layout_height="wrap_content" >
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vPager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dip"
+                    android:background="#ffffff"
+                    android:flipInterval="30"
+                    android:persistentDrawingCache="animation" />
+
+                <LinearLayout
+                    android:id="@+id/viewGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </com.android.storemanage.view.CustomScrollView>
 

@@ -34,8 +34,7 @@ import android.widget.TextView;
  * @author liujiao 财富奖区
  * 
  */
-public class WealthPrizeActivity extends BaseActivity implements
-		OnCheckedChangeListener {
+public class WealthPrizeActivity extends BaseActivity implements OnCheckedChangeListener {
 	private TextView title;
 	private ListView listview;
 	private String wealthIdString;
@@ -61,14 +60,12 @@ public class WealthPrizeActivity extends BaseActivity implements
 		if (TextUtils.isEmpty(wealthIdString)) {
 			return;
 		}
-		initData(wealthIdString, sortType);
 		listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				WealthPrizeEntity entity = (WealthPrizeEntity) arg0.getItemAtPosition(arg2);
-				if(null != entity){
+				if (null != entity) {
 					Intent itt = new Intent(WealthPrizeActivity.this, WealthPrizeDetailActivity.class);
 					itt.putExtra("wPrizeId", entity.getWPrizeId());
 					startActivity(itt);
@@ -77,43 +74,42 @@ public class WealthPrizeActivity extends BaseActivity implements
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		initData(wealthIdString, sortType);
+	}
+
 	private void initData(final String wealthId, final int sortType) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("wealthareaId", wealthId);
 			params.put("sortType", sortType + "");
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.WEALTH_PRIZE, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
-								List<WealthPrizeEntity> msgEntity = commonData
-										.getWealrhareaPrizeMapList();
-								listview.setAdapter(new WealthPrizeAdapter(
-										mContext, msgEntity));
-							}
-						}
+			XDHttpClient.get(JFConfig.WEALTH_PRIZE, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						List<WealthPrizeEntity> msgEntity = commonData.getWealrhareaPrizeMapList();
+						listview.setAdapter(new WealthPrizeAdapter(mContext, msgEntity));
+					}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);

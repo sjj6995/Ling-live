@@ -34,7 +34,7 @@ public class MainTabActivity extends FragmentActivity {
 			R.drawable.tab_message_btn, R.drawable.tab_selfinfo_btn,
 			R.drawable.tab_square_btn };
 
-	private String mTextviewArray[] = { "首页", "分类", "消息", "我的" };
+	private String mTextviewArray[] = { "首页", "类别", "消息", "我的" };
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

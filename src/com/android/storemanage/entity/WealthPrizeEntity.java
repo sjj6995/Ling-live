@@ -18,10 +18,20 @@ public class WealthPrizeEntity {
 	private String wPrizeSfnew;
 	private String wPrizeImgpath;
 	private String wPrizeDetail;
-	private String wPrizeStarttime;
+	private long wPrizeStarttime;
 	private String wPrizeImgname;
-	private String wPrizeEndtime;
+	private long wPrizeEndtime;
 	private String wPrizeTitle;
+	
+//	  "wPrizeImgpath": "pages/FileUpload/images/wealthareaPrize/1401694437606_427184925465328228.jpg",
+//      "wPrizeId": "ad2986f624be4046b09a7ec882935f95",
+//      "wPrizeStarttime": 1401696049000,
+//      "wPrizeEndtime": 1404115249000,
+//      "wealthareaId": "d34ac07a024049c18bf9d7e392b7a58c",
+//      "wPrizeNeedwealth": 5,
+//      "wPrizeRemainnumber": 85,
+//      "wPrizeTitle": "马尔代夫7日游",
+//      "wPrizeTotalnumber": 100
 	public String getWPrizeOpptime() {
 		return wPrizeOpptime;
 	}
@@ -100,10 +110,10 @@ public class WealthPrizeEntity {
 	public void setWPrizeDetail(String wPrizeDetail) {
 		this.wPrizeDetail = wPrizeDetail;
 	}
-	public String getWPrizeStarttime() {
+	public long getWPrizeStarttime() {
 		return wPrizeStarttime;
 	}
-	public void setWPrizeStarttime(String wPrizeStarttime) {
+	public void setWPrizeStarttime(long wPrizeStarttime) {
 		this.wPrizeStarttime = wPrizeStarttime;
 	}
 	public String getWPrizeImgname() {
@@ -112,10 +122,10 @@ public class WealthPrizeEntity {
 	public void setWPrizeImgname(String wPrizeImgname) {
 		this.wPrizeImgname = wPrizeImgname;
 	}
-	public String getWPrizeEndtime() {
+	public long getWPrizeEndtime() {
 		return wPrizeEndtime;
 	}
-	public void setWPrizeEndtime(String wPrizeEndtime) {
+	public void setWPrizeEndtime(long wPrizeEndtime) {
 		this.wPrizeEndtime = wPrizeEndtime;
 	}
 	public String getWPrizeTitle() {

@@ -83,7 +83,7 @@ public class MessageDetailAdapter extends BaseAdapter {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			holder.tvToTimeTextView.setText("止：" + entity.getMDetailOpptime());
+//			holder.tvToTimeTextView.setText("止：" + entity.getMDetailOpptime());
 			holder.tvMessageNameTextView.setText(entity.getMDetailTitle());
 			String detail = entity.getMDetailDetail();
 			if (TextUtils.isEmpty(detail)) {

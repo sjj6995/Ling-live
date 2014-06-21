@@ -12,6 +12,7 @@
         android:cacheColorHint="@null"
         android:dividerHeight="1dip"
         android:divider="@color/horizontal_line_color"
+        android:listSelector="@drawable/selector_listview_item"
         android:id="@+id/lv_classify"
         ></ListView>
 

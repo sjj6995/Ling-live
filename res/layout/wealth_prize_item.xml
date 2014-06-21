@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingBottom="10dip"
-    android:paddingLeft="20dip"
-    android:paddingRight="20dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
     android:paddingTop="10dip" >
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.0"
         android:scaleType="fitXY"
         android:src="@drawable/img_empty" />
 
@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:paddingLeft="4dip"
             android:singleLine="true"
-            android:text="山路十八弯"
+            android:text=""
             android:textColor="#5581A4"
             android:textSize="16sp" />
 

@@ -8,8 +8,8 @@
 
     <padding
         android:bottom="4dip"
-        android:left="4dip"
-        android:right="4dip"
+        android:left="10dip"
+        android:right="10dip"
         android:top="4dip" />
 
 </shape>

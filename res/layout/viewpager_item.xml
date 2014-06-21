@@ -6,6 +6,7 @@
     android:cacheColorHint="@null"
     android:horizontalSpacing="5dip"
     android:numColumns="4"
+    android:listSelector="@drawable/selector_listview_item"
     android:verticalSpacing="5dip" >
 
 </GridView>

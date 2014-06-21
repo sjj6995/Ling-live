@@ -13,7 +13,7 @@ public class CollectionData {
 	private List<WealthPrizeEntity> wealrhareaPrizeMapList;//财富奖区列表
 	private List<BrandEntity> brandMapList;//分类详情
 	private List<UserPrizeEntity> userPrizeMapList;//用户奖品集合
-	private WealthPrizeEntity prizeDetailMap;//财富奖区详情
+	private WealthPrizeDetailEntity prizeDetailMap;//财富奖区详情
 	private AppVersionEntity appVersionData;//版本信息
 	private UserPrizeDetailEntity userprizeDetailMap;//用户奖品详情
 	
@@ -39,11 +39,11 @@ public class CollectionData {
 		this.appVersionData = appVersionData;
 	}
 
-	public WealthPrizeEntity getPrizeDetailMap() {
+	public WealthPrizeDetailEntity getPrizeDetailMap() {
 		return prizeDetailMap;
 	}
 
-	public void setPrizeDetailMap(WealthPrizeEntity prizeDetailMap) {
+	public void setPrizeDetailMap(WealthPrizeDetailEntity prizeDetailMap) {
 		this.prizeDetailMap = prizeDetailMap;
 	}
 

@@ -11,14 +11,14 @@
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="0dip"
-        android:layout_height="90dip"
-        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.2"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/img_empty" />
 
     <LinearLayout
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dip"
         android:layout_weight="2.5"
         android:orientation="vertical" >

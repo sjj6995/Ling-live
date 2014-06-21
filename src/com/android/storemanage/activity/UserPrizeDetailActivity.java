@@ -34,6 +34,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 	private TextView tvValidateTextView;
 	private Button btnUseButton;
 	private Boolean isUsed;
+	private UserPrizeDetailEntity entity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,20 +107,20 @@ public class UserPrizeDetailActivity extends BaseActivity {
 											.getReason(), 2000);
 								}
 							} else {
-								dialog.show("服务器异常", 2000);
+								dialog.show(commonData.getCommonData().getReason(), 2000);
 							}
-						}
-
+						} 
 						@Override
 						public void onFailure(Throwable arg0, String arg1) {
 							super.onFailure(arg0, arg1);
 							dismissProgressDialog();
 						}
-					});
-		} else {
-			CRAlertDialog dialog = new CRAlertDialog(mContext);
-			dialog.show(getString(R.string.pLease_check_network), 2000);
-		}
+
+				});
+			} else {
+				CRAlertDialog dialog = new CRAlertDialog(mContext);
+				dialog.show(getString(R.string.pLease_check_network), 2000);
+			}
 
 	}
 
@@ -129,44 +130,36 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			params.put("userId", "11111");
 			params.put("userprizeId", userPrizeId2);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.GET_PRIZE_DETAIL, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
-								UserPrizeDetailEntity entity = commonData
-										.getUserprizeDetailMap();
-								if (null != entity) {
-									fillData(entity);
-								}
-							} else {
-								CRAlertDialog dialog = new CRAlertDialog(
-										mContext);
-								dialog.show(
-										commonData.getCommonData().getMsg(),
-										2000);
-							}
-						}
+			XDHttpClient.get(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						entity = commonData.getUserprizeDetailMap();
+						if (null != entity) {
+							fillData(entity);
 						}
-					});
+					} else {
+						CRAlertDialog dialog = new CRAlertDialog(mContext);
+						dialog.show(commonData.getCommonData().getMsg(), 2000);
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -176,10 +169,18 @@ public class UserPrizeDetailActivity extends BaseActivity {
 
 	protected void fillData(UserPrizeDetailEntity entity) {
 		tvTitleTextView.setText(entity.getUserprizeTitle());
-		tvValidateTextView.setText("有效期剩余" + entity.getUserprizeValidity()
-				+ "天");
-		Picasso.with(mContext)
-				.load(JFConfig.HOST_URL + entity.getUserprizeImgpath())
-				.placeholder(R.drawable.img_empty).into(ivImageView);
+		tvValidateTextView.setText("有效期剩余" + entity.getUserprizeValidity() + "天");
+		Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getUserprizeImgpath()).placeholder(R.drawable.img_empty)
+				.into(ivImageView);
+		// String isUsed = entity.getUserprizeSfused();
+		// if (!TextUtils.isEmpty(isUsed)) {
+		// if ("1".equals(isUsed)) {
+		// btnUse.setText("已使用");
+		// btnUse.setEnabled(false);
+		// } else {
+		// btnUse.setText("使用");
+		// btnUse.setEnabled(true);
+		// }
+		// }
 	}
 }
