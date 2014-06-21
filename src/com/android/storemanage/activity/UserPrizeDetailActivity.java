@@ -32,6 +32,8 @@ public class UserPrizeDetailActivity extends BaseActivity {
 	private TextView tvTitleTextView;
 	private ImageView ivImageView;
 	private TextView tvValidateTextView;
+	private Button btnUseButton;
+	private Boolean isUsed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 		tvTitleTextView2 = (TextView) findViewById(R.id.tv_title);
 		tvTitleTextView2.setText("奖品详情");
 		userPrizeId = getIntent().getStringExtra("userprizeId");
+		isUsed = getIntent().getBooleanExtra("isused", false);
 		if (TextUtils.isEmpty(userPrizeId)) {
 			CRAlertDialog dialog = new CRAlertDialog(this);
 			dialog.show("服务器数据异常", 1500);
@@ -55,6 +58,11 @@ public class UserPrizeDetailActivity extends BaseActivity {
 		tvTitleTextView = (TextView) findViewById(R.id.tv_pride_name);
 		tvValidateTextView = (TextView) findViewById(R.id.tv_validate_time);
 		ivImageView = (ImageView) findViewById(R.id.iv_icon);
+		btnUseButton = (Button) findViewById(R.id.btn_use);
+		if (isUsed) {
+			btnUseButton.setEnabled(false);
+			btnUseButton.setText("已使用");
+		}
 	}
 
 	/**
@@ -91,6 +99,8 @@ public class UserPrizeDetailActivity extends BaseActivity {
 								if (!TextUtils.isEmpty(isSuccess)
 										&& "true".equals(isSuccess)) {
 									dialog.show("使用成功", 2000);
+									btnUseButton.setEnabled(false);
+									btnUseButton.setText("已使用");
 								} else {
 									dialog.show(commonData.getCommonData()
 											.getReason(), 2000);

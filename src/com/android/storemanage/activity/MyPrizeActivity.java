@@ -68,6 +68,7 @@ public class MyPrizeActivity extends BaseActivity {
 			Intent intent = new Intent(MyPrizeActivity.this,
 					UserPrizeDetailActivity.class);
 			intent.putExtra("userprizeId", entity.getUserprizeId());
+			intent.putExtra("isused", "1".equals(entity.getUserprizeSfused())?true:false);
 			startActivity(intent);
 		}
 	}
