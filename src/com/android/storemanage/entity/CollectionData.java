@@ -15,8 +15,16 @@ public class CollectionData {
 	private List<UserPrizeEntity> userPrizeMapList;//用户奖品集合
 	private WealthPrizeEntity prizeDetailMap;//财富奖区详情
 	private AppVersionEntity appVersionData;//版本信息
+	private UserPrizeDetailEntity userprizeDetailMap;//用户奖品详情
 	
-	
+	public UserPrizeDetailEntity getUserprizeDetailMap() {
+		return userprizeDetailMap;
+	}
+
+	public void setUserprizeDetailMap(UserPrizeDetailEntity userprizeDetailMap) {
+		this.userprizeDetailMap = userprizeDetailMap;
+	}
+
 	/**
 	 * @return the appVersionData
 	 */

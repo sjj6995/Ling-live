@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:descendantFocusability="blocksDescendants" >
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:id="@+id/back"
@@ -61,6 +60,7 @@
             android:layout_below="@id/iv_has_used_or_not"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="20dip"
+            android:id="@+id/ll"
             android:layout_toRightOf="@id/iv_icon"
             android:orientation="vertical" >
 

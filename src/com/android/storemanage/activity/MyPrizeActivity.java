@@ -29,6 +29,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -55,14 +57,19 @@ public class MyPrizeActivity extends BaseActivity {
 					int position, long arg3) {
 				UserPrizeEntity entity = (UserPrizeEntity) arg0
 						.getItemAtPosition(position);
-				if (null != entity) {
-					Intent intent = new Intent(MyPrizeActivity.this,
-							UserPrizeDetailActivity.class);
-					intent.putExtra("userprizeId", entity.getUserprizeId());
-					startActivity(intent);
-				}
+				gotoUserPrizeDetailActivity(entity);
 			}
+
 		});
+	}
+
+	private void gotoUserPrizeDetailActivity(UserPrizeEntity entity) {
+		if (null != entity) {
+			Intent intent = new Intent(MyPrizeActivity.this,
+					UserPrizeDetailActivity.class);
+			intent.putExtra("userprizeId", entity.getUserprizeId());
+			startActivity(intent);
+		}
 	}
 
 	public void initData() {
@@ -90,7 +97,8 @@ public class MyPrizeActivity extends BaseActivity {
 									.getReturnStatus())) {
 								swipeListView.setAdapter(new UserPrizeAdapter(
 										mContext, commonData
-												.getUserPrizeMapList(),MyPrizeActivity.this));
+												.getUserPrizeMapList(),
+										MyPrizeActivity.this));
 							} else {
 								CRAlertDialog dialog = new CRAlertDialog(
 										mContext);
@@ -165,6 +173,7 @@ public class MyPrizeActivity extends BaseActivity {
 						.findViewById(R.id.tv_wealth_value);
 				holder.deleteBtn = (Button) convertView
 						.findViewById(R.id.example_row_b_action_3);
+				holder.front = (LinearLayout) convertView.findViewById(R.id.ll);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -173,7 +182,7 @@ public class MyPrizeActivity extends BaseActivity {
 			if (null != entity) {
 				holder.tvNameTextView.setText(entity.getUserprizeTitle());
 				holder.tvValidateTimeTextView.setText("有效期剩余"
-						+ entity.getUserprizeExpirydate()+"天");
+						+ entity.getUserprizeExpirydate() + "天");
 				Picasso.with(mContext)
 						.load(JFConfig.HOST_URL + entity.getUserprizeImgpath())
 						.placeholder(R.drawable.img_empty)
@@ -197,6 +206,22 @@ public class MyPrizeActivity extends BaseActivity {
 						initData(entity.getUserprizeId());
 					}
 				});
+				holder.front.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						log.i("onclick()-----------------------------------------------");
+						activity.gotoUserPrizeDetailActivity(entity);
+					}
+				});
+				holder.ivIconImageView
+						.setOnClickListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								activity.gotoUserPrizeDetailActivity(entity);
+							}
+						});
 			}
 			return convertView;
 		}
@@ -208,6 +233,7 @@ public class MyPrizeActivity extends BaseActivity {
 			TextView tvValidateTimeTextView;
 			TextView tvWealthTextView;
 			Button deleteBtn;
+			LinearLayout front;
 
 		}
 
