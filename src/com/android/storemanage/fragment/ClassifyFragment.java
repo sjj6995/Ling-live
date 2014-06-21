@@ -32,7 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * @author liujiao 分类
+ * @author liujiao 类别
  * 
  */
 public class ClassifyFragment extends BaseFragment implements OnClickListener, OnItemClickListener {

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.GridLayout.LayoutParams;
 import android.telephony.TelephonyManager;
@@ -18,6 +19,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,6 +59,11 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 	private CommonLog log = CommonLog.getInstance();
 	private View view;
 	private FrontFotruneAdapter adapter;
+	/** 将小圆点的图片用数组表示 */
+	private ImageView[] imageViews;
+	// 包裹小圆点的LinearLayout
+	private LinearLayout mViewPoints;
+	private ImageView imageView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,6 +108,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 						ArrayList<CategoryEntity> categoryEntities = commonData.getCategoryMapList();
 						if (null == adapter) {
 							adapter = new FrontFotruneAdapter(getChildFragmentManager(), categoryEntities);
+							initDots(categoryEntities.size());
 							viewPager.setAdapter(adapter);
 							viewPager.setOffscreenPageLimit(1);
 						} else {
@@ -123,15 +132,39 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 		}
 	}
 
+	protected void initDots(int size) {
+		// 创建imageviews数组，大小是要显示的图片的数量
+		size = size % JFConfig.PAGE_COUNT == 0 ? size / JFConfig.PAGE_COUNT : size / JFConfig.PAGE_COUNT + 1;
+		imageViews = new ImageView[size];
+		// 添加小圆点的图片
+		for (int i = 0; i < size; i++) {
+			imageView = new ImageView(getActivity());
+			// 设置小圆点imageview的参数
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(10, 10);
+			layoutParams.setMargins(5, 0, 5, 0);
+			imageView.setLayoutParams(layoutParams);// 创建一个宽高均为20 的布局
+			// 将小圆点layout添加到数组中
+			imageViews[i] = imageView;
+			// 默认选中的是第一张图片，此时第一个小圆点是选中状态，其他不是
+			if (i == 0) {
+				imageViews[i].setBackgroundResource(R.drawable.dot_pressed);
+			} else {
+				imageViews[i].setBackgroundResource(R.drawable.dot_normal);
+			}
+			// 将imageviews添加到小圆点视图组
+			mViewPoints.addView(imageViews[i]);
+		}
+
+	}
+
 	private void initViews(View view) {
 		imageButton = (TextView) view.findViewById(R.id.ib_back);
 		titleTextView = (TextView) view.findViewById(R.id.tv_title);
 		titleTextView.setText("首页");
+		// 实例化小圆点的linearLayout和viewpager
+		mViewPoints = (LinearLayout) view.findViewById(R.id.viewGroup);
 		viewPager = (ViewPager) view.findViewById(R.id.vPager);
-		// ArrayList<String> temp = new ArrayList<String>();
-		// viewPager.setAdapter(new
-		// FrontFotruneAdapter(getActivity().getSupportFragmentManager(),
-		// temp));
+		viewPager.setOnPageChangeListener(new NavigationPageChangeListener());
 		// viewPager.setPageTransformer(true, new DepthPageTransformer());
 		button = (ImageButton) view.findViewById(R.id.imageview);
 		button.setOnClickListener(this);
@@ -226,7 +259,6 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 		int itemSpace = 5;
 		int itemWidth = (gridLayoutWidth - padding * 2 - gridLayout.getPaddingLeft() - gridLayout.getPaddingRight() - itemSpace * 2) / 2;
 		for (WealthEntity entity : wealthEntities) {
-			// TODO 版本升级功能稳定后删除 更新menuItem
 			RelativeLayout ll = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.icon_menu_item,
 					gridLayout, false);
 			ll.setOnClickListener(this);
@@ -267,4 +299,27 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			break;
 		}
 	}
+
+	private class NavigationPageChangeListener implements OnPageChangeListener {
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+		}
+
+		@Override
+		public void onPageSelected(int position) {
+			for (int i = 0; i < imageViews.length; i++) {
+				imageViews[position].setBackgroundResource(R.drawable.dot_pressed);
+				// 不是当前选中的page，其小圆点设置为未选中的状态
+				if (position != i) {
+					imageViews[i].setBackgroundResource(R.drawable.dot_normal);
+				}
+			}
+		}
+
+	}
+
 }

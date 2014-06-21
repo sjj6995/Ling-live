@@ -62,10 +62,10 @@
             android:textColor="@color/selector_radio_button_text_color"
             android:textSize="15sp" />
     </RadioGroup>
-    
-    <include layout="@layout/horizontal_line"
+
+    <include
         android:layout_marginTop="@dimen/app_bg_content_margin"
-        />
+        layout="@layout/horizontal_line" />
 
     <ListView
         android:id="@+id/lv_sport"
@@ -73,7 +73,8 @@
         android:layout_height="fill_parent"
         android:cacheColorHint="@null"
         android:divider="@color/horizontal_line_color"
-        android:dividerHeight="1dip" >
+        android:dividerHeight="1dip"
+        android:listSelector="@drawable/selector_listview_item" >
     </ListView>
 
 </LinearLayout>

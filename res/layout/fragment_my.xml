@@ -16,9 +16,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:text="财富：2"
+            android:text="财富："
             android:textColor="@color/text_view_color"
-            android:textSize="17sp" />
+            android:textSize="@dimen/my_text_size" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -32,9 +32,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:padding="10dip"
-                android:text="手机号码：1888888888"
+                android:text="手机号码："
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
 
@@ -44,9 +44,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:padding="10dip"
-                android:text="邮箱：188888@qq.com"
+                android:text="邮箱："
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
 
@@ -63,7 +63,7 @@
                 android:padding="10dip"
                 android:text="我的奖品"
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
         </LinearLayout>
@@ -86,7 +86,7 @@
                 android:padding="10dip"
                 android:text="关于我们"
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
 
@@ -101,7 +101,7 @@
                 android:padding="10dip"
                 android:text="意见反馈"
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
 
@@ -117,7 +117,7 @@
                 android:padding="10dip"
                 android:text="版本号：1.0.0"
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
 
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/my_text_size"
                     android:textColor="@color/text_view_color"
                     android:text="清除缓存" />
 
@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_cachesize"
                     android:layout_alignParentRight="true"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/my_text_size"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
 
@@ -159,7 +159,7 @@
                 android:padding="10dip"
                 android:text="分享至好友圈"
                 android:textColor="@color/text_view_color"
-                android:textSize="17sp" />
+                android:textSize="@dimen/my_text_size" />
 
             <include layout="@layout/horizontal_line" />
         </LinearLayout>
