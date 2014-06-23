@@ -49,7 +49,6 @@ public class MyPrizeActivity extends BaseActivity {
 		tView = (TextView) findViewById(R.id.tv_title);
 		swipeListView = (SwipeListView) findViewById(R.id.lv_my_prize);
 		tView.setText("我的奖品");
-		initData();
 		swipeListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -63,6 +62,12 @@ public class MyPrizeActivity extends BaseActivity {
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		initData();
+	}
+	
 	private void gotoUserPrizeDetailActivity(UserPrizeEntity entity) {
 		if (null != entity) {
 			Intent intent = new Intent(MyPrizeActivity.this,
