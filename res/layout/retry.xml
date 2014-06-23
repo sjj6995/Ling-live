@@ -31,7 +31,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="注销会清除您所有的数据，下次登录需重新填写用户名及密码"
+            android:text="注册失败，是否选择重试？"
             android:id="@+id/content"
             android:lineSpacingExtra="6dip"
             android:textColor="#6b6b74"
@@ -53,6 +53,8 @@
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="0dip"
+            android:paddingTop="8dip"
+            android:paddingBottom="8dip"
             android:layout_height="wrap_content"
             
             android:layout_weight="1"
@@ -69,6 +71,8 @@
         <Button
             android:id="@+id/sureBtn"
             android:layout_width="0dip"
+            android:paddingTop="8dip"
+            android:paddingBottom="8dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/selector_button_dialog"
