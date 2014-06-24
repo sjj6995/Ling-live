@@ -17,19 +17,19 @@ import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CompoundButton;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class CategoryListActivity extends BaseActivity implements OnCheckedChangeListener {
-	private RadioButton rbDefault, rbRankByWealth, rbRankByTime;
+public class CategoryListActivity extends BaseActivity implements OnClickListener {
+	private Button rbDefault, rbRankByWealth, rbRankByTime;
 	private ListView listView;
 	private String categoryIdString;
 	private int cBrandId = 0;
@@ -38,12 +38,12 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.common_listview_page);
-		rbDefault = (RadioButton) findViewById(R.id.rb_default);
-		rbRankByWealth = (RadioButton) findViewById(R.id.rb_fortune);
-		rbRankByTime = (RadioButton) findViewById(R.id.rb_update_time);
-		rbDefault.setOnCheckedChangeListener(this);
-		rbRankByWealth.setOnCheckedChangeListener(this);
-		rbRankByTime.setOnCheckedChangeListener(this);
+		rbDefault = (Button) findViewById(R.id.rb_default);
+		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
+		rbRankByTime = (Button) findViewById(R.id.rb_update_time);
+		rbDefault.setOnClickListener(this);
+		rbRankByWealth.setOnClickListener(this);
+		rbRankByTime.setOnClickListener(this);
 		categoryIdString = getIntent().getStringExtra("categoryId");
 		listView = (ListView) findViewById(R.id.lv_sport);
 		((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra("categoryName"));
@@ -71,7 +71,7 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("cBrandId", categoryId);
-			params.put("userId", "11111");
+			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
 			XDHttpClient.get(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
 				@Override
@@ -154,14 +154,14 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 	}
 
 	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (!isChecked) {
-			return;
-		}
-		switch (buttonView.getId()) {
+	public void onClick(View arg0) {
+		switch (arg0.getId()) {
 		case R.id.rb_default:// 默认
 			cBrandId = 0;
 			initData(categoryIdString, cBrandId);
+			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
+			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
+			// rbDefault.setTextColor(android.R.color.white);
 			break;
 		case R.id.rb_fortune:// 财富排行
 			if (cBrandId == 1) {
@@ -170,6 +170,8 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 				cBrandId = 1;
 			}
 			initData(categoryIdString, cBrandId);
+			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
+			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
 			break;
 		case R.id.rb_update_time:// 更新时间
 			if (cBrandId == 3) {
@@ -178,11 +180,25 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 				cBrandId = 3;
 			}
 			initData(categoryIdString, cBrandId);
+			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
+			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);
 			break;
 
 		default:
 			break;
-		}
 
+		}
+	}
+
+	public void changeBtnBackground(int defaultBg, int secondBg, int thridBg) {
+		rbDefault.setBackgroundResource(defaultBg);
+		rbRankByWealth.setBackgroundResource(secondBg);
+		rbRankByTime.setBackgroundResource(thridBg);
+	}
+
+	public void changeBtnColor(int defaultColor, int secondColor, int thridColor) {
+		rbDefault.setTextColor(defaultColor);
+		rbRankByWealth.setTextColor(secondColor);
+		rbRankByTime.setTextColor(thridColor);
 	}
 }

@@ -67,7 +67,7 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<CategoryEntity> msgEntity = innderData.getData().get(0).getCategoryMapList();
-						listView.setAdapter(new ClassifyLittleAdapter(getActivity(), msgEntity,imageLoader,options));
+						listView.setAdapter(new ClassifyLittleAdapter(getActivity(), msgEntity));
 					}
 				}
 

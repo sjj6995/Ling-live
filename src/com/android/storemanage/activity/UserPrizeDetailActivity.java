@@ -2,7 +2,6 @@ package com.android.storemanage.activity;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
-import com.android.storemanage.adapter.UserPrizeAdapter;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;

@@ -3,8 +3,6 @@ package com.android.storemanage.activity;
 import com.android.storemanage.R;
 import com.android.storemanage.application.BaseApplication;
 import com.android.storemanage.utils.CommonLog;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,7 +19,7 @@ public class BaseActivity extends Activity {
 	protected BaseApplication application;
 	protected Context mContext;
 	protected CommonLog log;
-	protected DisplayImageOptions options;
+//	protected DisplayImageOptions options;
 	protected SharedPreferences sp;
 
 	@Override
@@ -32,9 +30,9 @@ public class BaseActivity extends Activity {
 		mContext = this;
 		sp = getSharedPreferences("userinfor", MODE_PRIVATE);
 		log = CommonLog.getInstance();
-		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
-				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true).displayer(new RoundedBitmapDisplayer(20)).build();
+//		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
+//				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)
+//				.cacheOnDisk(true).considerExifParams(true).displayer(new RoundedBitmapDisplayer(20)).build();
 	}
 
 	private Dialog progressDialog;

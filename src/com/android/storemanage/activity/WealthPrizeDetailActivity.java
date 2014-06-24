@@ -6,7 +6,6 @@ import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.WealthPrizeDetailEntity;
-import com.android.storemanage.entity.WealthPrizeEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.XDHttpClient;

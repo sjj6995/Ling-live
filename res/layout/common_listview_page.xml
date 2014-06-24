@@ -6,24 +6,24 @@
 
     <include layout="@layout/title_layout" />
 
-    <RadioGroup
+    <LinearLayout
         android:id="@+id/rg_sport"
         android:layout_width="fill_parent"
         android:layout_height="30dip"
         android:layout_margin="@dimen/app_bg_content_margin"
         android:orientation="horizontal" >
 
-        <RadioButton
+        <Button
             android:id="@+id/rb_default"
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_rb_left"
+            android:background="@drawable/left_pressed"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
             android:text="默认"
-            android:textColor="@color/selector_radio_button_text_color"
+            android:textColor="@android:color/white"
             android:textSize="15sp" />
 
         <View
@@ -31,17 +31,17 @@
             android:layout_height="fill_parent"
             android:background="#5581A4" />
 
-        <RadioButton
+        <Button
             android:id="@+id/rb_fortune"
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_rb_middle"
+            android:background="@drawable/middle_normal"
             android:button="@null"
             android:checked="false"
             android:gravity="center"
             android:text="财富排行"
-            android:textColor="@color/selector_radio_button_text_color"
+            android:textColor="@color/button_normal_color"
             android:textSize="15sp" />
 
         <View
@@ -49,19 +49,19 @@
             android:layout_height="fill_parent"
             android:background="#5581A4" />
 
-        <RadioButton
+        <Button
             android:id="@+id/rb_update_time"
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_rb_right"
+            android:background="@drawable/right_normal"
             android:button="@null"
             android:checked="false"
             android:gravity="center"
             android:text="更新时间"
-            android:textColor="@color/selector_radio_button_text_color"
+            android:textColor="@color/button_normal_color"
             android:textSize="15sp" />
-    </RadioGroup>
+    </LinearLayout>
 
     <include
         android:layout_marginTop="@dimen/app_bg_content_margin"

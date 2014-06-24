@@ -16,7 +16,6 @@ import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
-import com.android.storemanage.view.SlideView;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;

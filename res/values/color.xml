@@ -10,15 +10,14 @@
     <color name="gridview_bg_1">#5BC994</color>
     <color name="gridview_bg_2">#FF7B7B</color>
     <color name="gridview_bg_3">#F75F78</color>
-    
     <color name="gridview_bg_4">#76B2EE</color>
     <color name="gridview_bg_5">#FDCC63</color>
-    
     <color name="gridview_bg_6">#FC8D71</color>
     <color name="gridview_bg_7">#8098C4</color>
     <color name="gridview_bg_0">#8098C4</color>
-    
-     <color name="button_dialog_pressed">#344f7a</color>
-     <color name="button_disabled">#2075b932</color>
-      <color name="button_dialog_normal">#6B88B7</color>
+    <color name="button_dialog_pressed">#344f7a</color>
+    <color name="button_disabled">#2075b932</color>
+    <color name="button_dialog_normal">#6B88B7</color>
+    <color name="button_normal_color">#5581A4</color>
+
 </resources>

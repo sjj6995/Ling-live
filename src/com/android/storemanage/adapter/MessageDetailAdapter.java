@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.android.storemanage.R;
 import com.android.storemanage.entity.MessageDetailEntity;
-import com.android.storemanage.entity.MessageEntity;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
