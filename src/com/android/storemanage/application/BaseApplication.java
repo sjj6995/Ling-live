@@ -1,6 +1,5 @@
 package com.android.storemanage.application;
 
-import com.android.storemanage.activity.RegisterActivity;
 import com.android.storemanage.utils.ExceptionHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -37,7 +36,7 @@ public class BaseApplication extends Application {
 		// StrictMode.setVmPolicy(new
 		// StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
 		// }
-		initImageLoader(getApplicationContext());
+//		initImageLoader(getApplicationContext());
 		sp = getSharedPreferences("userinfor", MODE_PRIVATE);
 		userId = sp.getString("userId", "");
 		setUserId(userId);

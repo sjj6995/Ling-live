@@ -8,6 +8,8 @@ import com.android.storemanage.R;
 import com.android.storemanage.activity.AboutUsActivity;
 import com.android.storemanage.activity.CommentActivity;
 import com.android.storemanage.activity.MyPrizeActivity;
+import com.android.storemanage.dialog.RetryDialog;
+import com.android.storemanage.dialog.RetryDialog.OnConfirmClick;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
@@ -15,6 +17,7 @@ import com.android.storemanage.entity.UserInforEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.service.UpdateService;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -72,7 +75,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	private void initData() {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
-			params.put("", "");
+			params.put("userId", application.getUserId());
 			XDHttpClient.post(JFConfig.MY_INFOR, params,
 					new AsyncHttpResponseHandler() {
 						@Override
@@ -114,9 +117,9 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (null == entity) {
 			return;
 		}
-		mPhoneTextView.setText("手机号码："+entity.getPhonenumber());
+		mPhoneTextView.setText("手机号码：" + entity.getPhonenumber());
 		mFotuneTextView.setText("财富：" + entity.getUserwealth());
-		mEmailtTextView.setText("邮箱："+entity.getUseremail());
+		mEmailtTextView.setText("邮箱：" + entity.getUseremail());
 		String version = CommonUtil.getVersion(getActivity());
 		if (!TextUtils.isEmpty(version)) {
 			mCurrentVersionTextView.setText("版本号：" + version);
@@ -225,7 +228,109 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 *            版本号
 	 */
 	public void getNewVersion(View view) {
+		/**
+		 * 检查版本更新
+		 */
+		if (CommonUtil.checkNetState(getActivity())) {
+			RequestParams params = new RequestParams();
+			params.put("phonetype", "android");
+			params.put("appversionNumber", CommonUtil.getVersion(getActivity()));
+			showProgressDialog(R.string.please_waiting);
+			XDHttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {
+								chooseDifferentStatus(commonData);
+							} else {
+								//
+								Toast.makeText(getActivity(), "服务器内部错误", 0)
+										.show();
+							}
 
+						}
+
+						@Override
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
+						}
+					});
+		} else {
+			CRAlertDialog dialog = new CRAlertDialog(getActivity());
+			dialog.show(getActivity().getString(R.string.pLease_check_network),
+					2000);
+		}
+
+	}
+
+	private void chooseDifferentStatus(final CollectionData commonData) {
+		int appversionNeedUpdate = commonData.getAppVersionData()
+				.getSfNeedUpdate();
+		final RetryDialog dialog = new RetryDialog(getActivity());
+		switch (appversionNeedUpdate) {
+		case 0:// 必须更新
+			dialog.setConfirmText("必须更新");
+			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setOnConfirmClick(new OnConfirmClick() {
+
+				@Override
+				public void onClick(View view) {
+					switch (view.getId()) {
+					case R.id.sureBtn:
+						gotoUpdateService(commonData.getAppVersionData()
+								.getAppversionUpdateurl());
+						break;
+					case R.id.cancelBtn:
+						dialog.dismiss();
+						break;
+					}
+				}
+			});
+			break;
+		case 1:// 可以更新
+			dialog.setConfirmText("可以更新");
+			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setOnConfirmClick(new OnConfirmClick() {
+
+				@Override
+				public void onClick(View view) {
+					switch (view.getId()) {
+					case R.id.sureBtn:
+						gotoUpdateService(commonData.getAppVersionData()
+								.getAppversionUpdateurl());
+						break;
+					case R.id.cancelBtn:
+						dialog.dismiss();
+						break;
+					}
+				}
+			});
+			break;
+		case 2:// 无需更新
+			CRAlertDialog alertDialog = new CRAlertDialog(getActivity());
+			alertDialog.show("当前已经是最新版本", 2000);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void gotoUpdateService(String url) {
+		Intent itt = new Intent(getActivity(), UpdateService.class);
+		itt.putExtra("url", url);
+		getActivity().startService(itt);
 	}
 
 	/**

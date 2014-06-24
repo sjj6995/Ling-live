@@ -2,9 +2,6 @@ package com.android.storemanage.fragment;
 
 import com.android.storemanage.R;
 import com.android.storemanage.application.BaseApplication;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -17,18 +14,19 @@ import android.widget.Toast;
 
 public class BaseFragment extends Fragment {
 	private Dialog progressDialog;
-	protected DisplayImageOptions options;
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
+//	protected DisplayImageOptions options;
+//	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected BaseApplication application;
+	
 	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		application = BaseApplication.getApplication();
-		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
-				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true).displayer(new RoundedBitmapDisplayer(20)).build();
+//		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
+//				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)
+//				.cacheOnDisk(true).considerExifParams(true).displayer(new RoundedBitmapDisplayer(20)).build();
 	}
 	
 	public final void showProgressDialog(int msgId) {

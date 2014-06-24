@@ -1,7 +1,5 @@
 package com.android.storemanage.entity;
 
-import android.R.integer;
-
 /**
  * @author liujiao user prize detail entity
  * 

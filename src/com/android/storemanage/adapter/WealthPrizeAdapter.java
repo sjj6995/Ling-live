@@ -4,15 +4,12 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.android.storemanage.R;
-import com.android.storemanage.entity.MessageDetailEntity;
-import com.android.storemanage.entity.MessageEntity;
 import com.android.storemanage.entity.WealthPrizeEntity;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;

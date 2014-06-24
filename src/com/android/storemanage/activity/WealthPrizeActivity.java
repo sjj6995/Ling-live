@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
-import com.android.storemanage.adapter.MessageDetailAdapter;
 import com.android.storemanage.adapter.WealthPrizeAdapter;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
-import com.android.storemanage.entity.MessageDetailEntity;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.WealthPrizeEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
@@ -19,27 +17,27 @@ import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 /**
  * @author liujiao 财富奖区
  * 
  */
-public class WealthPrizeActivity extends BaseActivity implements OnCheckedChangeListener {
+public class WealthPrizeActivity extends BaseActivity implements OnClickListener {
 	private TextView title;
 	private ListView listview;
 	private String wealthIdString;
 	private String wealthTitleString;
-	private RadioButton rbDefault, rbRankByWealth, rbRankByTime;
+	private Button rbDefault, rbRankByWealth, rbRankByTime;
 	private int sortType = 0;
 
 	@Override
@@ -51,12 +49,12 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 		wealthIdString = getIntent().getStringExtra("wealthId");
 		wealthTitleString = getIntent().getStringExtra("wealthTitle");
 		title.setText(wealthTitleString);
-		rbDefault = (RadioButton) findViewById(R.id.rb_default);
-		rbRankByWealth = (RadioButton) findViewById(R.id.rb_fortune);
-		rbRankByTime = (RadioButton) findViewById(R.id.rb_update_time);
-		rbDefault.setOnCheckedChangeListener(this);
-		rbRankByWealth.setOnCheckedChangeListener(this);
-		rbRankByTime.setOnCheckedChangeListener(this);
+		rbDefault = (Button) findViewById(R.id.rb_default);
+		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
+		rbRankByTime = (Button) findViewById(R.id.rb_update_time);
+		rbDefault.setOnClickListener(this);
+		rbRankByWealth.setOnClickListener(this);
+		rbRankByTime.setOnClickListener(this);
 		if (TextUtils.isEmpty(wealthIdString)) {
 			return;
 		}
@@ -118,14 +116,13 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 	}
 
 	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (!isChecked) {
-			return;
-		}
-		switch (buttonView.getId()) {
+	public void onClick(View arg0) {
+		switch (arg0.getId()) {
 		case R.id.rb_default:// 默认
 			sortType = 0;
 			initData(wealthIdString, sortType);
+			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
+			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
 		case R.id.rb_fortune:// 财富排行
 			if (sortType == 1) {
@@ -134,6 +131,8 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 				sortType = 1;
 			}
 			initData(wealthIdString, sortType);
+			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
+			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
 			break;
 		case R.id.rb_update_time:// 更新时间
 			if (sortType == 3) {
@@ -142,10 +141,24 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 				sortType = 3;
 			}
 			initData(wealthIdString, sortType);
+			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
+			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);
 			break;
-
 		default:
 			break;
+
 		}
+	}
+
+	public void changeBtnBackground(int defaultBg, int secondBg, int thridBg) {
+		rbDefault.setBackgroundResource(defaultBg);
+		rbRankByWealth.setBackgroundResource(secondBg);
+		rbRankByTime.setBackgroundResource(thridBg);
+	}
+
+	public void changeBtnColor(int defaultColor, int secondColor, int thridColor) {
+		rbDefault.setTextColor(defaultColor);
+		rbRankByWealth.setTextColor(secondColor);
+		rbRankByTime.setTextColor(thridColor);
 	}
 }

@@ -1,20 +1,13 @@
 package com.android.storemanage.adapter;
 
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.android.storemanage.R;
 import com.android.storemanage.entity.CategoryEntity;
 import com.android.storemanage.utils.JFConfig;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,20 +17,18 @@ import android.widget.TextView;
 public class ClassifyLittleAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<CategoryEntity> lists;
-	private ImageLoader imageLoader;
-	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-	DisplayImageOptions options;
+//	private ImageLoader imageLoader;
+//	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+//	DisplayImageOptions options;
 
 	public ClassifyLittleAdapter() {
 		super();
 	}
 
-	public ClassifyLittleAdapter(Context mContext, List<CategoryEntity> lists,ImageLoader imageLoader,DisplayImageOptions options) {
+	public ClassifyLittleAdapter(Context mContext, List<CategoryEntity> lists) {
 		super();
 		this.mContext = mContext;
 		this.lists = lists;
-		this.options = options;
-		this.imageLoader = imageLoader;
 	}
 
 	@Override
@@ -71,10 +62,10 @@ public class ClassifyLittleAdapter extends BaseAdapter {
 		if(null != entity){
 			
 			holder.tView.setText(entity.getCategoryTitle());
-//			Picasso.with(mContext)
-//			.load(JFConfig.HOST_URL + entity.getCategoryLittleimgpath()).placeholder(R.drawable.img_empty)
-//			.into(holder.ivImageView);
-			imageLoader.displayImage(JFConfig.HOST_URL + entity.getCategoryLittleimgpath(), holder.ivImageView, options, animateFirstListener);
+			Picasso.with(mContext)
+			.load(JFConfig.HOST_URL + entity.getCategoryLittleimgpath()).placeholder(R.drawable.img_empty)
+			.into(holder.ivImageView);
+//			imageLoader.displayImage(JFConfig.HOST_URL + entity.getCategoryLittleimgpath(), holder.ivImageView, options, animateFirstListener);
 		}
 		
 		return convertView;
@@ -85,21 +76,21 @@ public class ClassifyLittleAdapter extends BaseAdapter {
 		TextView tView;
 	}
 	
-	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
-
-		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
-
-		@Override
-		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-			if (loadedImage != null) {
-				ImageView imageView = (ImageView) view;
-				boolean firstDisplay = !displayedImages.contains(imageUri);
-				if (firstDisplay) {
-					FadeInBitmapDisplayer.animate(imageView, 500);
-					displayedImages.add(imageUri);
-				}
-			}
-		}
-	}
+//	private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+//
+//		static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+//
+//		@Override
+//		public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//			if (loadedImage != null) {
+//				ImageView imageView = (ImageView) view;
+//				boolean firstDisplay = !displayedImages.contains(imageUri);
+//				if (firstDisplay) {
+//					FadeInBitmapDisplayer.animate(imageView, 500);
+//					displayedImages.add(imageUri);
+//				}
+//			}
+//		}
+//	}
 
 }
