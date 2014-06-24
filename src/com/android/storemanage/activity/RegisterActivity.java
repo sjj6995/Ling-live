@@ -64,54 +64,67 @@ public class RegisterActivity extends BaseActivity {
 		}
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
-			params.put("phoneimei",
-					PhoneUtil.getDeviceId((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE)));
+			String deviceIdString = PhoneUtil
+					.getDeviceId((TelephonyManager) mContext
+							.getSystemService(Context.TELEPHONY_SERVICE));
+
+			params.put("phoneimei", deviceIdString == null ? ""
+					: deviceIdString);
 			params.put("phonenumber", phoneString);
 			params.put("useremail", email);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.REGISTER, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData commonData = innderData.getData().get(0);
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {// 注册成功
-						sp.edit().putString("userId", commonData.getCommonData().getUserId()).commit();
-						Intent intent = new Intent(mContext, MainTabActivity.class);
-						startActivity(intent);
-						finish();
-					}
+			XDHttpClient.post(JFConfig.REGISTER, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {// 注册成功
+								sp.edit()
+										.putString(
+												"userId",
+												commonData.getCommonData()
+														.getUserId()).commit();
+								Intent intent = new Intent(mContext,
+										MainTabActivity.class);
+								startActivity(intent);
+								finish();
+							}
 
-				}
-
-				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
-					dismissProgressDialog();
-					RetryDialog dialog = new RetryDialog(mContext);
-					dialog.setOnConfirmClick(new OnConfirmClick() {
+						}
 
 						@Override
-						public void onClick(View view) {
-							switch (view.getId()) {
-							case R.id.sureBtn:// 确定
-								gotoRegister(null);
-								break;
-							case R.id.cancelBtn:// 取消
-								finish();
-								break;
-							}
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
+							RetryDialog dialog = new RetryDialog(mContext);
+							dialog.setOnConfirmClick(new OnConfirmClick() {
+
+								@Override
+								public void onClick(View view) {
+									switch (view.getId()) {
+									case R.id.sureBtn:// 确定
+										gotoRegister(null);
+										break;
+									case R.id.cancelBtn:// 取消
+										finish();
+										break;
+									}
+								}
+							});
+							dialog.show();
+
 						}
 					});
-					dialog.show();
-
-				}
-			});
 		} else {
 			dialog = new CRAlertDialog(mContext);
 			dialog.show(mContext.getString(R.string.pLease_check_network), 2000);

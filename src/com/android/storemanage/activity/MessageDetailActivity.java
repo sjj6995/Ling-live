@@ -56,7 +56,7 @@ public class MessageDetailActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
 			params.put("messageId", messageIdString2);
-			XDHttpClient.get(JFConfig.MESSAGE_DETAIL, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.MESSAGE_DETAIL, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

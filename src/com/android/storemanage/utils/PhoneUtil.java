@@ -14,6 +14,9 @@ public class PhoneUtil {
 		if (TextUtils.isEmpty(id)) {
 			id = tm.getDeviceId();
 		}
+		if (null == id) {
+			id = "";
+		}
 		return id;
 
 	}

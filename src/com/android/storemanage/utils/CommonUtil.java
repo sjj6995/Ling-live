@@ -186,7 +186,7 @@ public class CommonUtil {
 			final Boolean isShowAlert) {
 		if (CommonUtil.checkNetState(context)) {
 			RequestParams params = new RequestParams();
-			XDHttpClient.get(JFConfig.HOST_URL, params,
+			XDHttpClient.post(JFConfig.HOST_URL, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {}

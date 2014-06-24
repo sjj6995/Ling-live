@@ -73,7 +73,7 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 			params.put("cBrandId", categoryId);
 			params.put("userId", "11111");
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -120,7 +120,7 @@ public class CategoryListActivity extends BaseActivity implements OnCheckedChang
 			params.put("categoryId", categoryIdString2);
 			params.put("sortType", cBrandId2 + "");
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.CATEGORY_BY_ID, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.CATEGORY_BY_ID, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

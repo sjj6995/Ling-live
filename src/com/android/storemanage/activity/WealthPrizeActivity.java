@@ -86,7 +86,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnCheckedChange
 			params.put("wealthareaId", wealthId);
 			params.put("sortType", sortType + "");
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.WEALTH_PRIZE, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.WEALTH_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

@@ -53,7 +53,7 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.CLASSIFY_LIST, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.CLASSIFY_LIST, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

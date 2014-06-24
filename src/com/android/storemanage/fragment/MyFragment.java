@@ -73,7 +73,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			params.put("", "");
-			XDHttpClient.get(JFConfig.MY_INFOR, params,
+			XDHttpClient.post(JFConfig.MY_INFOR, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {

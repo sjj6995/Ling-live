@@ -83,7 +83,7 @@ public class MyPrizeActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.GET_MY_PRIZE, params,
+			XDHttpClient.post(JFConfig.GET_MY_PRIZE, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {
@@ -249,7 +249,7 @@ public class MyPrizeActivity extends BaseActivity {
 				params.put("userId", application.getUserId());
 				params.put("userprizeId", prizeId);
 				showProgressDialog(R.string.please_waiting);
-				XDHttpClient.get(JFConfig.DELETE_USER_PRIZE, params,
+				XDHttpClient.post(JFConfig.DELETE_USER_PRIZE, params,
 						new AsyncHttpResponseHandler() {
 							@Override
 							public void onSuccess(int statusCode, String content) {

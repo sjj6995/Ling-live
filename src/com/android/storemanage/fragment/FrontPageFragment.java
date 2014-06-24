@@ -90,7 +90,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.HOME_PAGE, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.HOME_PAGE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -205,7 +205,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			params.put("userId", application.getUserId());
 			params.put("qrcodeInfo", resultString);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.SCAN_REQUEST, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.SCAN_REQUEST, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

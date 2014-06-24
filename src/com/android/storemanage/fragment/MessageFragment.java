@@ -52,7 +52,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

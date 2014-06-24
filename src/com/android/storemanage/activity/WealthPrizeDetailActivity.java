@@ -65,7 +65,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.EXCHANGE_PRIZE, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.EXCHANGE_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -111,7 +111,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.GET_WEALTH_RRIZE_DETAILL, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.GET_WEALTH_RRIZE_DETAILL, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

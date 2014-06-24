@@ -76,7 +76,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			params.put("userprizeId", userPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.USE_PRIZE, params,
+			XDHttpClient.post(JFConfig.USE_PRIZE, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {
@@ -130,7 +130,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			params.put("userId", "11111");
 			params.put("userprizeId", userPrizeId2);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.get(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {
+			XDHttpClient.post(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {
 
 				@Override
 				public void onSuccess(int statusCode, String content) {
