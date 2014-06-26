@@ -1,10 +1,15 @@
 package com.android.storemanage.utils;
 
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.http.client.HttpResponseException;
+
+import com.android.storemanage.R;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.XDHttpClient;
@@ -19,7 +24,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.WindowManager;
-
+import android.widget.Toast;
 
 /**
  * @author rongfzh
@@ -28,8 +33,7 @@ import android.view.WindowManager;
 public class CommonUtil {
 
 	public static SharedPreferences getSharedPreferences(Context context) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(
-				"xdsharepreferences", Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences("xdsharepreferences", Context.MODE_PRIVATE);
 		return sharedPreferences;
 	}
 
@@ -43,8 +47,7 @@ public class CommonUtil {
 
 	public static String getRootFilePath() {
 		if (hasSDCard()) {
-			return Environment.getExternalStorageDirectory().getAbsolutePath()
-					+ "/";// filePath:/sdcard/
+			return Environment.getExternalStorageDirectory().getAbsolutePath() + "/";// filePath:/sdcard/
 		} else {
 			return Environment.getDataDirectory().getAbsolutePath() + "/data/"; // filePath:
 																				// /data/data/
@@ -53,8 +56,7 @@ public class CommonUtil {
 
 	public static boolean checkNetState(Context context) {
 		boolean netstate = false;
-		ConnectivityManager connectivity = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connectivity != null) {
 			NetworkInfo[] info = connectivity.getAllNetworkInfo();
 			if (info != null) {
@@ -74,15 +76,13 @@ public class CommonUtil {
 	}
 
 	public static int getScreenWidth(Context context) {
-		WindowManager manager = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
+		WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = manager.getDefaultDisplay();
 		return display.getWidth();
 	}
 
 	public static int getScreenHeight(Context context) {
-		WindowManager manager = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
+		WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = manager.getDefaultDisplay();
 		return display.getHeight();
 	}
@@ -123,12 +123,10 @@ public class CommonUtil {
 
 	public static String getMD5(String string) {
 		byte[] source = string.getBytes();
-		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-				'a', 'b', 'c', 'd', 'e', 'f' };// 用来将字节转换成16进制表示的字符
+		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };// 用来将字节转换成16进制表示的字符
 		String s = null;
 		try {
-			java.security.MessageDigest md = java.security.MessageDigest
-					.getInstance("MD5");
+			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 			md.update(source);
 			byte tmp[] = md.digest();// MD5 的计算结果是一个 128 位的长整数，
 			// 用字节表示就是 16 个字节
@@ -159,8 +157,7 @@ public class CommonUtil {
 	public static String getVersion(Context context) {
 		try {
 			PackageManager manager = context.getPackageManager();
-			PackageInfo info = manager.getPackageInfo(context.getPackageName(),
-					0);
+			PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
 			String version = info.versionName;
 			return version;
 		} catch (Exception e) {
@@ -182,24 +179,22 @@ public class CommonUtil {
 	 * @param isShowAlert
 	 *            是否弹出已经是最新版本按钮
 	 */
-	static public void checkVersion(final Context context,
-			final Boolean isShowAlert) {
+	static public void checkVersion(final Context context, final Boolean isShowAlert) {
 		if (CommonUtil.checkNetState(context)) {
 			RequestParams params = new RequestParams();
-			XDHttpClient.post(JFConfig.HOST_URL, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {}
+			XDHttpClient.post(JFConfig.HOST_URL, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+				}
+			});
 		} else {
 		}
 	}
-
 
 	/**
 	 * 转换文件大小
@@ -236,46 +231,53 @@ public class CommonUtil {
 	}
 
 	// long类型转换为String类型
-	 	// currentTime要转换的long类型的时间
-	 	// formatType要转换的string类型的时间格式
-	 	public static String longToString(long currentTime, String formatType)
-	 			throws ParseException {
-	 		Date date = longToDate(currentTime, formatType); // long类型转成Date类型
-	 		String strTime = dateToString(date, formatType); // date类型转成String
-	 		return strTime;
-	 	}
-	 	
-	 	
-	 // long转换为Date类型
-	 	// currentTime要转换的long类型的时间
-	 	// formatType要转换的时间格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日 HH时mm分ss秒
-	 	public static Date longToDate(long currentTime, String formatType)
-	 			throws ParseException {
-	 		Date dateOld = new Date(currentTime); // 根据long类型的毫秒数生命一个date类型的时间
-	 		String sDateTime = dateToString(dateOld, formatType); // 把date类型的时间转换为string
-	 		Date date = stringToDate(sDateTime, formatType); // 把String类型转换为Date类型
-	 		return date;
-	 	}
-	 	
-	 // date类型转换为String类型
-	 	// formatType格式为yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日 HH时mm分ss秒
-	 	// data Date类型的时间
-	 	public static String dateToString(Date data, String formatType) {
-	 		return new SimpleDateFormat(formatType).format(data);
-	 	}
-	 	
-	 // string类型转换为date类型
-	 	// strTime要转换的string类型的时间，formatType要转换的格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日
-	 	// HH时mm分ss秒，
-	 	// strTime的时间格式必须要与formatType的时间格式相同
-	 	public static Date stringToDate(String strTime, String formatType)
-	 			throws ParseException {
-	 		SimpleDateFormat formatter = new SimpleDateFormat(formatType);
-	 		Date date = null;
-	 		date = formatter.parse(strTime);
-	 		return date;
-	 	}
-	 	
-	 	
-	
+	// currentTime要转换的long类型的时间
+	// formatType要转换的string类型的时间格式
+	public static String longToString(long currentTime, String formatType) throws ParseException {
+		Date date = longToDate(currentTime, formatType); // long类型转成Date类型
+		String strTime = dateToString(date, formatType); // date类型转成String
+		return strTime;
+	}
+
+	// long转换为Date类型
+	// currentTime要转换的long类型的时间
+	// formatType要转换的时间格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日 HH时mm分ss秒
+	public static Date longToDate(long currentTime, String formatType) throws ParseException {
+		Date dateOld = new Date(currentTime); // 根据long类型的毫秒数生命一个date类型的时间
+		String sDateTime = dateToString(dateOld, formatType); // 把date类型的时间转换为string
+		Date date = stringToDate(sDateTime, formatType); // 把String类型转换为Date类型
+		return date;
+	}
+
+	// date类型转换为String类型
+	// formatType格式为yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日 HH时mm分ss秒
+	// data Date类型的时间
+	public static String dateToString(Date data, String formatType) {
+		return new SimpleDateFormat(formatType).format(data);
+	}
+
+	// string类型转换为date类型
+	// strTime要转换的string类型的时间，formatType要转换的格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日
+	// HH时mm分ss秒，
+	// strTime的时间格式必须要与formatType的时间格式相同
+	public static Date stringToDate(String strTime, String formatType) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat(formatType);
+		Date date = null;
+		date = formatter.parse(strTime);
+		return date;
+	}
+
+	public static void onFailure(Throwable error, Context mContext) {
+		if (error instanceof UnknownHostException) {
+			Toast.makeText(mContext, "网络中断,请检查您的网络状况", Toast.LENGTH_SHORT).show();
+		} else if (error instanceof HttpResponseException) {
+			// 请求错误详情
+			Toast.makeText(mContext, "请求错误，请稍后重试", Toast.LENGTH_SHORT).show();
+		} else if (error instanceof SocketTimeoutException) {
+			// 请求超时详情
+			// mMessageBar.show(getResources().getString(R.string.load_socket_timeout_error));
+			Toast.makeText(mContext, "网络超时，请检查网络后重试", Toast.LENGTH_SHORT).show();
+		}
+	}
+
 }

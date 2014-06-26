@@ -1,5 +1,7 @@
 package com.android.storemanage.activity;
 
+import java.net.SocketTimeoutException;
+
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.dialog.RetryDialog;
@@ -68,9 +70,10 @@ public class SplashActivity extends BaseActivity {
 				}
 
 				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
+				public void onFailure(Throwable error, String content) {
+					super.onFailure(error, content);
 					dismissProgressDialog();
+					CommonUtil.onFailure(error, mContext);
 				}
 			});
 		} else {
@@ -117,9 +120,9 @@ public class SplashActivity extends BaseActivity {
 						dialog.dismiss();
 						// gotoMain();
 						if (TextUtils.isEmpty(userId)) {
-							gotoRegister();//去注册
+							gotoRegister();// 去注册
 						} else {
-							initData();//看当前的用户号是否注册成功
+							initData();// 看当前的用户号是否注册成功
 						}
 						break;
 					}
@@ -172,9 +175,10 @@ public class SplashActivity extends BaseActivity {
 				}
 
 				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
+				public void onFailure(Throwable error, String arg1) {
+					super.onFailure(error, arg1);
 					dismissProgressDialog();
+					CommonUtil.onFailure(error, mContext);
 				}
 			});
 		} else {
