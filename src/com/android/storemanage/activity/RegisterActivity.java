@@ -9,7 +9,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.utils.PhoneUtil;
@@ -72,7 +72,7 @@ public class RegisterActivity extends BaseActivity {
 			params.put("phonenumber", phoneString);
 			params.put("useremail", email);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.REGISTER, params,
+			HttpClient.post(JFConfig.REGISTER, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {

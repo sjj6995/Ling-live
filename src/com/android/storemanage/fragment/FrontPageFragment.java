@@ -35,7 +35,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.WealthEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -90,7 +90,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.HOME_PAGE, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.HOME_PAGE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -205,7 +205,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			params.put("userId", application.getUserId());
 			params.put("qrcodeInfo", resultString);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.SCAN_REQUEST, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.SCAN_REQUEST, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

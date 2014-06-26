@@ -11,7 +11,7 @@ import com.android.storemanage.entity.MessageDetailEntity;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
@@ -52,7 +52,7 @@ public class MessageDetailActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
 			params.put("messageId", messageIdString2);
-			XDHttpClient.post(JFConfig.MESSAGE_DETAIL, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.MESSAGE_DETAIL, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

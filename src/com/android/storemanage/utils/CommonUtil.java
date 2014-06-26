@@ -12,7 +12,7 @@ import org.apache.http.client.HttpResponseException;
 import com.android.storemanage.R;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -182,7 +182,7 @@ public class CommonUtil {
 	static public void checkVersion(final Context context, final Boolean isShowAlert) {
 		if (CommonUtil.checkNetState(context)) {
 			RequestParams params = new RequestParams();
-			XDHttpClient.post(JFConfig.HOST_URL, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.HOST_URL, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 				}

@@ -11,7 +11,7 @@ import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
@@ -73,7 +73,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			params.put("cBrandId", categoryId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -120,7 +120,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			params.put("categoryId", categoryIdString2);
 			params.put("sortType", cBrandId2 + "");
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.CATEGORY_BY_ID, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.CATEGORY_BY_ID, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

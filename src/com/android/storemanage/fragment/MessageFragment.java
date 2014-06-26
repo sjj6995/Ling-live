@@ -12,7 +12,7 @@ import com.android.storemanage.entity.MessageEntity;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -52,7 +52,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

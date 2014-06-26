@@ -8,7 +8,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.UserPrizeDetailEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
@@ -69,7 +69,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			params.put("userprizeId", userPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.USE_PRIZE, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.USE_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -116,7 +116,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			params.put("userId", "11111");
 			params.put("userprizeId", userPrizeId2);
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {
 
 				@Override
 				public void onSuccess(int statusCode, String content) {

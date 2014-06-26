@@ -16,7 +16,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.UserInforEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.service.UpdateService;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
@@ -76,7 +76,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
-			XDHttpClient.post(JFConfig.MY_INFOR, params,
+			HttpClient.post(JFConfig.MY_INFOR, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {
@@ -236,7 +236,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(getActivity()));
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params,
+			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {

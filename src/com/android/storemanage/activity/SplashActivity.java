@@ -11,7 +11,7 @@ import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.service.UpdateService;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -50,7 +50,7 @@ public class SplashActivity extends BaseActivity {
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(mContext));
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -148,7 +148,7 @@ public class SplashActivity extends BaseActivity {
 			params.put("phoneimei",
 					PhoneUtil.getDeviceId((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE)));
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

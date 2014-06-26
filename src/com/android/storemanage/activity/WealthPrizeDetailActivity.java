@@ -8,7 +8,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.WealthPrizeDetailEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
@@ -64,7 +64,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.EXCHANGE_PRIZE, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.EXCHANGE_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -110,7 +110,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.GET_WEALTH_RRIZE_DETAILL, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.GET_WEALTH_RRIZE_DETAILL, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);

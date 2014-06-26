@@ -11,7 +11,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.UserPrizeEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -131,7 +131,7 @@ public class UserPrizeAdapter extends BaseAdapter {
 			params.put("userId", application.getUserId());
 			params.put("userprizeId", prizeId);
 			// showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.GET_MY_PRIZE, params,
+			HttpClient.post(JFConfig.GET_MY_PRIZE, params,
 					new AsyncHttpResponseHandler() {
 						@Override
 						public void onSuccess(int statusCode, String content) {

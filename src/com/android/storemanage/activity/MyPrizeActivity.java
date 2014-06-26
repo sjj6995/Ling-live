@@ -10,7 +10,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.entity.UserPrizeEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
-import com.android.storemanage.net.XDHttpClient;
+import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.swipelistview.SwipeListView;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -79,7 +79,7 @@ public class MyPrizeActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			XDHttpClient.post(JFConfig.GET_MY_PRIZE, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.GET_MY_PRIZE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -226,7 +226,7 @@ public class MyPrizeActivity extends BaseActivity {
 				params.put("userId", application.getUserId());
 				params.put("userprizeId", prizeId);
 				showProgressDialog(R.string.please_waiting);
-				XDHttpClient.post(JFConfig.DELETE_USER_PRIZE, params, new AsyncHttpResponseHandler() {
+				HttpClient.post(JFConfig.DELETE_USER_PRIZE, params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(int statusCode, String content) {
 						log.i("content===" + content);
