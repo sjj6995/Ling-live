@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/gridview"
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:cacheColorHint="@null"
-    android:horizontalSpacing="5dip"
+    android:horizontalSpacing="2dip"
     android:numColumns="4"
     android:listSelector="@drawable/selector_listview_item"
-    android:verticalSpacing="5dip" >
+    android:verticalSpacing="2dip" >
 
 </GridView>

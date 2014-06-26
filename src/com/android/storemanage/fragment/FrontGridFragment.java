@@ -40,7 +40,7 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 		@SuppressWarnings("unchecked")
 		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments().getSerializable(ARG_TEXT);
 		int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-		width = (width - DisplayUtil.dip2px(getActivity(), 5) * 5) / 4;
+		width = (width - DisplayUtil.dip2px(getActivity(), 2) * 10) / 4;
 		gridview.setAdapter(new ClassifyBigAdapter(getActivity(), list,width));
 		gridview.setOnItemClickListener(this);
 		return view;

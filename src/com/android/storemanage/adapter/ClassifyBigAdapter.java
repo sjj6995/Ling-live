@@ -10,6 +10,8 @@ import com.squareup.picasso.Picasso;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,8 +62,12 @@ public class ClassifyBigAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if (null != entity) {
+			LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.ivImageView.getLayoutParams();
+			params.height = itemWidth;
+			params.width = itemWidth;
+			holder.ivImageView.setLayoutParams(params);
 			Picasso.with(context).load(JFConfig.HOST_URL + entity.getCategoryBigimgpath())
-					.placeholder(R.drawable.img_empty).resize(itemWidth, itemWidth).centerCrop().into(holder.ivImageView);
+					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;
 	}
