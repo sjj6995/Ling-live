@@ -33,14 +33,13 @@ import android.widget.Toast;
  */
 @SuppressLint("SimpleDateFormat")
 public class ExceptionHandler implements UncaughtExceptionHandler {
-	
+
 	private static final String TAG = "CrashHandler";
 	private Thread.UncaughtExceptionHandler mDefaultHandler;// 系统默认的UncaughtException处理类
 	private static ExceptionHandler INSTANCE = new ExceptionHandler();// CrashHandler实例
 	private Context mContext;// 程序的Context对象
 	private Map<String, String> info = new HashMap<String, String>();// 用来存储设备信息和异常信息
-	private SimpleDateFormat format = new SimpleDateFormat(
-			"yyyy-MM-dd-HH-mm-ss");// 用于格式化日期,作为日志文件名的一部分
+	private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");// 用于格式化日期,作为日志文件名的一部分
 
 	/** 保证只有一个CrashHandler实例 */
 	private ExceptionHandler() {
@@ -116,11 +115,9 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 	public void collectDeviceInfo(Context context) {
 		try {
 			PackageManager pm = context.getPackageManager();// 获得包管理器
-			PackageInfo pi = pm.getPackageInfo(context.getPackageName(),
-					PackageManager.GET_ACTIVITIES);// 得到该应用的信息，即主Activity
+			PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);// 得到该应用的信息，即主Activity
 			if (pi != null) {
-				String versionName = pi.versionName == null ? "null"
-						: pi.versionName;
+				String versionName = pi.versionName == null ? "null" : pi.versionName;
 				String versionCode = pi.versionCode + "";
 				info.put("versionName", versionName);
 				info.put("versionCode", versionCode);
@@ -154,7 +151,7 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 		PrintWriter pw = new PrintWriter(writer);
 		ex.printStackTrace(pw);
 		Throwable cause = ex.getCause();
-		
+
 		// 循环着把所有的异常信息写入writer中
 		while (cause != null) {
 			cause.printStackTrace(pw);
@@ -167,17 +164,15 @@ public class ExceptionHandler implements UncaughtExceptionHandler {
 		long timetamp = System.currentTimeMillis();
 		String time = format.format(new Date());
 		String fileName = "caifu-" + time + "-" + timetamp + ".txt";
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			try {
-				File dir = new File(Environment.getExternalStorageDirectory()
-						.getAbsolutePath() + File.separator + "log");
+				File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+						+ "log");
 				Log.i("CrashHandler", dir.toString());
 				dir.getParentFile().mkdirs();
 				if (!dir.exists())
-					dir.mkdir();
-				FileOutputStream fos = new FileOutputStream(new File(dir,
-						 fileName));
+					dir.mkdirs();
+				FileOutputStream fos = new FileOutputStream(new File(dir, fileName));
 				fos.write(sb.toString().getBytes());
 				fos.close();
 				return fileName;
