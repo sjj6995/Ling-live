@@ -48,7 +48,7 @@ public class SplashActivity extends BaseActivity {
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(mContext));
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.CHECK_UPDATE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -62,7 +62,11 @@ public class SplashActivity extends BaseActivity {
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						chooseDifferentStatus(commonData);
 					} else {
-						initData();// 看当前的用户号是否注册成功
+						if (!TextUtils.isEmpty(userId)) {
+							gotoMain();
+						} else {
+							initData();// 看当前的用户号是否注册成功
+						}
 					}
 
 				}
@@ -118,14 +122,22 @@ public class SplashActivity extends BaseActivity {
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
-						initData();// 看当前的用户号是否注册成功
+						if (!TextUtils.isEmpty(userId)) {
+							gotoMain();
+						} else {
+							initData();// 看当前的用户号是否注册成功
+						}
 						break;
 					}
 				}
 			});
 			break;
 		case 2:// 无需更新
-			initData();
+			if (!TextUtils.isEmpty(userId)) {
+				gotoMain();
+			} else {
+				initData();
+			}
 			break;
 		default:
 			break;
@@ -155,7 +167,6 @@ public class SplashActivity extends BaseActivity {
 							userId = commonData.getCommonData().getUserId();
 							application.setUserId(userId);
 							gotoMain();
-							// gotoCheckUpdate();
 						} else {
 							gotoRegister();
 						}

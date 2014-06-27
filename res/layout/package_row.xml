@@ -16,10 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
+            android:background="#ff0000"
             android:clickable="true"
             android:focusable="false"
-            android:gravity="right"
-            android:text="删除" />
+            android:gravity="right|center_vertical"
+            android:text="删除"
+            android:textSize="18sp"
+            android:padding="10dip"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <RelativeLayout
@@ -55,12 +59,12 @@
             android:src="@drawable/img_empty" />
 
         <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_has_used_or_not"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="20dip"
-            android:id="@+id/ll"
             android:layout_toRightOf="@id/iv_icon"
             android:orientation="vertical" >
 

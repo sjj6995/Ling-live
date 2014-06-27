@@ -30,6 +30,7 @@ public class HttpClient {
 
 	public static void post(String api, RequestParams params, AsyncHttpResponseHandler responseHandler) {
 		log.i(params.toString());
+		log.i("full url----"+getAbsoluteUrl(api)+"&"+params.toString());
 		client.post(getAbsoluteUrl(api), params, responseHandler);
 	}
 

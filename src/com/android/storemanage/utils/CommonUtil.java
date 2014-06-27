@@ -162,7 +162,7 @@ public class CommonUtil {
 			return version;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return "";
 		}
 	}
 
