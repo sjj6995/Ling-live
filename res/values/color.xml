@@ -19,5 +19,7 @@
     <color name="button_disabled">#2075b932</color>
     <color name="button_dialog_normal">#6B88B7</color>
     <color name="button_normal_color">#5581A4</color>
-
+    
+    <color name="listview_item_normal">#EEF3FA</color>
+    <color name="listview_item_pressed">#F4F4F4</color>
 </resources>

@@ -15,9 +15,10 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
- * @author �����������Զ���TabHost
+ * @author liujiao
  */
 public class MainTabActivity extends FragmentActivity {
 	// FragmentTabHost
@@ -25,13 +26,13 @@ public class MainTabActivity extends FragmentActivity {
 
 	//
 	private LayoutInflater layoutInflater;
+	private long lastTime = 0;
 
 	// Fragment
-	private Class fragmentArray[] = { FrontPageFragment.class,
-			ClassifyFragment.class, MessageFragment.class, MyFragment.class };
+	private Class fragmentArray[] = { FrontPageFragment.class, ClassifyFragment.class, MessageFragment.class,
+			MyFragment.class };
 
-	private int mImageViewArray[] = { R.drawable.tab_home_btn,
-			R.drawable.tab_message_btn, R.drawable.tab_selfinfo_btn,
+	private int mImageViewArray[] = { R.drawable.tab_home_btn, R.drawable.tab_message_btn, R.drawable.tab_selfinfo_btn,
 			R.drawable.tab_square_btn };
 
 	private String mTextviewArray[] = { "首页", "类别", "消息", "我的" };
@@ -59,8 +60,7 @@ public class MainTabActivity extends FragmentActivity {
 
 		for (int i = 0; i < count; i++) {
 			// Ϊÿһ��Tab��ť����ͼ�ꡢ���ֺ�����
-			TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[i])
-					.setIndicator(getTabItemView(i));
+			TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[i]).setIndicator(getTabItemView(i));
 			// ��Tab��ť��ӽ�Tabѡ���
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);
 			// ����Tab��ť�ı���
@@ -79,7 +79,17 @@ public class MainTabActivity extends FragmentActivity {
 
 		TextView textView = (TextView) view.findViewById(R.id.textview);
 		textView.setText(mTextviewArray[index]);
-		//textView.setTextColor(R.color.text_selector_goodnumtowhite);
+		// textView.setTextColor(R.color.text_selector_goodnumtowhite);
 		return view;
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (System.currentTimeMillis() - lastTime < 3000) {
+			MainTabActivity.this.finish();
+		} else {
+			lastTime = System.currentTimeMillis();
+			Toast.makeText(this, "再次按下退出程序", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

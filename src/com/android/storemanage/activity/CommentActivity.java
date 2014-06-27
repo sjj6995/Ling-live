@@ -76,8 +76,7 @@ public class CommentActivity extends BaseActivity {
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
-					CRAlertDialog dialog = new CRAlertDialog(mContext);
-					dialog.show("服务器内部错误", 2000);
+					CommonUtil.onFailure(arg0, mContext);
 					CommentActivity.this.finish();
 				}
 			});

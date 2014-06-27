@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="NewApi">
+        <ignore path="src/com/android/storemanage/activity/MainTabActivity.java" />
         <ignore path="src/com/android/storemanage/fragment/MyFragment.java" />
+        <ignore path="src/com/android/storemanage/service/UpdateService.java" />
         <ignore path="src/com/zxing/camera/CameraManager.java" />
-        <ignore path="src\com\android\storemanage\service\UpdateService.java" />
     </issue>
     <issue id="ResourceAsColor" severity="ignore" />
 </lint>

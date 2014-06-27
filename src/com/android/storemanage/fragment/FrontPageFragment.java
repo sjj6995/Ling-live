@@ -38,6 +38,7 @@ import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonLog;
 import com.android.storemanage.utils.CommonUtil;
+import com.android.storemanage.utils.DisplayUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.utils.PhoneUtil;
 import com.android.storemanage.view.CRAlertDialog;
@@ -80,6 +81,9 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 		DisplayMetrics dm = new DisplayMetrics();
 		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 		width = dm.widthPixels;// 宽度
+		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) viewPager.getLayoutParams();
+		params.height = (width - DisplayUtil.dip2px(getActivity(), 2)) / 2;
+		viewPager.setLayoutParams(params);
 		initData(view);
 		// createNavMenu1(view);
 		return view;
@@ -124,6 +128,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, getActivity());
 				}
 			});
 		} else {
@@ -232,6 +237,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, getActivity());
 				}
 			});
 		} else {

@@ -95,6 +95,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, mContext);
 				}
 			});
 		} else {
@@ -135,6 +136,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, mContext);
 				}
 			});
 		} else {

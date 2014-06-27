@@ -88,6 +88,7 @@ public class SplashActivity extends BaseActivity {
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
 			dialog.setConfirmText("必须更新");
+			dialog.setCancelText("退出");
 			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
@@ -107,6 +108,7 @@ public class SplashActivity extends BaseActivity {
 			break;
 		case 1:// 可以更新
 			dialog.setConfirmText("可以更新");
+			dialog.setCancelText("取消");
 			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 

@@ -104,6 +104,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 						public void onFailure(Throwable arg0, String arg1) {
 							super.onFailure(arg0, arg1);
 							dismissProgressDialog();
+							CommonUtil.onFailure(arg0, getActivity());
 						}
 					});
 		} else {
@@ -265,6 +266,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 						public void onFailure(Throwable arg0, String arg1) {
 							super.onFailure(arg0, arg1);
 							dismissProgressDialog();
+							CommonUtil.onFailure(arg0, getActivity());
 						}
 					});
 		} else {

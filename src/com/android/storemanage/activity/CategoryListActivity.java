@@ -27,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CategoryListActivity extends BaseActivity implements OnClickListener {
 	private Button rbDefault, rbRankByWealth, rbRankByTime;
@@ -85,10 +86,11 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
-					CRAlertDialog dialog = new CRAlertDialog(mContext);
+//					CRAlertDialog dialog = new CRAlertDialog(mContext);
 					int addValue = commonData.getCommonData().getUserAddWealthValue();
 					if ("true".equals(commonData.getCommonData().getReturnStatus()) && addValue > 0) {
-						dialog.show("恭喜，你获得了" + addValue + "个财富值", 2000);
+						// dialog.show("恭喜，你获得了" + addValue + "个财富值", 2000);
+						Toast.makeText(mContext, "恭喜，你获得了" + addValue + "个财富值", Toast.LENGTH_SHORT).show();
 					} else {
 						// dialog.show(commonData.getCommonData().getMsg(),
 						// 2000);
