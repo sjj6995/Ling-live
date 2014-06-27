@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
@@ -121,6 +122,9 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 						viewPager.setCurrentItem(0);
 						imageButton.setText("会员：" + commonData.getCommonData().getUserAmount());
 						mFortune.setText("我的财富：" + commonData.getCommonData().getUserwealth());
+					}else{
+						CRAlertDialog dailog = new CRAlertDialog(getActivity());
+						dailog.show(getString(R.string.server_data_exception), 2000);
 					}
 				}
 

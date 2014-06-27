@@ -50,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_validate_time"
                 android:layout_marginTop="6dip"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -60,16 +61,23 @@
                     android:paddingRight="20dip"
                     android:textColor="#FF8A00" />
 
-                <Button
-                    android:id="@+id/btn_goto_change"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:background="@drawable/selector_button_status"
-                    android:gravity="center_vertical"
-                    android:onClick="gotoExchange"
-                    android:text="兑  换"
-                    android:textColor="@android:color/white" />
+                    android:layout_weight="1" >
+
+                    <Button
+                        android:id="@+id/btn_goto_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="10dip"
+                        android:background="@drawable/selector_button_status"
+                        android:gravity="center"
+                        android:onClick="gotoExchange"
+                        android:text="兑  换"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

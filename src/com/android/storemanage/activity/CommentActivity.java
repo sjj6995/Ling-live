@@ -18,6 +18,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * @author liujiao
+ * 评论
+ *
+ */
 public class CommentActivity extends BaseActivity {
 	private EditText edit;
 
@@ -77,7 +82,7 @@ public class CommentActivity extends BaseActivity {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
 					CommonUtil.onFailure(arg0, mContext);
-					CommentActivity.this.finish();
+//					CommentActivity.this.finish();
 				}
 			});
 		} else {

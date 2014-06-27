@@ -18,27 +18,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+/**
+ * @author liujiao
+ * 首页的分类
+ */
 public class FrontGridFragment extends Fragment implements OnItemClickListener {
-	private static final String ARG_TEXT = "text";
-	private static final String ARG_PAGER = "pager";
-
-	public static FrontGridFragment newInstance(ArrayList<String> text, int pager) {
-		FrontGridFragment f = new FrontGridFragment();
-
-		Bundle args = new Bundle();
-		args.putStringArrayList(ARG_TEXT, text);
-		args.putInt(ARG_PAGER, pager);
-		f.setArguments(args);
-
-		return f;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.viewpager_item, container, false);
 		GridView gridview = (GridView) view.findViewById(R.id.gridview);
 		@SuppressWarnings("unchecked")
-		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments().getSerializable(ARG_TEXT);
+		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments().getSerializable("text");
 		@SuppressWarnings("deprecation")
 		int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
 		width = (width - DisplayUtil.dip2px(getActivity(), 2) * 10) / 4;

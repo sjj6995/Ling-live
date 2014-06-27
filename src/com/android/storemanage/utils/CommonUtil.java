@@ -205,7 +205,9 @@ public class CommonUtil {
 	public static String formatFileSize(long fileS) {
 		java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
 		String fileSizeString = "";
-		if (fileS < 1024) {
+		if(fileS == 0){
+			fileSizeString ="0KB";
+		}else if (fileS < 1024) {
 			fileSizeString = df.format((double) fileS) + "B";
 		} else if (fileS < 1048576) {
 			fileSizeString = df.format((double) fileS / 1024) + "KB";

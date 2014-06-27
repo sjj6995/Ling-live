@@ -14,4 +14,5 @@
     <string name="submit_error">提交失败</string>
     <string name="register_failuer">注册失败，请稍后重试</string>
     <string name="server_data_exception">服务器数据异常</string>
+    <string name="clearing">正在清除...</string>
 </resources>

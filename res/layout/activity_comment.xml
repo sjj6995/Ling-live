@@ -59,8 +59,11 @@
         
         <EditText 
             android:layout_width="fill_parent"
+            android:padding="8dip"
             android:layout_height="300dip"
             android:id="@+id/edittext"
+            android:gravity="top|left"
+            android:background="@drawable/rect_white_gray_line"
             />
         
     </LinearLayout>

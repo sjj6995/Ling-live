@@ -11,17 +11,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/app_bg_content_margin"
-        android:paddingTop="@dimen/app_bg_content_margin"
-        android:paddingRight="@dimen/app_bg_content_margin" >
+        android:paddingRight="@dimen/app_bg_content_margin"
+        android:paddingTop="@dimen/app_bg_content_margin" >
 
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="0dip"
-            android:layout_height="80dip"
-            android:layout_weight="1.5"
-            android:scaleType="fitXY"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1.5"
+            android:minHeight="80dip"
             android:background="@android:color/transparent"
+            android:scaleType="fitXY"
             android:src="@drawable/img_empty" />
 
         <RelativeLayout
@@ -53,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_validate_time"
                 android:layout_marginTop="6dip"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -61,18 +63,25 @@
                     android:text="(本奖品只能使用一次)"
                     android:textSize="12sp" />
 
-                <Button
-                    android:paddingLeft="6dp"
-                    android:paddingRight="6dp"
-                    android:singleLine="true"
-                    android:id="@+id/btn_use"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dip"
-                    android:background="@drawable/selector_button_status"
-                    android:onClick="gotoUse"
-                    android:text="使用"
-                    android:textColor="@android:color/white" />
+                    android:layout_weight="1" >
+
+                    <Button
+                        android:id="@+id/btn_use"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="5dip"
+                        android:background="@drawable/selector_button_status"
+                        android:onClick="gotoUse"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

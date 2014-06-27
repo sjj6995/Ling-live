@@ -37,6 +37,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,15 +58,24 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	private CommonLog log = CommonLog.getInstance();
 	private TextView mPhoneTextView;
 	private TextView mFotuneTextView, mEmailtTextView, mMyFortuneTextView;
-	private TextView mShareTextView, mCurrentVersionTextView, mAboutUsTextView,
-			mOpinionTextView, mCacheSize;
+	private TextView mShareTextView, mCurrentVersionTextView, mAboutUsTextView, mOpinionTextView, mCacheSize;
 	private IWXAPI api;
 	private RelativeLayout rl;
 	private long cacheSize;
+	private Handler handler = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case 111:
+				dismissProgressDialog();
+				cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
+				mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
+				break;
+			}
+		};
+	};
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_my, null);
 		initViews(view);
 		initData();
@@ -76,37 +86,31 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
-			HttpClient.post(JFConfig.MY_INFOR, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData collectionData = innderData
-									.getData().get(0);
-							log.i("commonData"
-									+ collectionData.getCommonData().getMsg());
-							if ("true".equals(collectionData.getCommonData()
-									.getReturnStatus())) {
-								UserInforEntity entity = collectionData
-										.getUserInfoMap();
-								fillData(entity);
-							}
-						}
+			HttpClient.post(JFConfig.MY_INFOR, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData collectionData = innderData.getData().get(0);
+					log.i("commonData" + collectionData.getCommonData().getMsg());
+					if ("true".equals(collectionData.getCommonData().getReturnStatus())) {
+						UserInforEntity entity = collectionData.getUserInfoMap();
+						fillData(entity);
+					}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
-							CommonUtil.onFailure(arg0, getActivity());
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, getActivity());
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(getActivity());
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -143,8 +147,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		mAboutUsTextView.setOnClickListener(this);
 		mOpinionTextView = (TextView) view.findViewById(R.id.tv_opinion);
 		mOpinionTextView.setOnClickListener(this);
-		mCurrentVersionTextView = (TextView) view
-				.findViewById(R.id.tv_current_version);
+		mCurrentVersionTextView = (TextView) view.findViewById(R.id.tv_current_version);
 		mCurrentVersionTextView.setOnClickListener(this);
 		mShareTextView = (TextView) view.findViewById(R.id.tv_share_to_friends);
 		mShareTextView.setOnClickListener(this);
@@ -175,18 +178,22 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			gotoMyPrize(v);
 			break;
 		case R.id.rl:
-			File downloadCacheFolder = application.getCacheDir();
-			File filePath = new File(downloadCacheFolder, "picasso-cache");
-			String[] filelist = filePath.list();
-			log.i("filePath------" + filelist.length);
-			for (int i = 0; i < filelist.length; i++) {
-				File delfile = new File(filePath + "\\" + filelist[i]);
-				if (!delfile.isDirectory()) {
-					delfile.delete();
-				}
-			}
-			cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
-			mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
+			new Thread() {
+				public void run() {
+					showProgressDialog(R.string.clearing);
+					File downloadCacheFolder = application.getCacheDir();
+					File filePath = new File(downloadCacheFolder, "picasso-cache");
+					File[] filelists = filePath.listFiles();
+					log.i("filelists.length------" + filelists.length);
+					for (File fileList : filelists) {
+						if (!fileList.isDirectory()) {
+							fileList.delete();
+						}
+					}
+					handler.sendEmptyMessage(111);
+				};
+			}.start();
+
 			break;
 
 		default:
@@ -234,47 +241,41 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(getActivity()));
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-								chooseDifferentStatus(commonData);
-							} else {
-								//
-								Toast.makeText(getActivity(), "服务器内部错误", Toast.LENGTH_SHORT).show();
-							}
+			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						chooseDifferentStatus(commonData);
+					} else {
+						Toast.makeText(getActivity(), R.string.server_data_exception, Toast.LENGTH_SHORT).show();
+					}
 
-						}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
-							CommonUtil.onFailure(arg0, getActivity());
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, getActivity());
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(getActivity());
-			dialog.show(getActivity().getString(R.string.pLease_check_network),
-					2000);
+			dialog.show(getActivity().getString(R.string.pLease_check_network), 2000);
 		}
 
 	}
 
 	private void chooseDifferentStatus(final CollectionData commonData) {
-		int appversionNeedUpdate = commonData.getAppVersionData()
-				.getSfNeedUpdate();
+		int appversionNeedUpdate = commonData.getAppVersionData().getSfNeedUpdate();
 		final RetryDialog dialog = new RetryDialog(getActivity());
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
@@ -286,8 +287,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						gotoUpdateService(commonData.getAppVersionData()
-								.getAppversionUpdateurl());
+						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -305,8 +305,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						gotoUpdateService(commonData.getAppVersionData()
-								.getAppversionUpdateurl());
+						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -335,13 +334,12 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 *            分享到朋友圈
 	 */
 	public void shareToFriends(View view) {
-		sendReq(getActivity(), "测试", BitmapFactory.decodeResource(getActivity()
-				.getResources(), R.drawable.ic_launcher), Req.WXSceneTimeline);
+		sendReq(getActivity(), "测试",
+				BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher), Req.WXSceneTimeline);
 	}
 
 	public void sendReq(Context context, String text, Bitmap bmp, int type) {
-		api = WXAPIFactory.createWXAPI(context, JFConfig.WECHAT_SHARA_APP_IP,
-				true);
+		api = WXAPIFactory.createWXAPI(context, JFConfig.WECHAT_SHARA_APP_IP, true);
 		api.registerApp(JFConfig.WECHAT_SHARA_APP_IP);
 
 		if (!api.isWXAppInstalled()) {
@@ -353,8 +351,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		String url = "http://www.kdt360.com/download/download.html";// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
-		WXMediaMessage localWXMediaMessage = new WXMediaMessage(
-				localWXWebpageObject);
+		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
 		localWXMediaMessage.title = "快递通";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
 		localWXMediaMessage.description = text;
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
@@ -393,13 +390,11 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			j = bitmap.getHeight();
 		}
 		while (true) {
-			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0,
-					80, 80), null);
+			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0, 80, 80), null);
 			if (paramBoolean)
 				bitmap.recycle();
 			ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
-			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100,
-					localByteArrayOutputStream);
+			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100, localByteArrayOutputStream);
 			localBitmap.recycle();
 			byte[] arrayOfByte = localByteArrayOutputStream.toByteArray();
 			try {

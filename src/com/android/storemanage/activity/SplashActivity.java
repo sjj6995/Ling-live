@@ -1,6 +1,5 @@
 package com.android.storemanage.activity;
 
-
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.dialog.RetryDialog;
@@ -63,7 +62,7 @@ public class SplashActivity extends BaseActivity {
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						chooseDifferentStatus(commonData);
 					} else {
-						gotoMain();
+						initData();// 看当前的用户号是否注册成功
 					}
 
 				}
@@ -119,24 +118,14 @@ public class SplashActivity extends BaseActivity {
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
-						// gotoMain();
-						if (TextUtils.isEmpty(userId)) {
-							gotoRegister();// 去注册
-						} else {
-							initData();// 看当前的用户号是否注册成功
-						}
+						initData();// 看当前的用户号是否注册成功
 						break;
 					}
 				}
 			});
 			break;
 		case 2:// 无需更新
-				// gotoMain();
-			if (TextUtils.isEmpty(userId)) {
-				gotoRegister();
-			} else {
-				initData();
-			}
+			initData();
 			break;
 		default:
 			break;
@@ -163,13 +152,16 @@ public class SplashActivity extends BaseActivity {
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						String isRegistered = commonData.getCommonData().getRegistered();
 						if (!TextUtils.isEmpty(isRegistered) && "true".equals(isRegistered)) {// 已经注册成功
+							userId = commonData.getCommonData().getUserId();
+							application.setUserId(userId);
 							gotoMain();
 							// gotoCheckUpdate();
 						} else {
 							gotoRegister();
 						}
 					} else {
-						Toast.makeText(getApplicationContext(), "服务器内部错误", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), R.string.server_data_exception, Toast.LENGTH_SHORT)
+								.show();
 						finish();
 					}
 

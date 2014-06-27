@@ -12,8 +12,8 @@
         android:id="@+id/iv_icon"
         android:layout_width="0dip"
         android:layout_height="fill_parent"
-        android:layout_weight="1.2"
-        android:scaleType="fitXY"
+        android:layout_weight="1.1"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_empty" />
 
     <LinearLayout

@@ -62,7 +62,6 @@ public class ClassifyLittleAdapter extends BaseAdapter {
 			Picasso.with(mContext)
 			.load(JFConfig.HOST_URL + entity.getCategoryLittleimgpath()).placeholder(R.drawable.img_empty)
 			.into(holder.ivImageView);
-//			imageLoader.displayImage(JFConfig.HOST_URL + entity.getCategoryLittleimgpath(), holder.ivImageView, options, animateFirstListener);
 		}
 		
 		return convertView;
