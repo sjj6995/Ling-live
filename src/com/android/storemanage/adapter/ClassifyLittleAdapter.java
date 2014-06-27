@@ -17,9 +17,6 @@ import android.widget.TextView;
 public class ClassifyLittleAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<CategoryEntity> lists;
-//	private ImageLoader imageLoader;
-//	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-//	DisplayImageOptions options;
 
 	public ClassifyLittleAdapter() {
 		super();

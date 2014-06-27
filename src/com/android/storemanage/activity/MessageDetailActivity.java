@@ -67,6 +67,9 @@ public class MessageDetailActivity extends BaseActivity {
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<MessageDetailEntity> msgEntity =commonData.getMessageDetailMapList();
 						listView.setAdapter(new MessageDetailAdapter(mContext, msgEntity));
+					}else {
+						CRAlertDialog dialog = new CRAlertDialog(mContext);
+						dialog.show(commonData.getCommonData().getMsg(), 2000);
 					}
 				}
 

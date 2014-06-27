@@ -9,7 +9,6 @@ import java.util.Date;
 
 import org.apache.http.client.HttpResponseException;
 
-import com.android.storemanage.R;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.HttpClient;
@@ -75,12 +74,14 @@ public class CommonUtil {
 		// Toast.makeText(context, tip, Toast.LENGTH_SHORT).show();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int getScreenWidth(Context context) {
 		WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = manager.getDefaultDisplay();
 		return display.getWidth();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int getScreenHeight(Context context) {
 		WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = manager.getDefaultDisplay();
@@ -143,7 +144,6 @@ public class CommonUtil {
 			s = new String(str);// 换后的结果转换为字符串
 
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return s;

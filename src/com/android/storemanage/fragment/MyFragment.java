@@ -150,8 +150,6 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		mShareTextView.setOnClickListener(this);
 		mCacheSize = (TextView) view.findViewById(R.id.tv_cachesize);
 		cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
-		// mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
-		// cacheSize = imageLoader.getDiskCache().getDirectory().length();
 		mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
 		rl = (RelativeLayout) view.findViewById(R.id.rl);
 		rl.setOnClickListener(this);
@@ -177,7 +175,6 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			gotoMyPrize(v);
 			break;
 		case R.id.rl:
-			Picasso.with(getActivity()).getSnapshot().dump();
 			File downloadCacheFolder = application.getCacheDir();
 			File filePath = new File(downloadCacheFolder, "picasso-cache");
 			String[] filelist = filePath.list();
@@ -251,13 +248,11 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 							InnerData innderData = outerData.getData().get(0);
 							CollectionData commonData = innderData.getData()
 									.get(0);
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
+							if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 								chooseDifferentStatus(commonData);
 							} else {
 								//
-								Toast.makeText(getActivity(), "服务器内部错误", 0)
-										.show();
+								Toast.makeText(getActivity(), "服务器内部错误", Toast.LENGTH_SHORT).show();
 							}
 
 						}
@@ -351,7 +346,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 
 		if (!api.isWXAppInstalled()) {
 			// showToast("您没有安装微信，请下载后分享...");
-			Toast.makeText(context, "您没有安装微信，请下载后分享...", 1).show();
+			Toast.makeText(context, "您没有安装微信，请下载后分享...", Toast.LENGTH_LONG).show();
 			return;
 		}
 

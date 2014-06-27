@@ -48,11 +48,13 @@ public class UpdateService extends Service {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

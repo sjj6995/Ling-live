@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author liujiao 财富奖品详情页
@@ -49,7 +50,8 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 		wPrizeId = getIntent().getStringExtra("wPrizeId");
 		tvMessageDesc = (TextView) findViewById(R.id.tv_message_desc);
 		if (TextUtils.isEmpty(wPrizeId)) {
-			return;
+			Toast.makeText(mContext, R.string.server_data_exception, Toast.LENGTH_SHORT).show();
+			WealthPrizeDetailActivity.this.finish();
 		}
 		initData(wPrizeId);
 	}

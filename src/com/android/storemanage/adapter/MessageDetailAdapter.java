@@ -75,7 +75,7 @@ public class MessageDetailAdapter extends BaseAdapter {
 		if (null != entity) {
 			try {
 				holder.tvFromTimeTextView
-						.setText("起：" + CommonUtil.longToString(Long.parseLong(entity.getMDetailPubdate()),
+						.setText(CommonUtil.longToString(Long.parseLong(entity.getMDetailPubdate()),
 								"yyyy年MM月dd日"));
 			} catch (NumberFormatException e) {
 				e.printStackTrace();

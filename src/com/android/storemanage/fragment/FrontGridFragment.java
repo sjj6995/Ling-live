@@ -39,6 +39,7 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 		GridView gridview = (GridView) view.findViewById(R.id.gridview);
 		@SuppressWarnings("unchecked")
 		ArrayList<CategoryEntity> list = (ArrayList<CategoryEntity>) getArguments().getSerializable(ARG_TEXT);
+		@SuppressWarnings("deprecation")
 		int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
 		width = (width - DisplayUtil.dip2px(getActivity(), 2) * 10) / 4;
 		gridview.setAdapter(new ClassifyBigAdapter(getActivity(), list,width));

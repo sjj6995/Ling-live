@@ -27,6 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author liujiao 财富奖区
@@ -56,7 +57,8 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 		rbRankByWealth.setOnClickListener(this);
 		rbRankByTime.setOnClickListener(this);
 		if (TextUtils.isEmpty(wealthIdString)) {
-			return;
+			Toast.makeText(mContext, R.string.server_data_exception, Toast.LENGTH_SHORT).show();
+			WealthPrizeActivity.this.finish();
 		}
 		listview.setOnItemClickListener(new OnItemClickListener() {
 

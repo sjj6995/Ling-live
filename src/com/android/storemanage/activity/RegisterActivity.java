@@ -88,15 +88,13 @@ public class RegisterActivity extends BaseActivity {
 									.get(0);
 							if ("true".equals(commonData.getCommonData()
 									.getReturnStatus())) {// 注册成功
-								sp.edit()
-										.putString(
-												"userId",
-												commonData.getCommonData()
-														.getUserId()).commit();
-								Intent intent = new Intent(mContext,
-										MainTabActivity.class);
+								sp.edit().putString("userId",commonData.getCommonData().getUserId()).commit();
+								Intent intent = new Intent(mContext,MainTabActivity.class);
 								startActivity(intent);
 								finish();
+							}else{
+								CRAlertDialog dialog = new CRAlertDialog(mContext);
+								dialog.show(getString(R.string.register_failuer), 2000);
 							}
 
 						}

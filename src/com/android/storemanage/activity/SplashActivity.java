@@ -1,6 +1,5 @@
 package com.android.storemanage.activity;
 
-import java.net.SocketTimeoutException;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
@@ -170,7 +169,7 @@ public class SplashActivity extends BaseActivity {
 							gotoRegister();
 						}
 					} else {
-						Toast.makeText(getApplicationContext(), "服务器内部错误", 0).show();
+						Toast.makeText(getApplicationContext(), "服务器内部错误", Toast.LENGTH_SHORT).show();
 						finish();
 					}
 

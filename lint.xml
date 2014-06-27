@@ -7,4 +7,10 @@
         <ignore path="src/com/zxing/camera/CameraManager.java" />
     </issue>
     <issue id="ResourceAsColor" severity="ignore" />
+    <issue id="SimpleDateFormat">
+        <ignore path="src/com/android/storemanage/utils/CommonUtil.java" />
+    </issue>
+    <issue id="UseValueOf">
+        <ignore path="src/com/android/storemanage/net/AsyncHttpResponseHandler.java" />
+    </issue>
 </lint>

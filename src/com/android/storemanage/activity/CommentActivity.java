@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CommentActivity extends BaseActivity {
 	private EditText edit;
@@ -60,14 +61,13 @@ public class CommentActivity extends BaseActivity {
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
-					CRAlertDialog dialog = new CRAlertDialog(mContext);
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						String isSuccess = commonData.getCommonData().getFeedbackSuccess();
 						if (!TextUtils.isEmpty(isSuccess) && "true".equals(isSuccess)) {
-							dialog.show("提交成功", 2000);
+							Toast.makeText(mContext, R.string.submit_success, Toast.LENGTH_SHORT).show();
 						}
 					} else {
-						dialog.show(commonData.getCommonData().getMsg(), 2000);
+						Toast.makeText(mContext, R.string.submit_error, Toast.LENGTH_SHORT).show();
 					}
 					CommentActivity.this.finish();
 				}

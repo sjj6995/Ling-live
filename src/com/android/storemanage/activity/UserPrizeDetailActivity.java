@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author unknow 奖品使用详情
@@ -42,12 +43,11 @@ public class UserPrizeDetailActivity extends BaseActivity {
 		tvTitleTextView2.setText("奖品详情");
 		userPrizeId = getIntent().getStringExtra("userprizeId");
 		if (TextUtils.isEmpty(userPrizeId)) {
-			CRAlertDialog dialog = new CRAlertDialog(this);
-			dialog.show("服务器数据异常", 1500);
+			Toast.makeText(this, R.string.server_data_exception, Toast.LENGTH_SHORT).show();
 			finish();
 		} else {
 			initViews();
-			initData(userPrizeId, "");
+			initData(userPrizeId);
 		}
 
 	}
@@ -111,10 +111,10 @@ public class UserPrizeDetailActivity extends BaseActivity {
 
 	}
 
-	private void initData(String userPrizeId2, String string) {
+	private void initData(String userPrizeId2) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
-			params.put("userId", "11111");
+			params.put("userId", application.getUserId());
 			params.put("userprizeId", userPrizeId2);
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.GET_PRIZE_DETAIL, params, new AsyncHttpResponseHandler() {

@@ -19,8 +19,6 @@
 package com.android.storemanage.net;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

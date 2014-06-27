@@ -48,7 +48,6 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		categoryIdString = getIntent().getStringExtra("categoryId");
 		listView = (ListView) findViewById(R.id.lv_sport);
 		((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra("categoryName"));
-		// rbDefault.setChecked(true);
 		initData(categoryIdString, cBrandId);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -56,7 +55,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
-					sendToServerGetUserWealth(entity.getCBrandId(), "", entity.getCBrandImgdomain());
+					sendToServerGetUserWealth(entity.getCBrandId(), entity.getCBrandImgdomain());
 				}
 			}
 		});
@@ -68,7 +67,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	 * @param categoryId
 	 * @param string
 	 */
-	protected void sendToServerGetUserWealth(String categoryId, String string, final String imageUrl) {
+	protected void sendToServerGetUserWealth(String categoryId, final String imageUrl) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("cBrandId", categoryId);
@@ -86,16 +85,10 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
-//					CRAlertDialog dialog = new CRAlertDialog(mContext);
 					int addValue = commonData.getCommonData().getUserAddWealthValue();
 					if ("true".equals(commonData.getCommonData().getReturnStatus()) && addValue > 0) {
-						// dialog.show("恭喜，你获得了" + addValue + "个财富值", 2000);
 						Toast.makeText(mContext, "恭喜，你获得了" + addValue + "个财富值", Toast.LENGTH_SHORT).show();
-					} else {
-						// dialog.show(commonData.getCommonData().getMsg(),
-						// 2000);
-					}
-
+					} 
 					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
 					itt.putExtra("url", imageUrl);
 					startActivity(itt);
@@ -163,7 +156,6 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			initData(categoryIdString, cBrandId);
 			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
-			// rbDefault.setTextColor(android.R.color.white);
 			break;
 		case R.id.rb_fortune:// 财富排行
 			if (cBrandId == 1) {
