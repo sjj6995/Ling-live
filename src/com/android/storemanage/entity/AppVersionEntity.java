@@ -7,6 +7,20 @@ public class AppVersionEntity {
 	private String appversionOpptime;
 	private String UpdateExplain;
 	private String appversionNumber;
+	private String appversionUpdateinfo;
+	
+	/**
+	 * @return the appversionUpdateinfo
+	 */
+	public String getAppversionUpdateinfo() {
+		return appversionUpdateinfo;
+	}
+	/**
+	 * @param appversionUpdateinfo the appversionUpdateinfo to set
+	 */
+	public void setAppversionUpdateinfo(String appversionUpdateinfo) {
+		this.appversionUpdateinfo = appversionUpdateinfo;
+	}
 	/**
 	 * @return the sfNeedUpdate
 	 */

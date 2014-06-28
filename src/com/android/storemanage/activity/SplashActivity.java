@@ -86,12 +86,12 @@ public class SplashActivity extends BaseActivity {
 
 	private void chooseDifferentStatus(final CollectionData commonData) {
 		int appversionNeedUpdate = commonData.getAppVersionData().getSfNeedUpdate();
-		final RetryDialog dialog = new RetryDialog(getApplicationContext());
+		final RetryDialog dialog = new RetryDialog(mContext);
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
 			dialog.setConfirmText("必须更新");
 			dialog.setCancelText("退出");
-			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
@@ -107,11 +107,12 @@ public class SplashActivity extends BaseActivity {
 					}
 				}
 			});
+			dialog.show();
 			break;
 		case 1:// 可以更新
 			dialog.setConfirmText("可以更新");
 			dialog.setCancelText("取消");
-			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
@@ -131,6 +132,7 @@ public class SplashActivity extends BaseActivity {
 					}
 				}
 			});
+			dialog.show();
 			break;
 		case 2:// 无需更新
 			if (!TextUtils.isEmpty(userId)) {
