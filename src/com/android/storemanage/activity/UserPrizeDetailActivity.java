@@ -34,6 +34,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 	private TextView tvValidateTextView;
 	private Button btnUseButton;
 	private UserPrizeDetailEntity entity;
+	private TextView tvDescTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 		tvTitleTextView2 = (TextView) findViewById(R.id.tv_title);
 		tvTitleTextView2.setText("奖品详情");
 		userPrizeId = getIntent().getStringExtra("userprizeId");
+		tvDescTextView = (TextView) findViewById(R.id.tv_message_desc);
 		if (TextUtils.isEmpty(userPrizeId)) {
 			Toast.makeText(this, R.string.server_data_exception, Toast.LENGTH_SHORT).show();
 			finish();
@@ -88,6 +90,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 							dialog.show("使用成功", 2000);
 							btnUseButton.setEnabled(false);
 							btnUseButton.setText("已使用");
+							tvValidateTextView.setText("该奖品已使用");
 						} else {
 							dialog.show(commonData.getCommonData().getReason(), 2000);
 						}
@@ -157,16 +160,19 @@ public class UserPrizeDetailActivity extends BaseActivity {
 
 	protected void fillData(UserPrizeDetailEntity entity) {
 		tvTitleTextView.setText(entity.getUserprizeTitle());
-		tvValidateTextView.setText("有效期剩余" + entity.getUserprizeValidity() + "天");
 		Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getUserprizeImgpath()).placeholder(R.drawable.img_empty)
 				.into(ivImageView);
+		tvDescTextView.setText(entity.getUserprizeDetail());
 		String isUsed = entity.getUserprizeSfused();
 		if (!TextUtils.isEmpty(isUsed)) {
 			if ("1".equals(isUsed)) {
 				btnUseButton.setText("已使用");
+				tvValidateTextView.setText("该奖品已使用");
 				btnUseButton.setEnabled(false);
 			} else {
 				btnUseButton.setText("使用");
+				tvValidateTextView.setText("有效期剩余"
+						+ entity.getUserprizeValidity() + "天");
 				btnUseButton.setEnabled(true);
 			}
 		}

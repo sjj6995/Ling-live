@@ -15,10 +15,13 @@
             android:id="@+id/tv_fortune"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dip"
+            android:padding="10dip"
+            android:background="@android:color/white"
             android:text="财富："
             android:textColor="@color/text_view_color"
             android:textSize="@dimen/my_text_size" />
+
+        <include layout="@layout/horizontal_line" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -122,27 +125,27 @@
             <include layout="@layout/horizontal_line" />
 
             <RelativeLayout
-                android:layout_width="fill_parent"
                 android:id="@+id/rl"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:clickable="true"
-                android:padding="10dip"
-                android:layout_height="wrap_content" >
+                android:padding="10dip" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/my_text_size"
+                    android:text="清除缓存"
                     android:textColor="@color/text_view_color"
-                    android:text="清除缓存" />
+                    android:textSize="@dimen/my_text_size" />
 
                 <TextView
+                    android:id="@+id/tv_cachesize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_cachesize"
                     android:layout_alignParentRight="true"
-                    android:textSize="@dimen/my_text_size"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/my_text_size" />
             </RelativeLayout>
 
             <include layout="@layout/horizontal_line" />

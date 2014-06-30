@@ -40,6 +40,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 	private String wealthTitleString;
 	private Button rbDefault, rbRankByWealth, rbRankByTime;
 	private int sortType = 0;
+	private TextView tvNoDataTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +57,12 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 		rbDefault.setOnClickListener(this);
 		rbRankByWealth.setOnClickListener(this);
 		rbRankByTime.setOnClickListener(this);
+		tvNoDataTextView = (TextView) findViewById(R.id.tv_no_data);
 		if (TextUtils.isEmpty(wealthIdString)) {
 			Toast.makeText(mContext, R.string.server_data_exception, Toast.LENGTH_SHORT).show();
 			WealthPrizeActivity.this.finish();
 		}
+		listview.setEmptyView(tvNoDataTextView);
 		listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

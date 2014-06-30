@@ -34,6 +34,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	private ListView listView;
 	private String categoryIdString;
 	private int cBrandId = 0;
+	private TextView tView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +48,25 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		rbRankByTime.setOnClickListener(this);
 		categoryIdString = getIntent().getStringExtra("categoryId");
 		listView = (ListView) findViewById(R.id.lv_sport);
+		tView = (TextView) findViewById(R.id.tv_no_data);
 		((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra("categoryName"));
-		initData(categoryIdString, cBrandId);
+		listView.setEmptyView(tView);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
-					sendToServerGetUserWealth(entity.getCBrandId(), entity.getCBrandImgdomain());
+					sendToServerGetUserWealth(entity.getCBrandId(), entity.getCBrangSite());
 				}
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume() {
+		initData(categoryIdString, cBrandId);
+		super.onResume();
 	}
 
 	/**
@@ -158,21 +166,25 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
 		case R.id.rb_fortune:// 财富排行
+			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
+			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
 			if (cBrandId == 1) {
 				cBrandId = 2;
+//				rbRankByWealth.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.jiantou_up), null);
 			} else {
 				cBrandId = 1;
 			}
 			initData(categoryIdString, cBrandId);
-			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
-			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
+//			rbRankByTime.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 			break;
 		case R.id.rb_update_time:// 更新时间
 			if (cBrandId == 3) {
 				cBrandId = 4;
+//				rbRankByTime.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.jiantou_up), null);
 			} else {
 				cBrandId = 3;
 			}
+//			rbRankByWealth.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 			initData(categoryIdString, cBrandId);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
 			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);

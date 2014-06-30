@@ -1,5 +1,6 @@
 package com.android.storemanage.activity;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
@@ -40,6 +41,7 @@ public class MyPrizeActivity extends BaseActivity {
 
 	private TextView tView;
 	private SwipeListView swipeListView;
+	private TextView tvNoTextView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,15 @@ public class MyPrizeActivity extends BaseActivity {
 		tView = (TextView) findViewById(R.id.tv_title);
 		swipeListView = (SwipeListView) findViewById(R.id.lv_my_prize);
 		tView.setText("我的奖品");
+		tvNoTextView = (TextView) findViewById(R.id.tv_no_data);
+		swipeListView.setEmptyView(tvNoTextView);
 		swipeListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				UserPrizeEntity entity = (UserPrizeEntity) arg0.getItemAtPosition(position);
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				UserPrizeEntity entity = (UserPrizeEntity) arg0
+						.getItemAtPosition(position);
 				gotoUserPrizeDetailActivity(entity);
 			}
 
@@ -67,9 +73,11 @@ public class MyPrizeActivity extends BaseActivity {
 
 	private void gotoUserPrizeDetailActivity(UserPrizeEntity entity) {
 		if (null != entity) {
-			Intent intent = new Intent(MyPrizeActivity.this, UserPrizeDetailActivity.class);
+			Intent intent = new Intent(MyPrizeActivity.this,
+					UserPrizeDetailActivity.class);
 			intent.putExtra("userprizeId", entity.getUserprizeId());
-			intent.putExtra("isused", "1".equals(entity.getUserprizeSfused()) ? true : false);
+			intent.putExtra("isused",
+					"1".equals(entity.getUserprizeSfused()) ? true : false);
 			startActivity(intent);
 		}
 	}
@@ -79,34 +87,44 @@ public class MyPrizeActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.GET_MY_PRIZE, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData commonData = innderData.getData().get(0);
-					log.i("commonData" + commonData.getCommonData().getMsg());
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						swipeListView.setAdapter(new UserPrizeAdapter(mContext, commonData.getUserPrizeMapList(),
-								MyPrizeActivity.this));
-					} else {
-						CRAlertDialog dialog = new CRAlertDialog(mContext);
-						dialog.show(commonData.getCommonData().getMsg(), 2000);
-					}
-				}
+			HttpClient.post(JFConfig.GET_MY_PRIZE, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							log.i("commonData"
+									+ commonData.getCommonData().getMsg());
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {
+								swipeListView.setAdapter(new UserPrizeAdapter(
+										mContext, commonData
+												.getUserPrizeMapList(),
+										MyPrizeActivity.this));
+							} else {
+								CRAlertDialog dialog = new CRAlertDialog(
+										mContext);
+								dialog.show(
+										commonData.getCommonData().getMsg(),
+										2000);
+							}
+						}
 
-				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
-					dismissProgressDialog();
-					CommonUtil.onFailure(arg0, mContext);
-				}
-			});
+						@Override
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
+							CommonUtil.onFailure(arg0, mContext);
+						}
+					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -123,7 +141,8 @@ public class MyPrizeActivity extends BaseActivity {
 			super();
 		}
 
-		public UserPrizeAdapter(Context mContext, List<UserPrizeEntity> lists, MyPrizeActivity activity) {
+		public UserPrizeAdapter(Context mContext, List<UserPrizeEntity> lists,
+				MyPrizeActivity activity) {
 			super();
 			this.mContext = mContext;
 			this.lists = lists;
@@ -150,14 +169,23 @@ public class MyPrizeActivity extends BaseActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (null == convertView) {
-				convertView = View.inflate(mContext, R.layout.package_row, null);
+				convertView = View
+						.inflate(mContext, R.layout.package_row, null);
 				holder = new ViewHolder();
-				holder.ivImageView = (ImageView) convertView.findViewById(R.id.iv_has_used_or_not);
-				holder.ivIconImageView = (ImageView) convertView.findViewById(R.id.iv_icon);
-				holder.tvValidateTimeTextView = (TextView) convertView.findViewById(R.id.tv_validate_time);
-				holder.tvNameTextView = (TextView) convertView.findViewById(R.id.tv_name);
-				holder.tvWealthTextView = (TextView) convertView.findViewById(R.id.tv_wealth_value);
-				holder.deleteBtn = (Button) convertView.findViewById(R.id.example_row_b_action_3);
+				holder.ivImageView = (ImageView) convertView
+						.findViewById(R.id.iv_has_used_or_not);
+				holder.ivIconImageView = (ImageView) convertView
+						.findViewById(R.id.iv_icon);
+				holder.tvValidateTimeTextView = (TextView) convertView
+						.findViewById(R.id.tv_validate_time);
+				holder.tvNameTextView = (TextView) convertView
+						.findViewById(R.id.tv_name);
+				holder.tvWealthTextView = (TextView) convertView
+						.findViewById(R.id.tv_wealth_value);
+				holder.tvToTime = (TextView) convertView
+						.findViewById(R.id.tv_to_time);
+				holder.deleteBtn = (Button) convertView
+						.findViewById(R.id.example_row_b_action_3);
 				holder.front = (LinearLayout) convertView.findViewById(R.id.ll);
 				convertView.setTag(holder);
 			} else {
@@ -167,23 +195,44 @@ public class MyPrizeActivity extends BaseActivity {
 			if (null != entity) {
 				holder.tvNameTextView.setText(entity.getUserprizeTitle());
 
-				Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getUserprizeImgpath())
-						.placeholder(R.drawable.img_empty).into(holder.ivIconImageView);
+				Picasso.with(mContext)
+						.load(JFConfig.HOST_URL + entity.getUserprizeImgpath())
+						.placeholder(R.drawable.img_empty)
+						.into(holder.ivIconImageView);
 				String isUsedOrNotString = entity.getUserprizeSfused();
 				if (!TextUtils.isEmpty(isUsedOrNotString)) {
 					if ("1".equals(isUsedOrNotString)) {
-						holder.ivImageView.setImageResource(R.drawable.btn_hasused);
+						holder.ivImageView
+								.setImageResource(R.drawable.btn_hasused);
 					} else {
-						holder.ivImageView.setImageResource(R.drawable.btn_unused);
+						holder.ivImageView
+								.setImageResource(R.drawable.btn_unused);
 					}
-					if ("0".equals(isUsedOrNotString)) {
-						holder.tvValidateTimeTextView.setText("有效期剩余" + entity.getUserprizeExpirydate() + "天");
-					} else {
+					int result = Integer.parseInt(isUsedOrNotString);
+					if (1 == result) {
+//						holder.tvValidateTimeTextView.setText("该奖品已使用");
 						holder.tvValidateTimeTextView.setText("该奖品已失效");
+					} else if (result == 0) {
+						holder.tvValidateTimeTextView.setText("有效期剩余"
+								+ entity.getUserprizeExpirydate() + "天");
 					}
 				} else {
 					holder.ivImageView.setImageResource(R.drawable.btn_unused);
 				}
+				try {
+					holder.tvToTime.setText("兑换时间："
+							+ CommonUtil.longToString(
+									entity.getUserprizeDuihuantime(),
+									"yyyy-MM-dd"));
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				holder.tvWealthTextView.setText(entity.getUserprizeNeedwealth()
+						+ "");
 				holder.deleteBtn.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -199,13 +248,14 @@ public class MyPrizeActivity extends BaseActivity {
 						activity.gotoUserPrizeDetailActivity(entity);
 					}
 				});
-				holder.ivIconImageView.setOnClickListener(new OnClickListener() {
+				holder.ivIconImageView
+						.setOnClickListener(new OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						activity.gotoUserPrizeDetailActivity(entity);
-					}
-				});
+							@Override
+							public void onClick(View v) {
+								activity.gotoUserPrizeDetailActivity(entity);
+							}
+						});
 			}
 			return convertView;
 		}
@@ -218,6 +268,7 @@ public class MyPrizeActivity extends BaseActivity {
 			TextView tvWealthTextView;
 			Button deleteBtn;
 			LinearLayout front;
+			TextView tvToTime;
 
 		}
 
@@ -227,40 +278,51 @@ public class MyPrizeActivity extends BaseActivity {
 				params.put("userId", application.getUserId());
 				params.put("userprizeId", prizeId);
 				showProgressDialog(R.string.please_waiting);
-				HttpClient.post(JFConfig.DELETE_USER_PRIZE, params, new AsyncHttpResponseHandler() {
-					@Override
-					public void onSuccess(int statusCode, String content) {
-						log.i("content===" + content);
-						dismissProgressDialog();
-						if (TextUtils.isEmpty(content)) {
-							return;
-						}
-						OuterData outerData = JSON.parseObject(content, OuterData.class);
-						InnerData innderData = outerData.getData().get(0);
-						CollectionData commonData = innderData.getData().get(0);
-						log.i("commonData" + commonData.getCommonData().getMsg());
-						CRAlertDialog dialog = new CRAlertDialog(mContext);
-						if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-							String deleteSuccess = commonData.getCommonData().getDeleteSuccess();
-							if (!TextUtils.isEmpty(deleteSuccess) && "true".equals(deleteSuccess)) {
-								dialog.show("删除成功", 2000);
-								activity.initData();
+				HttpClient.post(JFConfig.DELETE_USER_PRIZE, params,
+						new AsyncHttpResponseHandler() {
+							@Override
+							public void onSuccess(int statusCode, String content) {
+								log.i("content===" + content);
+								dismissProgressDialog();
+								if (TextUtils.isEmpty(content)) {
+									return;
+								}
+								OuterData outerData = JSON.parseObject(content,
+										OuterData.class);
+								InnerData innderData = outerData.getData().get(
+										0);
+								CollectionData commonData = innderData
+										.getData().get(0);
+								log.i("commonData"
+										+ commonData.getCommonData().getMsg());
+								CRAlertDialog dialog = new CRAlertDialog(
+										mContext);
+								if ("true".equals(commonData.getCommonData()
+										.getReturnStatus())) {
+									String deleteSuccess = commonData
+											.getCommonData().getDeleteSuccess();
+									if (!TextUtils.isEmpty(deleteSuccess)
+											&& "true".equals(deleteSuccess)) {
+										dialog.show("删除成功", 2000);
+										activity.initData();
+									}
+								} else {
+									dialog.show(commonData.getCommonData()
+											.getMsg(), 2000);
+								}
 							}
-						} else {
-							dialog.show(commonData.getCommonData().getMsg(), 2000);
-						}
-					}
 
-					@Override
-					public void onFailure(Throwable arg0, String arg1) {
-						super.onFailure(arg0, arg1);
-						dismissProgressDialog();
-						CommonUtil.onFailure(arg0, mContext);
-					}
-				});
+							@Override
+							public void onFailure(Throwable arg0, String arg1) {
+								super.onFailure(arg0, arg1);
+								dismissProgressDialog();
+								CommonUtil.onFailure(arg0, mContext);
+							}
+						});
 			} else {
 				CRAlertDialog dialog = new CRAlertDialog(mContext);
-				dialog.show(mContext.getString(R.string.pLease_check_network), 2000);
+				dialog.show(mContext.getString(R.string.pLease_check_network),
+						2000);
 			}
 
 		}

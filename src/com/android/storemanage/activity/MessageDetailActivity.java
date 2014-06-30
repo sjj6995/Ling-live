@@ -29,12 +29,14 @@ public class MessageDetailActivity extends BaseActivity {
 	private String messageIdString;
 	private TextView titleTextView;
 	private ListView listView;
+	private TextView tView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_message);
 		messageIdString = getIntent().getStringExtra("messageId");
+		tView = (TextView) findViewById(R.id.tv_no_data);
 		initViews();
 		if (!TextUtils.isEmpty(messageIdString)) {
 			initData(messageIdString);
@@ -45,6 +47,7 @@ public class MessageDetailActivity extends BaseActivity {
 		titleTextView = (TextView) findViewById(R.id.tv_title);
 		titleTextView.setText("消息详情");
 		listView = (ListView) findViewById(R.id.lv_message);
+		listView.setEmptyView(tView);
 	}
 
 	private void initData(final String messageIdString2) {
