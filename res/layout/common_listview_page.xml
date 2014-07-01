@@ -40,7 +40,7 @@
             android:button="@null"
             android:checked="false"
             android:gravity="center"
-            android:text="财富排行"
+            android:text="财富奖励"
             android:textColor="@color/button_normal_color"
             android:textSize="15sp" />
 
@@ -66,7 +66,19 @@
     <include
         android:layout_marginTop="@dimen/app_bg_content_margin"
         layout="@layout/horizontal_line" />
+    
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
 
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:id="@+id/tv_no_data"
+            android:text="暂无数据"
+            />
     <ListView
         android:id="@+id/lv_sport"
         android:layout_width="fill_parent"
@@ -76,5 +88,5 @@
         android:dividerHeight="1dip"
         android:listSelector="@drawable/selector_listview_item" >
     </ListView>
-
+</RelativeLayout>
 </LinearLayout>

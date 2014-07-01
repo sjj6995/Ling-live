@@ -20,6 +20,15 @@ public class UserPrizeEntity {
 	private String userprizeImgid;
 	private String userprizeDetail;
 	private String userprizeImgdomain;
+	private long userprizeDuihuantime;
+	
+	public long getUserprizeDuihuantime() {
+		return userprizeDuihuantime;
+	}
+
+	public void setUserprizeDuihuantime(long userprizeDuihuantime) {
+		this.userprizeDuihuantime = userprizeDuihuantime;
+	}
 
 	public SlideView slideView;
 

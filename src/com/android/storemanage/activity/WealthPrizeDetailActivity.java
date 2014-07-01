@@ -50,7 +50,8 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 		wPrizeId = getIntent().getStringExtra("wPrizeId");
 		tvMessageDesc = (TextView) findViewById(R.id.tv_message_desc);
 		if (TextUtils.isEmpty(wPrizeId)) {
-			Toast.makeText(mContext, R.string.server_data_exception, Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, R.string.server_data_exception,
+					Toast.LENGTH_SHORT).show();
 			WealthPrizeDetailActivity.this.finish();
 		}
 		initData(wPrizeId);
@@ -66,41 +67,52 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.EXCHANGE_PRIZE, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData commonData = innderData.getData().get(0);
-					log.i("commonData" + commonData.getCommonData().getMsg());
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						String isSuccess = commonData.getCommonData().getDuiHuanSuccess();
-						if (!TextUtils.isEmpty(isSuccess) && "true".equals(isSuccess)) {
-							if (commonData.getCommonData().getDuiHuanUserWealth() > 0) {
-								CRAlertDialog dialog = new CRAlertDialog(mContext);
-								dialog.show("兑换成功，你增加了" + commonData.getCommonData().getDuiHuanUserWealth() + "个财富值",
-										1000);
+			HttpClient.post(JFConfig.EXCHANGE_PRIZE, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							log.i("commonData"
+									+ commonData.getCommonData().getMsg());
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {
+								String isSuccess = commonData.getCommonData()
+										.getDuiHuanSuccess();
+								if (!TextUtils.isEmpty(isSuccess)
+										&& "true".equals(isSuccess)) {
+//									if (commonData.getCommonData()
+//											.getDuiHuanUserWealth() > 0) {
+										CRAlertDialog dialog = new CRAlertDialog(
+												mContext);
+										dialog.show("兑换成功", 1000);
 
+//									}
+									// btnGotoExchange.setText("已兑换");
+									// btnGotoExchange.setEnabled(false);
+								}
 							}
 							btnGotoExchange.setText("已兑换");
 							btnGotoExchange.setEnabled(false);
 							btnGotoExchange.setVisibility(View.VISIBLE);
+							initData(wPrizeId);
 						}
-					}
-				}
 
-				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
-					dismissProgressDialog();
-					CommonUtil.onFailure(arg0, mContext);
-				}
-			});
+						@Override
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+							dismissProgressDialog();
+							CommonUtil.onFailure(arg0, mContext);
+						}
+					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -113,35 +125,44 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
-			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.GET_WEALTH_RRIZE_DETAILL, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData commonData = innderData.getData().get(0);
-					log.i("commonData" + commonData.getCommonData().getMsg());
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						WealthPrizeDetailEntity entity = commonData.getPrizeDetailMap();
-						fillData(entity);
-					} else {
-						CRAlertDialog dialog = new CRAlertDialog(mContext);
-						dialog.show(commonData.getCommonData().getMsg(), 2000);
-					}
-				}
+//			showProgressDialog(R.string.please_waiting);
+			HttpClient.post(JFConfig.GET_WEALTH_RRIZE_DETAILL, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+//							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							log.i("commonData"
+									+ commonData.getCommonData().getMsg());
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {
+								WealthPrizeDetailEntity entity = commonData
+										.getPrizeDetailMap();
+								fillData(entity);
+							} else {
+								CRAlertDialog dialog = new CRAlertDialog(
+										mContext);
+								dialog.show(
+										commonData.getCommonData().getMsg(),
+										2000);
+							}
+						}
 
-				@Override
-				public void onFailure(Throwable arg0, String arg1) {
-					super.onFailure(arg0, arg1);
-					dismissProgressDialog();
-					CommonUtil.onFailure(arg0, mContext);
-				}
-			});
+						@Override
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+//							dismissProgressDialog();
+							CommonUtil.onFailure(arg0, mContext);
+						}
+					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -151,9 +172,11 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 
 	protected void fillData(WealthPrizeDetailEntity entity) {
 		if (null != entity) {
-			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getWPrizeImgpath())
+			Picasso.with(mContext)
+					.load(JFConfig.HOST_URL + entity.getWPrizeImgpath())
 					.placeholder(R.drawable.img_empty).into(iv);
-			tvValidateTime.setText("自领取之日起" + entity.getWPrizeExpirydate() + "日内有效");
+			tvValidateTime.setText("自领取之日起" + entity.getWPrizeExpirydate()
+					+ "日内有效");
 			wealthTitle.setText(entity.getWPrizeTitle());
 			wealthValue.setText(entity.getWPrizeNeedwealth() + "财富");
 			tvMessageDesc.setText(entity.getWPrizeDetail());

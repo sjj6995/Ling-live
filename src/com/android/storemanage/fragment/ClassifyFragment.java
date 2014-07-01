@@ -40,15 +40,21 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private ListView listView;
+	private TextView tvNoData;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_classify, null);
 		initViews(view);
-		initData();
 		return view;
 	}
 
+	@Override
+	public void onResume() {
+		initData();
+		super.onResume();
+	}
+	
 	private void initData() {
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
@@ -90,7 +96,9 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 		imageButton.setVisibility(View.INVISIBLE);
 		titleTextView = (TextView) view.findViewById(R.id.tv_title);
 		titleTextView.setText("分类");
+		tvNoData = (TextView) view.findViewById(R.id.tv_no_data);
 		listView = (ListView) view.findViewById(R.id.lv_classify);
+		listView.setEmptyView(tvNoData);
 		listView.setOnItemClickListener(this);
 	}
 

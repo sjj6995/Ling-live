@@ -22,4 +22,15 @@
     
     <color name="listview_item_normal">#EEF3FA</color>
     <color name="listview_item_pressed">#F4F4F4</color>
+    
+    
+    <color name="color_0">#ffffff</color>
+    <color name="color_1">#67ADDB</color>
+    <color name="color_2">#5BC994</color>
+    <color name="color_3">#FF7B7B</color>
+    <color name="color_4">#67ADDB</color>
+    <color name="color_5">#D1B993</color>
+    <color name="color_6">#A681C3</color>
+    
+    <color name="color_7">#8098C4</color>
 </resources>

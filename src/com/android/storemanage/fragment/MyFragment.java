@@ -67,8 +67,8 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			switch (msg.what) {
 			case 111:
 				dismissProgressDialog();
-				cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
-				mCacheSize.setText(CommonUtil.formatFileSize(cacheSize));
+//				cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
+				mCacheSize.setText("0KB");
 				break;
 			}
 		};
@@ -127,7 +127,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		mEmailtTextView.setText("邮箱：" + entity.getUseremail());
 		String version = CommonUtil.getVersion(getActivity());
 		if (!TextUtils.isEmpty(version)) {
-			mCurrentVersionTextView.setText("版本号：" + version);
+			mCurrentVersionTextView.setText("版本号：V" + version);
 		}
 	}
 

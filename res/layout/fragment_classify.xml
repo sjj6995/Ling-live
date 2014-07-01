@@ -6,14 +6,26 @@
 
     <include layout="@layout/title_layout" />
 
-    <ListView 
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="@null"
-        android:dividerHeight="1dip"
-        android:divider="@color/horizontal_line_color"
-        android:listSelector="@drawable/selector_listview_item"
-        android:id="@+id/lv_classify"
-        ></ListView>
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="暂无数据" />
+
+        <ListView
+            android:id="@+id/lv_classify"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@null"
+            android:divider="@color/horizontal_line_color"
+            android:dividerHeight="1dip"
+            android:listSelector="@drawable/selector_listview_item" >
+        </ListView>
+    </RelativeLayout>
 
 </LinearLayout>

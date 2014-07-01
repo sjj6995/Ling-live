@@ -75,8 +75,8 @@ public class WealthPrizeAdapter extends BaseAdapter {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			holder.leftCountTextView.setText(entity.getWPrizeRemainnumber() + "个");
-			holder.totalCounTextView.setText(entity.getWPrizeTotalnumber() + "个");
+			holder.leftCountTextView.setText(entity.getWPrizeRemainnumber() + "");
+			holder.totalCounTextView.setText(entity.getWPrizeTotalnumber() + "");
 			holder.tvWealthTextView.setText(entity.getWPrizeNeedwealth() + "");
 			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getWPrizeImgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
