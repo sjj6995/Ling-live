@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	private String categoryIdString;
 	private int cBrandId = 0;
 	private TextView tView;
+	private ImageView ivOrderByWealth;
+	private ImageView ivOrderByTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		rbDefault = (Button) findViewById(R.id.rb_default);
 		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
 		rbRankByTime = (Button) findViewById(R.id.rb_update_time);
+		ivOrderByWealth = (ImageView) findViewById(R.id.iv_order_by_wealth);
+		ivOrderByTime = (ImageView) findViewById(R.id.iv_order_by_time);
 		rbDefault.setOnClickListener(this);
 		rbRankByWealth.setOnClickListener(this);
 		rbRankByTime.setOnClickListener(this);
@@ -62,7 +67,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			}
 		});
 	}
-	
+
 	@Override
 	protected void onResume() {
 		initData(categoryIdString, cBrandId);
@@ -96,7 +101,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					int addValue = commonData.getCommonData().getUserAddWealthValue();
 					if ("true".equals(commonData.getCommonData().getReturnStatus()) && addValue > 0) {
 						Toast.makeText(mContext, "恭喜，你获得了" + addValue + "个财富值", Toast.LENGTH_SHORT).show();
-					} 
+					}
 					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
 					itt.putExtra("url", imageUrl);
 					startActivity(itt);
@@ -160,31 +165,37 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.rb_default:// 默认
+			ivOrderByTime.setVisibility(View.INVISIBLE);
+			ivOrderByWealth.setVisibility(View.INVISIBLE);
 			cBrandId = 0;
 			initData(categoryIdString, cBrandId);
 			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
 		case R.id.rb_fortune:// 财富排行
+			ivOrderByTime.setVisibility(View.INVISIBLE);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
 			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
 			if (cBrandId == 1) {
 				cBrandId = 2;
-//				rbRankByWealth.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.jiantou_up), null);
+				ivOrderByWealth.setImageResource(R.drawable.jiantou_up);
 			} else {
 				cBrandId = 1;
+				ivOrderByWealth.setImageResource(R.drawable.jiantou_down);
 			}
+			ivOrderByWealth.setVisibility(View.VISIBLE);
 			initData(categoryIdString, cBrandId);
-//			rbRankByTime.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 			break;
 		case R.id.rb_update_time:// 更新时间
+			ivOrderByWealth.setVisibility(View.INVISIBLE);
 			if (cBrandId == 3) {
 				cBrandId = 4;
-//				rbRankByTime.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.jiantou_up), null);
+				ivOrderByTime.setImageResource(R.drawable.jiantou_up);
 			} else {
 				cBrandId = 3;
+				ivOrderByTime.setImageResource(R.drawable.jiantou_down);
 			}
-//			rbRankByWealth.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+			ivOrderByTime.setVisibility(View.VISIBLE);
 			initData(categoryIdString, cBrandId);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
 			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);

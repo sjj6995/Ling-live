@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_menu"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:padding="2dip" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/iv_is_new"
-        android:src="@drawable/is_new" />
-
-    <TextView
-        android:id="@+id/description_textView"
+    <RelativeLayout
+        android:id="@+id/rl_menu"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:background="@android:color/transparent"
-        android:textSize="15sp" />
+        android:background="@drawable/selector_gridlayout_bg"
+        android:layout_height="fill_parent" >
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_is_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/is_new" />
+
+        <TextView
+            android:id="@+id/description_textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</LinearLayout>

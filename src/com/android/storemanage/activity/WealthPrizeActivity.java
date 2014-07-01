@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 	private Button rbDefault, rbRankByWealth, rbRankByTime;
 	private int sortType = 0;
 	private TextView tvNoDataTextView;
+	private ImageView ivOrderByWealth;
+	private ImageView ivOrderByTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 		rbDefault = (Button) findViewById(R.id.rb_default);
 		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
 		rbRankByTime = (Button) findViewById(R.id.rb_update_time);
+		ivOrderByWealth = (ImageView) findViewById(R.id.iv_order_by_wealth);
+		ivOrderByTime = (ImageView) findViewById(R.id.iv_order_by_time);
 		rbDefault.setOnClickListener(this);
 		rbRankByWealth.setOnClickListener(this);
 		rbRankByTime.setOnClickListener(this);
@@ -125,28 +130,38 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.rb_default:// 默认
+			ivOrderByTime.setVisibility(View.INVISIBLE);
+			ivOrderByWealth.setVisibility(View.INVISIBLE);
 			sortType = 0;
 			initData(wealthIdString, sortType);
 			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
 		case R.id.rb_fortune:// 财富排行
+			ivOrderByTime.setVisibility(View.INVISIBLE);
 			if (sortType == 1) {
 				sortType = 2;
+				ivOrderByWealth.setImageResource(R.drawable.jiantou_up);
 			} else {
 				sortType = 1;
+				ivOrderByWealth.setImageResource(R.drawable.jiantou_down);
 			}
+			ivOrderByWealth.setVisibility(View.VISIBLE);
 			initData(wealthIdString, sortType);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
 			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
 			break;
 		case R.id.rb_update_time:// 更新时间
+			ivOrderByWealth.setVisibility(View.INVISIBLE);
 			if (sortType == 3) {
 				sortType = 4;
+				ivOrderByTime.setImageResource(R.drawable.jiantou_up);
 			} else {
 				sortType = 3;
+				ivOrderByTime.setImageResource(R.drawable.jiantou_down);
 			}
 			initData(wealthIdString, sortType);
+			ivOrderByTime.setVisibility(View.VISIBLE);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
 			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);
 			break;

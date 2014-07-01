@@ -66,6 +66,8 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case 111:
+				CRAlertDialog dialog = new CRAlertDialog(getActivity());
+				dialog.show("缓存清理完成!", 1000);
 				dismissProgressDialog();
 //				cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
 				mCacheSize.setText("0KB");
