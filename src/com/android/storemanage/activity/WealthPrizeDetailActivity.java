@@ -100,9 +100,9 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 									// btnGotoExchange.setEnabled(false);
 								}
 							}
-							btnGotoExchange.setText("已兑换");
-							btnGotoExchange.setEnabled(false);
-							btnGotoExchange.setVisibility(View.VISIBLE);
+//							btnGotoExchange.setText("已兑换");
+//							btnGotoExchange.setEnabled(false);
+//							btnGotoExchange.setVisibility(View.VISIBLE);
 							initData(wPrizeId);
 						}
 

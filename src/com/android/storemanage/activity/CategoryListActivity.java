@@ -62,7 +62,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
-					sendToServerGetUserWealth(entity.getCBrandId(), entity.getCBrangSite());
+					sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite());
 				}
 			}
 		});
@@ -80,7 +80,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	 * @param categoryId
 	 * @param string
 	 */
-	protected void sendToServerGetUserWealth(String categoryId, final String imageUrl) {
+	protected void sendToServerGetUserWealth(final String brandTitle,String categoryId, final String imageUrl) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("cBrandId", categoryId);
@@ -100,10 +100,11 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					int addValue = commonData.getCommonData().getUserAddWealthValue();
 					if ("true".equals(commonData.getCommonData().getReturnStatus()) && addValue > 0) {
-						Toast.makeText(mContext, "恭喜，你获得了" + addValue + "个财富值", Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, "你增加了" + addValue + "财富值", Toast.LENGTH_SHORT).show();
 					}
 					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
 					itt.putExtra("url", imageUrl);
+					itt.putExtra("title", brandTitle);
 					startActivity(itt);
 				}
 

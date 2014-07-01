@@ -17,8 +17,8 @@
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="45dip"
-                android:background="#5581A4"
+                android:layout_height="42dip"
+                android:background="#5D829F"
                 android:orientation="vertical" >
 
                 <TextView
@@ -39,7 +39,7 @@
                     android:layout_centerInParent="true"
                     android:text="首页"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:textSize="17sp" />
 
                 <ImageButton
                     android:id="@+id/imageview"
@@ -86,6 +86,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dip"
                     android:gravity="center_vertical"
+                    android:textColor="#787878"
                     android:text="兑换区" />
             </LinearLayout>
 
@@ -128,6 +129,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dip"
                     android:gravity="center_vertical"
+                    android:textColor="#787878"
                     android:text="分类区" />
             </LinearLayout>
 

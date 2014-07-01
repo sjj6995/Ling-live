@@ -61,24 +61,27 @@
                     android:paddingRight="20dip"
                     android:textColor="#FF8A00" />
 
-                <RelativeLayout
+               <!--  <RelativeLayout
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" >
+                    android:layout_weight="1" > -->
 
                     <Button
                         android:id="@+id/btn_goto_change"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="10dip"
+                        android:layout_marginLeft="5dip"
                         android:background="@drawable/selector_button_status"
                         android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="2dip"
+                        android:paddingBottom="2dip"
                         android:onClick="gotoExchange"
                         android:text="兑  换"
                         android:visibility="invisible"
                         android:textColor="@android:color/white" />
-                </RelativeLayout>
+                <!-- </RelativeLayout> -->
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

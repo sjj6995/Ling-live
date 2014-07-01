@@ -68,8 +68,8 @@ public class WealthPrizeAdapter extends BaseAdapter {
 		WealthPrizeEntity entity = lists.get(position);
 		if (null != entity) {
 			try {
-				holder.tvFromTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeStarttime(), "yyyy年MM月dd日"));
-				holder.tvToTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeEndtime(), "yyyy年MM月dd日"));
+				holder.tvFromTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeStarttime(), "yyyy-MM-dd"));
+				holder.tvToTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeEndtime(), "yyyy-MM-dd"));
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {

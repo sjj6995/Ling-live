@@ -20,7 +20,7 @@ public class WealthDetailActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webview);
 		tView = (TextView) findViewById(R.id.tv_title);
-		tView.setText("奖品详情");
+		tView.setText(getIntent().getStringExtra("title"));
 		webView = (WebView) findViewById(R.id.webview);
 		String url = getIntent().getStringExtra("url");
 		if (!TextUtils.isEmpty(url)) {
