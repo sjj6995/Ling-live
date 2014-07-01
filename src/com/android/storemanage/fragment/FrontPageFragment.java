@@ -69,7 +69,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 	// 包裹小圆点的LinearLayout
 	private LinearLayout mViewPoints;
 	private ImageView imageView;
-	private int[] colors = new int[] { R.color.color_0, R.color.color_1,
+	private int[] colors = new int[] { R.color.color_3, R.color.color_1,
 			R.color.color_2, R.color.color_3, R.color.color_4, R.color.color_5,
 			R.color.color_6, R.color.color_7 };
 
@@ -332,7 +332,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 
 			TextView label = (TextView) ll
 					.findViewById(R.id.description_textView);
-			label.setTextColor(colors[index]);
+			label.setTextColor(getResources().getColor(colors[index]));
 			label.setText(entity.getWealthareaTitle());
 			ImageView tvIsNew = (ImageView) ll.findViewById(R.id.iv_is_new);
 			if (!TextUtils.isEmpty(entity.getWealthareaSfnew())
