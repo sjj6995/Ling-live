@@ -76,6 +76,7 @@
                         android:gravity="center"
                         android:onClick="gotoExchange"
                         android:text="兑  换"
+                        android:visibility="invisible"
                         android:textColor="@android:color/white" />
                 </RelativeLayout>
             </LinearLayout>

@@ -89,6 +89,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 							}
 							btnGotoExchange.setText("已兑换");
 							btnGotoExchange.setEnabled(false);
+							btnGotoExchange.setVisibility(View.VISIBLE);
 						}
 					}
 				}
@@ -165,6 +166,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 					btnGotoExchange.setText("已兑换");
 					btnGotoExchange.setEnabled(false);
 				}
+				btnGotoExchange.setVisibility(View.VISIBLE);
 			}
 		}
 	}

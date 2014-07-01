@@ -80,6 +80,7 @@
                         android:paddingRight="6dp"
                         android:singleLine="true"
                         android:text=""
+                        android:visibility="invisible"
                         android:textColor="@android:color/white" />
                 </RelativeLayout>
             </LinearLayout>

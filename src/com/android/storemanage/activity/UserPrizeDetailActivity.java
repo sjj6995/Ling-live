@@ -88,6 +88,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 							dialog.show("使用成功", 2000);
 							btnUseButton.setEnabled(false);
 							btnUseButton.setText("已使用");
+							btnUseButton.setVisibility(View.VISIBLE);
 						} else {
 							dialog.show(commonData.getCommonData().getReason(), 2000);
 						}
@@ -169,6 +170,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 				btnUseButton.setText("使用");
 				btnUseButton.setEnabled(true);
 			}
+			btnUseButton.setVisibility(View.VISIBLE);
 		}
 	}
 }
