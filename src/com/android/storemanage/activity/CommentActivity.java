@@ -54,7 +54,7 @@ public class CommentActivity extends BaseActivity {
 			params.put("phonetype", "android");
 			params.put("userfeedbackNr", content);
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.GET_MY_PRIZE, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.USER_FEEDBACK, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
