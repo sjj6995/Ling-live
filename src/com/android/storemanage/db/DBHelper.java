@@ -13,10 +13,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table  BrandList(_id TEXT primary key,time TEXT");
-		db.execSQL("create table  FrontPage(_id TEXT NOT NULL,time TEXT");
-		db.execSQL("create table  MessageList(_id TEXT NOT NULL,time TEXT");
-		db.execSQL("create table  PrizeList(_id TEXT NOT NULL,time TEXT");
+		db.execSQL("create table  BrandList(_id TEXT primary key,time TEXT");//品牌列表
+		db.execSQL("create table  FrontPage(_id TEXT NOT NULL,time TEXT");//首页
+		db.execSQL("create table  MessageList(_id TEXT NOT NULL,time TEXT");//消息列表
+		db.execSQL("create table  PrizeList(_id TEXT NOT NULL,time TEXT");//
 	}
 
 	@Override
