@@ -1,11 +1,9 @@
 package com.android.storemanage.adapter;
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.android.storemanage.R;
 import com.android.storemanage.entity.WealthPrizeEntity;
-import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
@@ -67,14 +65,16 @@ public class WealthPrizeAdapter extends BaseAdapter {
 		}
 		WealthPrizeEntity entity = lists.get(position);
 		if (null != entity) {
-			try {
-				holder.tvFromTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeStarttime(), "yyyy-MM-dd"));
-				holder.tvToTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeEndtime(), "yyyy-MM-dd"));
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			holder.tvFromTimeTextView.setText(entity.getWPrizeStarttime());
+			holder.tvToTimeTextView.setText(entity.getWPrizeEndtime());
+//			try {
+//				holder.tvFromTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeStarttime(), "yyyy-MM-dd"));
+//				holder.tvToTimeTextView.setText(CommonUtil.longToString(entity.getWPrizeEndtime(), "yyyy-MM-dd"));
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 			holder.leftCountTextView.setText(entity.getWPrizeRemainnumber() + "");
 			holder.totalCounTextView.setText(entity.getWPrizeTotalnumber() + "");
 			holder.tvWealthTextView.setText(entity.getWPrizeNeedwealth() + "");

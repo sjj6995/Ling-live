@@ -6,7 +6,7 @@ public class MessageEntity {
 	private String messageSfnew;
 	private String messageImgpath;
 	private String messageTitle;
-	private String messageOpptime;
+	private long messageOpptime;
 	private String messageImgid;
 	private String messagePubdate;
 	private String messageImgsize;
@@ -20,7 +20,7 @@ public class MessageEntity {
 
 	public MessageEntity(String messageId, String messageImgname,
 			String messageSfnew, String messageImgpath, String messageTitle,
-			String messageOpptime, String messageImgid, String messagePubdate,
+			long messageOpptime, String messageImgid, String messagePubdate,
 			String messageImgsize, String messageImgdomain, String messageDetail) {
 		super();
 		this.messageId = messageId;
@@ -68,11 +68,11 @@ public class MessageEntity {
 		this.messageTitle = messageTitle;
 	}
 
-	public String getMessageOpptime() {
+	public long getMessageOpptime() {
 		return messageOpptime;
 	}
 
-	public void setMessageOpptime(String messageOpptime) {
+	public void setMessageOpptime(long messageOpptime) {
 		this.messageOpptime = messageOpptime;
 	}
 

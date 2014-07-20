@@ -101,16 +101,16 @@ public class SplashActivity extends BaseActivity {
 						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
-//						dialog.dismiss();
-//						SplashActivity.this.finish();
-//						break;
 						dialog.dismiss();
-						if (!TextUtils.isEmpty(userId)) {
-							gotoMain();
-						} else {
-							initData();// 看当前的用户号是否注册成功
-						}
+						SplashActivity.this.finish();
 						break;
+//						dialog.dismiss();
+//						if (!TextUtils.isEmpty(userId)) {
+//							gotoMain();
+//						} else {
+//							initData();// 看当前的用户号是否注册成功
+//						}
+//						break;
 					}
 				}
 			});

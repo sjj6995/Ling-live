@@ -2,6 +2,7 @@ package com.android.storemanage.activity;
 
 import com.android.storemanage.R;
 import com.android.storemanage.application.BaseApplication;
+import com.android.storemanage.db.SqlDataBase;
 import com.android.storemanage.utils.CommonLog;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ public class BaseActivity extends Activity {
 	protected Context mContext;
 	protected CommonLog log;
 	protected SharedPreferences sp;
+	protected SqlDataBase db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class BaseActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		application = BaseApplication.getApplication();
 		mContext = this;
+		db = new SqlDataBase(mContext);
 		sp = getSharedPreferences("userinfor", MODE_PRIVATE);
 		log = CommonLog.getInstance();
 	}

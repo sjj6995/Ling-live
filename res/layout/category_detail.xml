@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="120dip"
+        android:orientation="horizontal"
+        android:padding="@dimen/app_bg_content_margin" >
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.2"
+            android:background="@android:color/transparent"
+            android:minHeight="80dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_empty" />
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="2"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_category_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_view_color"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="2dip"
+                android:layout_marginTop="1dip"
+                android:background="@drawable/selector_button_status"
+                android:text="下载App"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="@dimen/app_bg_content_margin"
+        android:text="说明:"
+        android:textColor="#5D87A8"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_message_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:lineSpacingExtra="10dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginLeft="@dimen/app_bg_content_margin"
+        android:layout_marginRight="@dimen/app_bg_content_margin"
+        android:textColor="#646464"
+        android:textSize="14sp" />
+
+</LinearLayout>

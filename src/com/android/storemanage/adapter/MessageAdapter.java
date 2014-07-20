@@ -1,11 +1,9 @@
 package com.android.storemanage.adapter;
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.android.storemanage.R;
 import com.android.storemanage.entity.MessageEntity;
-import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
@@ -63,14 +61,15 @@ public class MessageAdapter extends BaseAdapter {
 		}
 		MessageEntity entity = lists.get(position);
 		if (null != entity) {
-			try {
-				holder.tvDateTextView.setText(CommonUtil.longToString(Long.parseLong(entity.getMessagePubdate()),
-						"yyyy-MM-dd HH:mm"));
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			holder.tvDateTextView.setText(entity.getMessagePubdate());
+//			try {
+//				holder.tvDateTextView.setText(CommonUtil.longToString(Long.parseLong(entity.getMessagePubdate()),
+//						"yyyy-MM-dd HH:mm"));
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 			holder.tvMessageNameTextView.setText(entity.getMessageTitle());
 			holder.tvMessageDescTextView.setText(entity.getMessageDetail());
 			if (!TextUtils.isEmpty(entity.getMessageSfnew()) && "1".equals(entity.getMessageSfnew())) {

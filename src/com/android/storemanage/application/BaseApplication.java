@@ -1,5 +1,6 @@
 package com.android.storemanage.application;
 
+import com.android.storemanage.db.SqlDataBase;
 import com.android.storemanage.utils.ExceptionHandler;
 
 import android.app.Application;
@@ -9,6 +10,7 @@ public class BaseApplication extends Application {
 	private static BaseApplication application;
 	private SharedPreferences sp;
 	private String userId = "";
+	
 
 	public String getUserId() {
 		return userId;

@@ -73,15 +73,16 @@ public class MessageDetailAdapter extends BaseAdapter {
 		}
 		MessageDetailEntity entity = lists.get(position);
 		if (null != entity) {
-			try {
-				holder.tvFromTimeTextView
-						.setText("时间："+CommonUtil.longToString(Long.parseLong(entity.getMDetailPubdate()),
-								"yyyy-MM-dd"));
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			holder.tvFromTimeTextView.setText("时间："+entity.getMDetailPubdate());
+//			try {
+//				holder.tvFromTimeTextView
+//						.setText("时间："+CommonUtil.longToString(Long.parseLong(entity.getMDetailPubdate()),
+//								"yyyy-MM-dd"));
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 //			holder.tvToTimeTextView.setText("止：" + entity.getMDetailOpptime());
 			holder.tvMessageNameTextView.setText(entity.getMDetailTitle());
 			String detail = entity.getMDetailDetail();

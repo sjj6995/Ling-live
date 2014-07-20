@@ -7,16 +7,39 @@ public class BrandEntity {
 	private String cBrandSfnew;
 	private String cBrandImgsize;
 	private String cBrandId;
-	private String cBrandOpptime;
+	private long cBrandOpptime;
 	private String cBrandImgdomain;
-	private String cBrandImgpath;
+	private String cBrandImgpath;//
 	private String cBrangSite;
 	private String cBrandTitle;
 	private String cBrandImgname;
 	private int cBrandWealth;
+	private String cBrandSfhavedetail;
+	
+	
+	
+	/**
+	 * "cBrandImgpath": "pages/FileUpload/images/categoryBrand/1401652733279_744068479816370045.jpg",
+                            "cBrandSfhavedetail": "0",
+                            "cBrangSite": "http://www.dayalihome.com",
+                            "cBrandSfnew": "1",
+                            "cBrandClicknumber": 25,
+                            "categoryId": "4bf5bfb7b226496598d709e1d03a231a",
+                            "cBrandTitle": "大鸭梨",
+                            "cBrandId": "48c116d1ce104707b8f2bf892b2d65b0",
+                            "cBrandWealth": 6
+	 * @return
+	 */
+	
 	
 	public String getCBrandImgid() {
 		return cBrandImgid;
+	}
+	public String getCBrandSfhavedetail() {
+		return cBrandSfhavedetail;
+	}
+	public void setCBrandSfhavedetail(String cBrandSfhavedetail) {
+		this.cBrandSfhavedetail = cBrandSfhavedetail;
 	}
 	public void setCBrandImgid(String cBrandImgid) {
 		this.cBrandImgid = cBrandImgid;
@@ -51,10 +74,10 @@ public class BrandEntity {
 	public void setCBrandId(String cBrandId) {
 		this.cBrandId = cBrandId;
 	}
-	public String getCBrandOpptime() {
+	public long getCBrandOpptime() {
 		return cBrandOpptime;
 	}
-	public void setCBrandOpptime(String cBrandOpptime) {
+	public void setCBrandOpptime(long cBrandOpptime) {
 		this.cBrandOpptime = cBrandOpptime;
 	}
 	public String getCBrandImgdomain() {

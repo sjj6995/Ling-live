@@ -69,6 +69,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activity.UserPrizeDetailActivity2"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" >
@@ -94,7 +99,15 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".activity.WealthPrizeActivity" >
+        <activity
+            android:name=".activity.WealthPrizeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.CategoryDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -10,7 +10,8 @@ public class JFConfig {
 	public static final String MESSAGE_CENTER = "ajax.sword?tid=MessageService_initMessageList";// 消息中心
 	public static final String CLASSIFY_LIST = "ajax.sword?tid=CategoryService_initCategoryList";// 分类
 	public static final String MESSAGE_DETAIL = "ajax.sword?tid=MessageService_getMessageDetail";// 消息详情
-	public static final String CATEGORY_BY_ID = "ajax.sword?tid=CategoryService_getBrandList";// 获取分类下的品牌列表
+	public static final String CATEGORY_BY_ID = "ajax.sword?tid=CategoryService_getBrandList";// 获取分类下的品牌列表1
+	public static final String CATEGORY_DETAIL = "ajax.sword?tid=CategoryService_getBrandDetail";//分类详情
 	public static final String CATEGORY_BRAND_GET_WELATH = "ajax.sword?tid=CategoryService_getWealthByClickBrand";// 获取财富值
 	public static final String MY_INFOR = "ajax.sword?tid=UserService_personalInfo";// 个人信息
 	public static final String WECHAT_SHARA_APP_IP = "";
@@ -27,4 +28,6 @@ public class JFConfig {
 	public static final String CHECK_UPDATE = "ajax.sword?tid=AppVersionService_userUpdateApp";//版本更新
 	public static final String CHECK_ISORNOT_REGISTERED = "ajax.sword?tid=UserService_checkRegister";//检查是否注册过
 	public static final String DELETE_USER_PRIZE = "ajax.sword?tid=UserService_userDeletePrize";//删除奖品
+	public static final String GET_WEALTH_AND_USERAMOUNT = "ajax.sword?tid=CommonService_getSyPd";//获取首页会员数和用户财富值
+
 }

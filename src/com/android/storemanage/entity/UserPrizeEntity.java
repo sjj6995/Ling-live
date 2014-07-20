@@ -20,13 +20,22 @@ public class UserPrizeEntity {
 	private String userprizeImgid;
 	private String userprizeDetail;
 	private String userprizeImgdomain;
-	private long userprizeDuihuantime;
+	private String userprizeDuihuantime;
+	private int  userprizeCategory;
 	
-	public long getUserprizeDuihuantime() {
+	public int getUserprizeCategory() {
+		return userprizeCategory;
+	}
+
+	public void setUserprizeCategory(int userprizeCategory) {
+		this.userprizeCategory = userprizeCategory;
+	}
+
+	public String getUserprizeDuihuantime() {
 		return userprizeDuihuantime;
 	}
 
-	public void setUserprizeDuihuantime(long userprizeDuihuantime) {
+	public void setUserprizeDuihuantime(String userprizeDuihuantime) {
 		this.userprizeDuihuantime = userprizeDuihuantime;
 	}
 
@@ -34,7 +43,6 @@ public class UserPrizeEntity {
 
 	public UserPrizeEntity() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getUserprizeId() {

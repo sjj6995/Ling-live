@@ -6,14 +6,15 @@ package com.android.storemanage.entity;
  *
  */
 public class WealthEntity {
-	private String wealthareaOpptime;
+	private long wealthareaOpptime;
 	private String wealthareaSfnew;
 	private String wealthareaTitle;
 	private String wealthareaId;
-	public String getWealthareaOpptime() {
+	
+	public long getWealthareaOpptime() {
 		return wealthareaOpptime;
 	}
-	public void setWealthareaOpptime(String wealthareaOpptime) {
+	public void setWealthareaOpptime(long wealthareaOpptime) {
 		this.wealthareaOpptime = wealthareaOpptime;
 	}
 	public String getWealthareaSfnew() {

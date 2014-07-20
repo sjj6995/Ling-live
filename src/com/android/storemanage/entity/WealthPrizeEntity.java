@@ -5,7 +5,7 @@ package com.android.storemanage.entity;
  * 财富奖区
  */
 public class WealthPrizeEntity {
-	private String wPrizeOpptime;
+	private long wPrizeOpptime;
 	private String wPrizeImgsize;
 	private String wPrizeImgid;
 	private String wPrizeId;
@@ -18,9 +18,9 @@ public class WealthPrizeEntity {
 	private String wPrizeSfnew;
 	private String wPrizeImgpath;
 	private String wPrizeDetail;
-	private long wPrizeStarttime;
+	private String wPrizeStarttime;
 	private String wPrizeImgname;
-	private long wPrizeEndtime;
+	private String wPrizeEndtime;
 	private String wPrizeTitle;
 	
 //	  "wPrizeImgpath": "pages/FileUpload/images/wealthareaPrize/1401694437606_427184925465328228.jpg",
@@ -32,10 +32,10 @@ public class WealthPrizeEntity {
 //      "wPrizeRemainnumber": 85,
 //      "wPrizeTitle": "马尔代夫7日游",
 //      "wPrizeTotalnumber": 100
-	public String getWPrizeOpptime() {
+	public long getWPrizeOpptime() {
 		return wPrizeOpptime;
 	}
-	public void setWPrizeOpptime(String wPrizeOpptime) {
+	public void setWPrizeOpptime(long wPrizeOpptime) {
 		this.wPrizeOpptime = wPrizeOpptime;
 	}
 	public String getWPrizeImgsize() {
@@ -110,10 +110,10 @@ public class WealthPrizeEntity {
 	public void setWPrizeDetail(String wPrizeDetail) {
 		this.wPrizeDetail = wPrizeDetail;
 	}
-	public long getWPrizeStarttime() {
+	public String getWPrizeStarttime() {
 		return wPrizeStarttime;
 	}
-	public void setWPrizeStarttime(long wPrizeStarttime) {
+	public void setWPrizeStarttime(String wPrizeStarttime) {
 		this.wPrizeStarttime = wPrizeStarttime;
 	}
 	public String getWPrizeImgname() {
@@ -122,10 +122,10 @@ public class WealthPrizeEntity {
 	public void setWPrizeImgname(String wPrizeImgname) {
 		this.wPrizeImgname = wPrizeImgname;
 	}
-	public long getWPrizeEndtime() {
+	public String getWPrizeEndtime() {
 		return wPrizeEndtime;
 	}
-	public void setWPrizeEndtime(long wPrizeEndtime) {
+	public void setWPrizeEndtime(String wPrizeEndtime) {
 		this.wPrizeEndtime = wPrizeEndtime;
 	}
 	public String getWPrizeTitle() {

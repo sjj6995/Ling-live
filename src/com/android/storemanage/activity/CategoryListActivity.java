@@ -34,7 +34,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	private Button rbDefault, rbRankByWealth, rbRankByTime;
 	private ListView listView;
 	private String categoryIdString;
-	private int cBrandId = 0;
+	private int sortType = 0;
 	private TextView tView;
 	private ImageView ivOrderByWealth;
 	private ImageView ivOrderByTime;
@@ -62,15 +62,31 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
-					sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite());
+					sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite(),entity.getCBrandSfhavedetail());
+				    gotoDifferentPageByType(entity);
 				}
 			}
 		});
 	}
 
+	protected void gotoDifferentPageByType(BrandEntity entity) {
+		if(!TextUtils.isEmpty(entity.getCBrandSfhavedetail())){
+			if("0".equals(entity.getCBrandSfhavedetail())){//为0则表示没有内容，直接跳转到webview界面
+				Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
+				itt.putExtra("url", entity.getCBrangSite());
+				itt.putExtra("title", entity.getCBrandTitle());
+				startActivity(itt);
+			}else{
+				Intent itt = new Intent(CategoryListActivity.this, CategoryDetailActivity.class);
+				itt.putExtra("id", entity.getCBrandId());
+				startActivity(itt);
+			}
+		}
+	}
+
 	@Override
 	protected void onResume() {
-		initData(categoryIdString, cBrandId);
+		initData(categoryIdString, sortType);
 		super.onResume();
 	}
 
@@ -80,7 +96,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	 * @param categoryId
 	 * @param string
 	 */
-	protected void sendToServerGetUserWealth(final String brandTitle,String categoryId, final String imageUrl) {
+	protected void sendToServerGetUserWealth(final String brandTitle,String categoryId, final String imageUrl,final String type) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("cBrandId", categoryId);
@@ -102,19 +118,13 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					if ("true".equals(commonData.getCommonData().getReturnStatus()) && addValue > 0) {
 						Toast.makeText(mContext, "你增加了" + addValue + "财富值", Toast.LENGTH_SHORT).show();
 					}
-					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
-					itt.putExtra("url", imageUrl);
-					itt.putExtra("title", brandTitle);
-					startActivity(itt);
+					
 				}
 
 				@Override
 				public void onFailure(Throwable arg0, String arg1) {
 					super.onFailure(arg0, arg1);
 					dismissProgressDialog();
-					Intent itt = new Intent(CategoryListActivity.this, WealthDetailActivity.class);
-					itt.putExtra("url", imageUrl);
-					startActivity(itt);
 				}
 			});
 		} else {
@@ -168,8 +178,8 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		case R.id.rb_default:// 默认
 			ivOrderByTime.setVisibility(View.INVISIBLE);
 			ivOrderByWealth.setVisibility(View.INVISIBLE);
-			cBrandId = 0;
-			initData(categoryIdString, cBrandId);
+			sortType = 0;
+			initData(categoryIdString, sortType);
 			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
@@ -177,27 +187,27 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			ivOrderByTime.setVisibility(View.INVISIBLE);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_pressed, R.drawable.right_normal);
 			changeBtnColor(R.color.button_normal_color, Color.WHITE, R.color.button_normal_color);
-			if (cBrandId == 1) {
-				cBrandId = 2;
+			if (sortType == 1) {
+				sortType = 2;
 				ivOrderByWealth.setImageResource(R.drawable.jiantou_up);
 			} else {
-				cBrandId = 1;
+				sortType = 1;
 				ivOrderByWealth.setImageResource(R.drawable.jiantou_down);
 			}
 			ivOrderByWealth.setVisibility(View.VISIBLE);
-			initData(categoryIdString, cBrandId);
+			initData(categoryIdString, sortType);
 			break;
 		case R.id.rb_update_time:// 更新时间
 			ivOrderByWealth.setVisibility(View.INVISIBLE);
-			if (cBrandId == 3) {
-				cBrandId = 4;
+			if (sortType == 3) {
+				sortType = 4;
 				ivOrderByTime.setImageResource(R.drawable.jiantou_up);
 			} else {
-				cBrandId = 3;
+				sortType = 3;
 				ivOrderByTime.setImageResource(R.drawable.jiantou_down);
 			}
 			ivOrderByTime.setVisibility(View.VISIBLE);
-			initData(categoryIdString, cBrandId);
+			initData(categoryIdString, sortType);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
 			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);
 			break;

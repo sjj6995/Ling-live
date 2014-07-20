@@ -16,7 +16,16 @@ public class CollectionData {
 	private WealthPrizeDetailEntity prizeDetailMap;//财富奖区详情
 	private AppVersionEntity appVersionData;//版本信息
 	private UserPrizeDetailEntity userprizeDetailMap;//用户奖品详情
+	private BrandDetailEntity brandDetailMap;//品牌详情
 	
+	public BrandDetailEntity getBrandDetailMap() {
+		return brandDetailMap;
+	}
+
+	public void setBrandDetailMap(BrandDetailEntity brandDetailMap) {
+		this.brandDetailMap = brandDetailMap;
+	}
+
 	public UserPrizeDetailEntity getUserprizeDetailMap() {
 		return userprizeDetailMap;
 	}

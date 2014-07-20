@@ -1,6 +1,5 @@
 package com.android.storemanage.activity;
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
@@ -73,12 +72,21 @@ public class MyPrizeActivity extends BaseActivity {
 
 	private void gotoUserPrizeDetailActivity(UserPrizeEntity entity) {
 		if (null != entity) {
-			Intent intent = new Intent(MyPrizeActivity.this,
-					UserPrizeDetailActivity.class);
-			intent.putExtra("userprizeId", entity.getUserprizeId());
-			intent.putExtra("isused",
-					"1".equals(entity.getUserprizeSfused()) ? true : false);
-			startActivity(intent);
+			if(entity.getUserprizeCategory() == 1){
+				Intent intent = new Intent(MyPrizeActivity.this,
+						UserPrizeDetailActivity2.class);
+				intent.putExtra("userprizeId", entity.getUserprizeId());
+				intent.putExtra("isused",
+						"1".equals(entity.getUserprizeSfused()) ? true : false);
+				startActivity(intent);
+			}else{
+				Intent intent = new Intent(MyPrizeActivity.this,
+						UserPrizeDetailActivity.class);
+				intent.putExtra("userprizeId", entity.getUserprizeId());
+				intent.putExtra("isused",
+						"1".equals(entity.getUserprizeSfused()) ? true : false);
+				startActivity(intent);
+			}
 		}
 	}
 
@@ -219,18 +227,19 @@ public class MyPrizeActivity extends BaseActivity {
 				} else {
 					holder.ivImageView.setImageResource(R.drawable.btn_unused);
 				}
-				try {
-					holder.tvToTime.setText("兑换时间："
-							+ CommonUtil.longToString(
-									entity.getUserprizeDuihuantime(),
-									"yyyy-MM-dd"));
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				holder.tvToTime.setText("兑换时间："+ entity.getUserprizeDuihuantime());
+//				try {
+//					holder.tvToTime.setText("兑换时间："
+//							+ CommonUtil.longToString(
+//									entity.getUserprizeDuihuantime(),
+//									"yyyy-MM-dd"));
+//				} catch (NumberFormatException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				holder.tvWealthTextView.setText(entity.getUserprizeNeedwealth()
 						+ "");
 				holder.deleteBtn.setOnClickListener(new OnClickListener() {

@@ -2,6 +2,7 @@ package com.android.storemanage.fragment;
 
 import com.android.storemanage.R;
 import com.android.storemanage.application.BaseApplication;
+import com.android.storemanage.db.SqlDataBase;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ public class BaseFragment extends Fragment {
 //	protected DisplayImageOptions options;
 //	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected BaseApplication application;
+	protected SqlDataBase db;
 	
 	
 	
@@ -24,6 +26,7 @@ public class BaseFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		application = BaseApplication.getApplication();
+		db = new SqlDataBase(getActivity());
 //		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_empty)
 //				.showImageForEmptyUri(R.drawable.img_empty).showImageOnFail(R.drawable.img_empty).cacheInMemory(true)
 //				.cacheOnDisk(true).considerExifParams(true).displayer(new RoundedBitmapDisplayer(20)).build();
