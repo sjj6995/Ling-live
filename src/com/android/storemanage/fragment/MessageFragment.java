@@ -7,9 +7,11 @@ import com.android.storemanage.R;
 import com.android.storemanage.activity.MessageDetailActivity;
 import com.android.storemanage.adapter.MessageAdapter;
 import com.android.storemanage.entity.CollectionData;
+import com.android.storemanage.entity.DataSaveEntity;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.MessageEntity;
 import com.android.storemanage.entity.OuterData;
+import com.android.storemanage.entity.WealthEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.HttpClient;
@@ -34,16 +36,14 @@ import android.widget.TextView;
  * @author liujiao 消息界面
  * 
  */
-public class MessageFragment extends BaseFragment implements
-		OnItemClickListener {
+public class MessageFragment extends BaseFragment implements OnItemClickListener {
 	private ImageButton imageButton;
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private ListView messageListView;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_message, null);
 		initViews(view);
 		return view;
@@ -59,41 +59,54 @@ public class MessageFragment extends BaseFragment implements
 		if (CommonUtil.checkNetState(getActivity())) {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.MESSAGE_CENTER, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
-								List<MessageEntity> msgEntity = innderData
-										.getData().get(0).getMessageMapList();
-								messageListView.setAdapter(new MessageAdapter(
-										getActivity(), msgEntity));
-							}
-						}
+			HttpClient.post(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						List<MessageEntity> msgEntity = innderData.getData().get(0).getMessageMapList();
+						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.MESSAGE_LIST);
+						fillData(msgEntity, tempEntities);
+						messageListView.setAdapter(new MessageAdapter(getActivity(), msgEntity));
+					}
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
-							CommonUtil.onFailure(arg0, getActivity());
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, getActivity());
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(getActivity());
 			dialog.show(getString(R.string.pLease_check_network), 2000);
+		}
+
+	}
+
+	protected void fillData(List<MessageEntity> messageEntities, List<DataSaveEntity> tempEntities) {
+		if (null != tempEntities && tempEntities.size() > 0) {
+			for (int i = 0; i < tempEntities.size(); i++) {
+				DataSaveEntity temp = tempEntities.get(i);
+				String tempId = temp.getId();
+				for (int j = 0; j < messageEntities.size(); j++) {
+					MessageEntity entity = messageEntities.get(j);
+					String id = entity.getMessageId();
+					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
+						entity.setDbOpptime(Long.parseLong(id));
+					}
+				}
+
+			}
 		}
 
 	}
@@ -108,13 +121,16 @@ public class MessageFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> adapterView, View view,
-			int position, long id) {
-		MessageEntity entity = (MessageEntity) messageListView
-				.getItemAtPosition(position);
+	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+		MessageEntity entity = (MessageEntity) messageListView.getItemAtPosition(position);
 		if (null != entity) {
-			Intent intent = new Intent(getActivity(),
-					MessageDetailActivity.class);
+			//数据保存到数据库中
+			DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
+			tempDataSaveEntity.setId(entity.getMessageId());
+			tempDataSaveEntity.setTime(entity.getMessageOpptime() + "");
+			db.insertDataSaveEntity(JFConfig.MESSAGE_LIST, tempDataSaveEntity);
+			
+			Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
 			intent.putExtra("messageId", entity.getMessageId());
 			getActivity().startActivity(intent);
 		}

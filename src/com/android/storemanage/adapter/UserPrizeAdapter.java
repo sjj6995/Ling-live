@@ -29,7 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * @author unknow 消息详情内容填充
+ * @author unknow 
  */
 public class UserPrizeAdapter extends BaseAdapter {
 	private Context mContext;

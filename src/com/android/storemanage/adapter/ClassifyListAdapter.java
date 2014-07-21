@@ -48,31 +48,32 @@ public class ClassifyListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		Holder holder = null;
 		if (null == convertView) {
-			convertView = View.inflate(mContext,
-					R.layout.classify_listview_item, null);
+			convertView = View.inflate(mContext, R.layout.classify_listview_item, null);
 			holder = new Holder();
 			holder.iv = (ImageView) convertView.findViewById(R.id.iv_icon);
-			holder.tvTitle = (TextView) convertView
-					.findViewById(R.id.tv_branch_name);
-			holder.tvClickTime = (TextView) convertView
-					.findViewById(R.id.tv_click_times);
-			holder.tvWealth = (TextView) convertView
-					.findViewById(R.id.tv_fortune_price);
-			holder.ivIsNew = (ImageView) convertView
-					.findViewById(R.id.iv_is_new);
+			holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_branch_name);
+			holder.tvClickTime = (TextView) convertView.findViewById(R.id.tv_click_times);
+			holder.tvWealth = (TextView) convertView.findViewById(R.id.tv_fortune_price);
+			holder.ivIsNew = (ImageView) convertView.findViewById(R.id.iv_is_new);
 			convertView.setTag(holder);
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
 		BrandEntity entity = brandEntities.get(position);
 		if (null != entity) {
-			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getCBrandImgpath())
+			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getCBrandImgpath())
 					.placeholder(R.drawable.img_empty).into(holder.iv);
 
-			if (!TextUtils.isEmpty(entity.getCBrandSfnew())
-					&& "1".equals(entity.getCBrandSfnew())) {
-				holder.ivIsNew.setVisibility(View.VISIBLE);
+			if (!TextUtils.isEmpty(entity.getCBrandSfnew())) {
+				if ("1".equals(entity.getCBrandSfnew())) {
+					holder.ivIsNew.setVisibility(View.VISIBLE);
+				} else {
+					if (entity.getDbOpptime() == entity.getCBrandOpptime()) {
+						holder.ivIsNew.setVisibility(View.GONE);
+					} else {
+						holder.ivIsNew.setVisibility(View.VISIBLE);
+					}
+				}
 			} else {
 				holder.ivIsNew.setVisibility(View.GONE);
 			}

@@ -36,16 +36,23 @@ public class SqlDataBase {
 
 	public void insertDataSaveEntity(String tableName, DataSaveEntity entity) {
 		db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select * from " + tableName
-				+ "where _id =?", new String[] { entity.getId() });
+		Cursor cursor = db.rawQuery("select * from " + tableName + "where _id =?", new String[] { entity.getId() });
 		if (cursor.moveToNext()) {
-			db.execSQL("delete from where _id =? ",
-					new String[] { entity.getId() });
+			// db.execSQL("delete from where _id =? ", new String[] {
+			// entity.getId() });
+			db.execSQL("update " + tableName + " set time = ? where _id =? ",
+					new String[] { entity.getTime(), entity.getId() });
+		} else {
+			ContentValues values = new ContentValues();
+			values.put("_id", entity.getId());
+			values.put("time", entity.getTime());
+			db.insert(tableName, null, values);
 		}
-		ContentValues values = new ContentValues();
-		values.put("_id", entity.getId());
-		values.put("time", entity.getTime());
-		db.insert(tableName, null, values);
+	}
+
+	public void deleteDataSaveEntity(String tableName) {
+		db = helper.getReadableDatabase();
+		db.execSQL("delete from " + tableName);
 	}
 
 }

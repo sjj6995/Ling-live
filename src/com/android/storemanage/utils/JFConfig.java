@@ -29,5 +29,8 @@ public class JFConfig {
 	public static final String CHECK_ISORNOT_REGISTERED = "ajax.sword?tid=UserService_checkRegister";//检查是否注册过
 	public static final String DELETE_USER_PRIZE = "ajax.sword?tid=UserService_userDeletePrize";//删除奖品
 	public static final String GET_WEALTH_AND_USERAMOUNT = "ajax.sword?tid=CommonService_getSyPd";//获取首页会员数和用户财富值
-
+    public static final String BRAND_LIST = "BrandList";//品牌列表
+    public static final String FRONT_PAGE = "FrontPage";//首页
+    public static final String MESSAGE_LIST = "MessageList";//消息列表
+    public static final String PRIZE_LIST = "PrizeList";//奖品列表
 }

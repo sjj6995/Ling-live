@@ -7,8 +7,10 @@ import com.android.storemanage.R;
 import com.android.storemanage.adapter.ClassifyListAdapter;
 import com.android.storemanage.entity.BrandEntity;
 import com.android.storemanage.entity.CollectionData;
+import com.android.storemanage.entity.DataSaveEntity;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
+import com.android.storemanage.entity.WealthEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.HttpClient;
@@ -62,6 +64,11 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				BrandEntity entity = (BrandEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
+					//把数据保存到数据库中
+					DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
+					tempDataSaveEntity.setId(entity.getCategoryId());
+					tempDataSaveEntity.setTime(entity.getCBrandOpptime() + "");
+					db.insertDataSaveEntity(JFConfig.BRAND_LIST, tempDataSaveEntity);
 					sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite(),entity.getCBrandSfhavedetail());
 				    gotoDifferentPageByType(entity);
 				}
@@ -153,6 +160,8 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<BrandEntity> brandEntities = commonData.getBrandMapList();
+						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.BRAND_LIST);
+						fillData(brandEntities, tempEntities);
 						listView.setAdapter(new ClassifyListAdapter(mContext, brandEntities));
 					} else {
 						CRAlertDialog dialog = new CRAlertDialog(mContext);
@@ -170,6 +179,24 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
 		}
+	}
+	
+	protected void fillData(List<BrandEntity> brandEntities, List<DataSaveEntity> tempEntities) {
+		if (null != tempEntities && tempEntities.size() > 0) {
+			for (int i = 0; i < tempEntities.size(); i++) {
+				DataSaveEntity temp = tempEntities.get(i);
+				String tempId = temp.getId();
+				for (int j = 0; j < brandEntities.size(); j++) {
+					BrandEntity entity = brandEntities.get(j);
+					String id = entity.getCategoryId();
+					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
+						entity.setDbOpptime(Long.parseLong(id));
+					}
+				}
+
+			}
+		}
+
 	}
 
 	@Override

@@ -15,6 +15,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * @author liujiao
+ * 消息列表数据适配
+ *
+ */
 public class MessageAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<MessageEntity> lists;
@@ -72,9 +77,17 @@ public class MessageAdapter extends BaseAdapter {
 //			}
 			holder.tvMessageNameTextView.setText(entity.getMessageTitle());
 			holder.tvMessageDescTextView.setText(entity.getMessageDetail());
-			if (!TextUtils.isEmpty(entity.getMessageSfnew()) && "1".equals(entity.getMessageSfnew())) {
-				holder.ivNewTextView.setVisibility(View.VISIBLE);
-			} else {
+			if (!TextUtils.isEmpty(entity.getMessageSfnew()) ) {
+				if("1".equals(entity.getMessageSfnew())){
+					holder.ivNewTextView.setVisibility(View.VISIBLE);
+				} else {
+					if(entity.getDbOpptime() == entity.getMessageOpptime()){
+						holder.ivNewTextView.setVisibility(View.INVISIBLE);
+					}else{
+						holder.ivNewTextView.setVisibility(View.VISIBLE);
+					}
+				}
+			}else{
 				holder.ivNewTextView.setVisibility(View.INVISIBLE);
 			}
 			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getMessageImgpath())

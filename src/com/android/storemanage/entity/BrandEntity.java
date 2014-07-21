@@ -7,7 +7,7 @@ public class BrandEntity {
 	private String cBrandSfnew;
 	private String cBrandImgsize;
 	private String cBrandId;
-	private long cBrandOpptime;
+	private long cBrandOpptime = 0;
 	private String cBrandImgdomain;
 	private String cBrandImgpath;//
 	private String cBrangSite;
@@ -15,9 +15,20 @@ public class BrandEntity {
 	private String cBrandImgname;
 	private int cBrandWealth;
 	private String cBrandSfhavedetail;
+	private long dbOpptime = 0;
 	
-	
-	
+	/**
+	 * @return the dbOpptime
+	 */
+	public long getDbOpptime() {
+		return dbOpptime;
+	}
+	/**
+	 * @param dbOpptime the dbOpptime to set
+	 */
+	public void setDbOpptime(long dbOpptime) {
+		this.dbOpptime = dbOpptime;
+	}
 	/**
 	 * "cBrandImgpath": "pages/FileUpload/images/categoryBrand/1401652733279_744068479816370045.jpg",
                             "cBrandSfhavedetail": "0",

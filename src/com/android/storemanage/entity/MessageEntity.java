@@ -6,13 +6,28 @@ public class MessageEntity {
 	private String messageSfnew;
 	private String messageImgpath;
 	private String messageTitle;
-	private long messageOpptime;
+	private long messageOpptime=0;
 	private String messageImgid;
 	private String messagePubdate;
 	private String messageImgsize;
 
 	private String messageImgdomain;
 	private String messageDetail;
+	private long dbOpptime = 0;
+	
+	/**
+	 * @return the dbOpptime
+	 */
+	public long getDbOpptime() {
+		return dbOpptime;
+	}
+
+	/**
+	 * @param dbOpptime the dbOpptime to set
+	 */
+	public void setDbOpptime(long dbOpptime) {
+		this.dbOpptime = dbOpptime;
+	}
 
 	public MessageEntity() {
 		super();

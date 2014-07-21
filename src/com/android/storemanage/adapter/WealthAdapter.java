@@ -16,9 +16,8 @@ import android.widget.TextView;
 public class WealthAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<WealthEntity> wealthEntities;
-	private int[] colors = new int[] { R.color.color_3, R.color.color_1,
-			R.color.color_2, R.color.color_3, R.color.color_4, R.color.color_5,
-			R.color.color_6, R.color.color_7 };
+	private int[] colors = new int[] { R.color.color_3, R.color.color_1, R.color.color_2, R.color.color_3,
+			R.color.color_4, R.color.color_5, R.color.color_6, R.color.color_7 };
 
 	public WealthAdapter(Context mContext, List<WealthEntity> wealthEntities) {
 		super();
@@ -60,8 +59,16 @@ public class WealthAdapter extends BaseAdapter {
 		WealthEntity entity = wealthEntities.get(position);
 		if (null != entity) {
 			String isNew = entity.getWealthareaSfnew();
-			if (!TextUtils.isEmpty(isNew) && "1".equals(isNew)) {
-				hodler.ivIsNew.setVisibility(View.VISIBLE);
+			if (!TextUtils.isEmpty(isNew)) {
+				if ("1".equals(isNew)) {
+					hodler.ivIsNew.setVisibility(View.VISIBLE);
+				} else {
+					if (entity.getDbOpptime() == entity.getWealthareaOpptime()) {
+						hodler.ivIsNew.setVisibility(View.INVISIBLE);
+					} else {
+						hodler.ivIsNew.setVisibility(View.VISIBLE);
+					}
+				}
 			} else {
 				hodler.ivIsNew.setVisibility(View.INVISIBLE);
 			}
