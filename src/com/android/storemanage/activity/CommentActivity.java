@@ -13,9 +13,12 @@ import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -25,12 +28,31 @@ import android.widget.Toast;
  */
 public class CommentActivity extends BaseActivity {
 	private EditText edit;
+	private TextView tvCount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_comment);
 		edit = (EditText) findViewById(R.id.edittext);
+		tvCount = (TextView) findViewById(R.id.tv_count);
+		edit.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				tvCount.setText(arg0.length()+"/150");
+			}
+		});
 	}
 
 	/**

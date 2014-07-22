@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:background="@color/app_bg_color"
-    android:orientation="vertical"
-     >
-
-    <include layout="@layout/title_layout" />
-
-    <ImageView
-        android:layout_width="100dip"
-        android:layout_height="100dip"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="25dip"
-        android:layout_marginTop="25dip"
-        android:src="@drawable/icon" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:id="@+id/version"
-        android:paddingLeft="@dimen/app_bg_content_margin"
-        android:textStyle="bold" />
+    android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/app_bg_content_margin"
-        android:layout_marginLeft="3dip"
-        android:layout_marginRight="3dip"
+        android:background="@color/app_bg_color"
         android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="4dip"
-            android:text="@string/about_us_content"
-            android:textSize="14sp" />
+        <include layout="@layout/title_layout" />
+
+        <ImageView
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="25dip"
+            android:layout_marginTop="25dip"
+            android:src="@drawable/icon" />
 
         <TextView
+            android:id="@+id/version"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_us_contact"
-            android:textSize="14sp" />
+            android:paddingLeft="@dimen/app_bg_content_margin"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_us_telephone"
-            android:textSize="14sp" />
+            android:layout_marginLeft="3dip"
+            android:layout_marginRight="3dip"
+            android:orientation="vertical"
+            android:padding="@dimen/app_bg_content_margin" >
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_us_qq"
-            android:textSize="14sp" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dip"
+                android:text="@string/about_us_content"
+                android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_us_email"
-            android:textSize="14sp" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us_contact"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us_telephone"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us_qq"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us_email"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

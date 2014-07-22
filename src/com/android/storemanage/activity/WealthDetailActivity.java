@@ -5,6 +5,7 @@ import com.android.storemanage.R;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 /**
@@ -26,6 +27,13 @@ public class WealthDetailActivity extends BaseActivity {
 		if (!TextUtils.isEmpty(url)) {
 			webView.loadUrl(url);
 		}
+		webView.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				view.loadUrl(url);
+				return true;
+			}
+		});
 
 	}
 
