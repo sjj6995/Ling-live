@@ -60,7 +60,9 @@
             android:id="@+id/edittext"
             android:gravity="top|left"
             android:maxLength="150"
+            android:hint="请输入您的宝贵意见"
             android:textSize="15sp"
+            android:textColor="#b4b4b4"
             android:background="@drawable/rect_white_gray_line"
             />
         
