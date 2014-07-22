@@ -14,7 +14,7 @@ public class JFConfig {
 	public static final String CATEGORY_DETAIL = "ajax.sword?tid=CategoryService_getBrandDetail";//分类详情
 	public static final String CATEGORY_BRAND_GET_WELATH = "ajax.sword?tid=CategoryService_getWealthByClickBrand";// 获取财富值
 	public static final String MY_INFOR = "ajax.sword?tid=UserService_personalInfo";// 个人信息
-	public static final String WECHAT_SHARA_APP_IP = "";
+	public static final String WECHAT_SHARA_APP_IP = "wxc11a20943368d63f";
 	public static final String HOME_PAGE = "ajax.sword?tid=CommonService_genHomePage";// 首页
 	public static final String WEALTH_PRIZE = "ajax.sword?tid=WealthareaService_getPrizeList";// 财富奖区
 	public static final String GET_WEALTH_BY_CLICK_BRANCH = "ajax.sword?tid=CategoryService_getWealthByClickBrand";// 给用户增加相应的财富值

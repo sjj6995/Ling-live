@@ -102,7 +102,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 					MessageEntity entity = messageEntities.get(j);
 					String id = entity.getMessageId();
 					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
-						entity.setDbOpptime(Long.parseLong(id));
+						entity.setDbOpptime(Long.parseLong(temp.getTime()));
 					}
 				}
 

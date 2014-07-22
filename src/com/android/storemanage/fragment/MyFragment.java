@@ -341,7 +341,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 */
 	public void shareToFriends(View view) {
 		sendReq(getActivity(), "测试",
-				BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher), Req.WXSceneTimeline);
+				BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.icon), Req.WXSceneTimeline);
 	}
 
 	public void sendReq(Context context, String text, Bitmap bmp, int type) {
@@ -354,11 +354,11 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			return;
 		}
 
-		String url = "http://www.kdt360.com/download/download.html";// 收到分享的好友点击信息会跳转到这个地址去
+		String url = "http://www.baidu.com";// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
 		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
-		localWXMediaMessage.title = "快递通";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
+		localWXMediaMessage.title = "零生活";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
 		localWXMediaMessage.description = text;
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
 		SendMessageToWX.Req localReq = new SendMessageToWX.Req();

@@ -209,7 +209,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 					WealthEntity entity = wealthEntities.get(j);
 					String id = entity.getWealthareaId();
 					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
-						entity.setDbOpptime(Long.parseLong(id));
+						entity.setDbOpptime(Long.parseLong(temp.getTime()));
 					}
 				}
 

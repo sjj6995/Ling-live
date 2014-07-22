@@ -23,7 +23,7 @@ public class SqlDataBase {
 
 	public List<DataSaveEntity> queryAll(String tableName) {
 		List<DataSaveEntity> entitys = new ArrayList<DataSaveEntity>();
-		db = helper.getReadableDatabase();
+		db = helper.getWritableDatabase();
 		Cursor cursor = db.rawQuery("select * from " + tableName, null);
 		while (cursor.moveToNext()) {
 			DataSaveEntity entity = new DataSaveEntity();
@@ -35,8 +35,8 @@ public class SqlDataBase {
 	}
 
 	public void insertDataSaveEntity(String tableName, DataSaveEntity entity) {
-		db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("select * from " + tableName + "where _id =?", new String[] { entity.getId() });
+		db = helper.getWritableDatabase();
+		Cursor cursor = db.rawQuery("select * from " + tableName + " where _id =?", new String[] { entity.getId() });
 		if (cursor.moveToNext()) {
 			// db.execSQL("delete from where _id =? ", new String[] {
 			// entity.getId() });
@@ -51,7 +51,7 @@ public class SqlDataBase {
 	}
 
 	public void deleteDataSaveEntity(String tableName) {
-		db = helper.getReadableDatabase();
+		db = helper.getWritableDatabase();
 		db.execSQL("delete from " + tableName);
 	}
 

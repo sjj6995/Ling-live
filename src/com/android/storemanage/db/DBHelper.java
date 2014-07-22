@@ -10,15 +10,15 @@ public class DBHelper extends SQLiteOpenHelper {
 	private static final String DB_NAME = "storemanage.db";
 
 	public DBHelper(Context context) {
-		super(context, DB_NAME, null, 2);
+		super(context, DB_NAME, null, 1);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table " + JFConfig.BRAND_LIST + " (_id TEXT primary key,time TEXT");// 品牌列表
-		db.execSQL("create table " + JFConfig.FRONT_PAGE + " (_id TEXT NOT NULL,time TEXT");// 首页
-		db.execSQL("create table " + JFConfig.MESSAGE_LIST + " (_id TEXT NOT NULL,time TEXT");// 消息列表
-		db.execSQL("create table " + JFConfig.PRIZE_LIST + " (_id TEXT NOT NULL,time TEXT");//
+		db.execSQL("create table " + JFConfig.BRAND_LIST + " (_id TEXT primary key,time TEXT)");// 品牌列表
+		db.execSQL("create table " + JFConfig.FRONT_PAGE + " (_id TEXT primary key,time TEXT)");// 首页
+		db.execSQL("create table " + JFConfig.MESSAGE_LIST + " (_id TEXT primary key,time TEXT)");// 消息列表
+		db.execSQL("create table " + JFConfig.PRIZE_LIST + " (_id TEXT primary key,time TEXT)");//
 	}
 
 	@Override
