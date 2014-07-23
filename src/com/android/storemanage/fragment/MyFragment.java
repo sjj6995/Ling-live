@@ -25,10 +25,11 @@ import com.android.storemanage.view.CRAlertDialog;
 import com.squareup.picasso.Picasso;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.SendMessageToWX.Req;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
+import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.WXWebpageObject;
-import com.tencent.mm.sdk.openapi.SendMessageToWX.Req;
 
 import android.content.Context;
 import android.content.Intent;
@@ -62,6 +63,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	private IWXAPI api;
 	private RelativeLayout rl;
 	private long cacheSize;
+	private static final int THUMB_SIZE = 150;
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -341,7 +343,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 */
 	public void shareToFriends(View view) {
 		sendReq(getActivity(), "测试",
-				BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.icon), Req.WXSceneTimeline);
+				BitmapFactory.decodeResource(getResources(), R.drawable.icon), Req.WXSceneTimeline);
 	}
 
 	public void sendReq(Context context, String text, Bitmap bmp, int type) {
@@ -353,31 +355,20 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			Toast.makeText(context, "您没有安装微信，请下载后分享...", Toast.LENGTH_LONG).show();
 			return;
 		}
+		WXTextObject obj = new WXTextObject();
+		obj.text = "百度";
 
 		String url = "http://www.baidu.com";// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
 		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
-		localWXMediaMessage.title = "零生活";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
+		localWXMediaMessage.title = "百度";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
 		localWXMediaMessage.description = text;
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
 		SendMessageToWX.Req localReq = new SendMessageToWX.Req();
 		localReq.transaction = String.valueOf(System.currentTimeMillis());
 		localReq.message = localWXMediaMessage;
 		localReq.scene = type;
-
-		// WXTextObject textObject = new WXTextObject();
-		// textObject.text = "分享快递通给好友";
-		//
-		// WXMediaMessage mediaMessage = new WXMediaMessage();
-		// mediaMessage.title = "分享到微信";
-		// mediaMessage.mediaObject = textObject;
-		// mediaMessage.description = text;
-		//
-		// SendMessageToWX.Req localReq = new SendMessageToWX.Req();
-		// localReq.transaction = String.valueOf(System.currentTimeMillis());
-		// localReq.message = mediaMessage;
-		// localReq.scene = type;
 
 		api.sendReq(localReq);
 	}

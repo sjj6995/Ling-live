@@ -79,13 +79,13 @@ public class MessageAdapter extends BaseAdapter {
 			holder.tvMessageDescTextView.setText(entity.getMessageDetail());
 			if (!TextUtils.isEmpty(entity.getMessageSfnew()) ) {
 				if("1".equals(entity.getMessageSfnew())){
-					holder.ivNewTextView.setVisibility(View.VISIBLE);
-				} else {
 					if(entity.getDbOpptime() == entity.getMessageOpptime()){
 						holder.ivNewTextView.setVisibility(View.INVISIBLE);
 					}else{
 						holder.ivNewTextView.setVisibility(View.VISIBLE);
 					}
+				} else {
+					holder.ivNewTextView.setVisibility(View.INVISIBLE);
 				}
 			}else{
 				holder.ivNewTextView.setVisibility(View.INVISIBLE);

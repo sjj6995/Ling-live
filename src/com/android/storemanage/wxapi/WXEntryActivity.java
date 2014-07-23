@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.android.storemanage.utils.JFConfig;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.openapi.WXAppExtendObject;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
 
@@ -23,8 +25,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-	}
 
+		api = WXAPIFactory.createWXAPI(this, JFConfig.WECHAT_SHARA_APP_IP,
+				false);
+		api.registerApp(JFConfig.WECHAT_SHARA_APP_IP);
+		api.handleIntent(getIntent(), this);
+	}
+	
 	/**
 	 * 处理微信发出的向第三方应用请求app message
 	 * <p>
@@ -58,15 +65,20 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 		api.handleIntent(intent, this);
 	}
 
+
+
 	@Override
 	public void onReq(BaseReq resp) {
-		int result = 0;
+		String result = "";
 		switch (resp.getType()) {
 		case BaseResp.ErrCode.ERR_OK:
+			result = "分享成功";
 			break;
 		case BaseResp.ErrCode.ERR_USER_CANCEL:
+			result = "取消分享";
 			break;
 		case BaseResp.ErrCode.ERR_AUTH_DENIED:
+			result = "分享失败";
 			break;
 		default:
 			break;
@@ -74,18 +86,21 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
 		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 
-		finish();
+		WXEntryActivity.this.finish();
 	}
 
 	@Override
 	public void onResp(BaseResp resp) {
-		int result = 0;
+		String result = "";
 		switch (resp.errCode) {
 		case BaseResp.ErrCode.ERR_OK:
+			result = "分享成功";
 			break;
 		case BaseResp.ErrCode.ERR_USER_CANCEL:
+			result = "取消分享";
 			break;
 		case BaseResp.ErrCode.ERR_AUTH_DENIED:
+			result = "分享失败";
 			break;
 		default:
 			break;
@@ -93,7 +108,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
 		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 
-		finish();
+		WXEntryActivity.this.finish();
 	}
 
 }

@@ -66,16 +66,17 @@ public class ClassifyListAdapter extends BaseAdapter {
 
 			if (!TextUtils.isEmpty(entity.getCBrandSfnew())) {
 				if ("1".equals(entity.getCBrandSfnew())) {
-					holder.ivIsNew.setVisibility(View.VISIBLE);
-				} else {
+//					holder.ivIsNew.setVisibility(View.VISIBLE);
 					if (entity.getDbOpptime() == entity.getCBrandOpptime()) {
-						holder.ivIsNew.setVisibility(View.GONE);
+						holder.ivIsNew.setVisibility(View.INVISIBLE);
 					} else {
 						holder.ivIsNew.setVisibility(View.VISIBLE);
 					}
+				} else {
+					holder.ivIsNew.setVisibility(View.INVISIBLE);
 				}
 			} else {
-				holder.ivIsNew.setVisibility(View.GONE);
+				holder.ivIsNew.setVisibility(View.INVISIBLE);
 			}
 			holder.tvClickTime.setText("点击量：" + entity.getCBrandClicknumber());
 			holder.tvTitle.setText(entity.getCBrandTitle());

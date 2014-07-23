@@ -94,13 +94,13 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 		params.height = (width - DisplayUtil.dip2px(getActivity(), 2)) / 2 + DisplayUtil.dip2px(getActivity(), 5);
 		viewPager.setLayoutParams(params);
 		// createNavMenu1(view);
-		initData(view);
 		return view;
 	}
 
 	@Override
 	public void onResume() {
-		initData();
+		initData(view);
+//		initData();
 		super.onResume();
 	}
 

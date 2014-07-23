@@ -61,13 +61,13 @@ public class WealthAdapter extends BaseAdapter {
 			String isNew = entity.getWealthareaSfnew();
 			if (!TextUtils.isEmpty(isNew)) {
 				if ("1".equals(isNew)) {
-					hodler.ivIsNew.setVisibility(View.VISIBLE);
-				} else {
 					if (entity.getDbOpptime() == entity.getWealthareaOpptime()) {
 						hodler.ivIsNew.setVisibility(View.INVISIBLE);
 					} else {
 						hodler.ivIsNew.setVisibility(View.VISIBLE);
 					}
+				} else {
+					hodler.ivIsNew.setVisibility(View.INVISIBLE);
 				}
 			} else {
 				hodler.ivIsNew.setVisibility(View.INVISIBLE);
