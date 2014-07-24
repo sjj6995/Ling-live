@@ -8,6 +8,7 @@ import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -59,6 +60,7 @@ public class WealthPrizeAdapter extends BaseAdapter {
 			holder.leftCountTextView = (TextView) convertView.findViewById(R.id.tv_left);
 			holder.tvToTimeTextView = (TextView) convertView.findViewById(R.id.tv_to_time);
 			holder.tvTitleTextView = (TextView) convertView.findViewById(R.id.tv_title);
+			holder.ivNew = (ImageView) convertView.findViewById(R.id.iv_new);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -75,6 +77,15 @@ public class WealthPrizeAdapter extends BaseAdapter {
 //			} catch (ParseException e) {
 //				e.printStackTrace();
 //			}
+			if(TextUtils.isEmpty(entity.getWPrizeSfnew())){
+				holder.ivNew.setVisibility(View.INVISIBLE);
+			}else{
+				if("1".equals(entity.getWPrizeSfnew())){
+					holder.ivNew.setVisibility(View.VISIBLE);
+				}else{
+					holder.ivNew.setVisibility(View.INVISIBLE);
+				}
+			}
 			holder.leftCountTextView.setText(entity.getWPrizeRemainnumber() + "");
 			holder.totalCounTextView.setText(entity.getWPrizeTotalnumber() + "");
 			holder.tvWealthTextView.setText(entity.getWPrizeNeedwealth() + "");
@@ -93,6 +104,7 @@ public class WealthPrizeAdapter extends BaseAdapter {
 		TextView tvWealthTextView;
 		TextView tvFromTimeTextView;
 		TextView tvToTimeTextView;
+		ImageView ivNew;
 
 	}
 

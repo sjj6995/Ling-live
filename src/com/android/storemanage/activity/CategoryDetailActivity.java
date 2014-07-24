@@ -101,11 +101,18 @@ public class CategoryDetailActivity extends BaseActivity {
 					
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent();
-						intent.setAction("android.intent.action.VIEW");
-						Uri content_url = Uri.parse(entity.getCBrandXzdz());
-						intent.setData(content_url);
-						startActivity(intent);
+						try{
+							Intent intent = new Intent();
+							intent.setAction("android.intent.action.VIEW");
+							Uri content_url = Uri.parse(entity.getCBrandXzdz());
+							intent.setData(content_url);
+							startActivity(intent);
+							
+						}catch(Exception e){
+							Intent itt = new Intent(CategoryDetailActivity.this, WealthDetailActivity.class);
+							itt.putExtra("url", entity.getCBrandXzdz());
+							startActivity(itt);
+						}
 					}
 				});
 			}

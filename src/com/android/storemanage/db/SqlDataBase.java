@@ -31,6 +31,7 @@ public class SqlDataBase {
 			entity.setTime(cursor.getString(1));// 获取第三列的值
 			entitys.add(entity);
 		}
+		cursor.close();
 		return entitys;
 	}
 
@@ -48,6 +49,7 @@ public class SqlDataBase {
 			values.put("time", entity.getTime());
 			db.insert(tableName, null, values);
 		}
+		cursor.close();
 	}
 
 	public void deleteDataSaveEntity(String tableName) {

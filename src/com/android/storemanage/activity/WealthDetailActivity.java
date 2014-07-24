@@ -4,6 +4,7 @@ import com.android.storemanage.R;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
@@ -20,10 +21,15 @@ public class WealthDetailActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webview);
-		tView = (TextView) findViewById(R.id.tv_title);
-		tView.setText(getIntent().getStringExtra("title"));
 		webView = (WebView) findViewById(R.id.webview);
 		String url = getIntent().getStringExtra("url");
+		if(TextUtils.isEmpty(getIntent().getStringExtra("title"))){
+			findViewById(R.id.layout_title).setVisibility(View.GONE);
+		}else{
+			findViewById(R.id.layout_title).setVisibility(View.VISIBLE);
+			tView = (TextView) findViewById(R.id.tv_title);
+			tView.setText(getIntent().getStringExtra("title"));
+		}
 		if (!TextUtils.isEmpty(url)) {
 			webView.loadUrl(url);
 		}
