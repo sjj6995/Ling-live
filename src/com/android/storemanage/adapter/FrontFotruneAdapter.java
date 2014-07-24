@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 public class FrontFotruneAdapter extends FragmentStatePagerAdapter {
 	private int mChildCount = 0;
@@ -35,10 +36,11 @@ public class FrontFotruneAdapter extends FragmentStatePagerAdapter {
 		if (page < getCount() - 1) {
 			temp = lists.subList(page, (page + 1) * JFConfig.PAGE_COUNT);
 		} else {
-			temp = lists.subList(page * JFConfig.PAGE_COUNT, lists.size() - 1);
+			temp = lists.subList(page * JFConfig.PAGE_COUNT, lists.size());
 		}
 		ArrayList<CategoryEntity> str = new ArrayList<CategoryEntity>();
 		str.addAll(temp);
+		Log.i("xxxxxxxxxxxxxxxxxx", "str.size()---------"+str.size());
 		bundle.putSerializable("text", str);
 		fragment.setArguments(bundle);
 		return fragment;

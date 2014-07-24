@@ -10,7 +10,6 @@ import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.DataSaveEntity;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
-import com.android.storemanage.entity.WealthEntity;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.HttpClient;
@@ -66,7 +65,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 				if (null != entity) {
 					//把数据保存到数据库中
 					DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
-					tempDataSaveEntity.setId(entity.getCategoryId());
+					tempDataSaveEntity.setId(entity.getCBrandId());
 					tempDataSaveEntity.setTime(entity.getCBrandOpptime() + "");
 					db.insertDataSaveEntity(JFConfig.BRAND_LIST, tempDataSaveEntity);
 					sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite(),entity.getCBrandSfhavedetail());
@@ -188,7 +187,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 				String tempId = temp.getId();
 				for (int j = 0; j < brandEntities.size(); j++) {
 					BrandEntity entity = brandEntities.get(j);
-					String id = entity.getCategoryId();
+					String id = entity.getCBrandId();
 					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
 						entity.setDbOpptime(Long.parseLong(temp.getTime()));
 					}

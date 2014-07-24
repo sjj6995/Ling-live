@@ -186,7 +186,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 					btnGotoExchange.setText("兑换");
 					btnGotoExchange.setEnabled(true);
 				} else {
-					btnGotoExchange.setText("已兑换");
+					btnGotoExchange.setText("不可兑换");
 					btnGotoExchange.setEnabled(false);
 				}
 				btnGotoExchange.setVisibility(View.VISIBLE);

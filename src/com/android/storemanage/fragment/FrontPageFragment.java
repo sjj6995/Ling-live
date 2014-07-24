@@ -100,7 +100,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onResume() {
 		initData(view);
-//		initData();
+		// initData();
 		super.onResume();
 	}
 
@@ -262,6 +262,10 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				WealthEntity entity = (WealthEntity) arg0.getItemAtPosition(arg2);
 				if (null != entity) {
+					DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
+					tempDataSaveEntity.setId(entity.getWealthareaId());
+					tempDataSaveEntity.setTime(entity.getWealthareaOpptime() + "");
+					db.insertDataSaveEntity(JFConfig.FRONT_PAGE, tempDataSaveEntity);
 					Intent intent = new Intent(getActivity(), WealthPrizeActivity.class);
 					intent.putExtra("wealthId", entity.getWealthareaId());
 					intent.putExtra("wealthTitle", entity.getWealthareaTitle());
@@ -323,15 +327,15 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 							dialog.show("您增加了" + userAddValue + "个财富值", 2000);
 							// Intent intent = new Intent(getActivity(),
 							// cls)
-							Intent intent = new Intent();
-							intent.setAction("android.intent.action.VIEW");
-							Uri content_url = Uri.parse(resultString);
-							intent.setData(content_url);
-							getActivity().startActivity(intent);
 						}
 					} else {
-						dialog.show("服务器内部错误", 2000);
+						// dialog.show("服务器内部错误", 2000);
 					}
+					Intent intent = new Intent();
+					intent.setAction("android.intent.action.VIEW");
+					Uri content_url = Uri.parse(resultString);
+					intent.setData(content_url);
+					getActivity().startActivity(intent);
 				}
 
 				@Override
@@ -379,7 +383,11 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			label.setText(entity.getWealthareaTitle());
 			ImageView tvIsNew = (ImageView) ll.findViewById(R.id.iv_is_new);
 			if (!TextUtils.isEmpty(entity.getWealthareaSfnew()) && "1".equals(entity.getWealthareaSfnew())) {
-				tvIsNew.setVisibility(View.VISIBLE);
+				if (entity.getDbOpptime() == entity.getWealthareaOpptime()) {
+					tvIsNew.setVisibility(View.INVISIBLE);
+				} else {
+					tvIsNew.setVisibility(View.VISIBLE);
+				}
 			} else {
 				tvIsNew.setVisibility(View.INVISIBLE);
 			}

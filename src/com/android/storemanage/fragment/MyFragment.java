@@ -194,10 +194,10 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 							fileList.delete();
 						}
 					}
-					db.deleteDataSaveEntity(JFConfig.BRAND_LIST);
-					db.deleteDataSaveEntity(JFConfig.MESSAGE_LIST);
-					db.deleteDataSaveEntity(JFConfig.FRONT_PAGE);
-					db.deleteDataSaveEntity(JFConfig.PRIZE_LIST);
+//					db.deleteDataSaveEntity(JFConfig.BRAND_LIST);
+//					db.deleteDataSaveEntity(JFConfig.MESSAGE_LIST);
+//					db.deleteDataSaveEntity(JFConfig.FRONT_PAGE);
+//					db.deleteDataSaveEntity(JFConfig.PRIZE_LIST);
 					handler.sendEmptyMessage(111);
 				};
 			}.start();

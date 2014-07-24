@@ -25,29 +25,36 @@
             android:id="@+id/iv_icon"
             android:layout_width="36dip"
             android:layout_height="36dip"
-            android:scaleType="fitXY"
             android:background="@android:color/transparent"
+            android:scaleType="fitXY"
             android:src="@drawable/img_empty" />
 
-        <TextView
-            android:id="@+id/tv_branch_name"
+        <RelativeLayout
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:ellipsize="middle"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="5dip"
-            android:textColor="#606366"
-            android:textSize="15sp" />
+            android:layout_weight="1" >
 
-        <TextView
-            android:id="@+id/tv_click_times"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="#606366"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_branch_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textColor="#606366"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_click_times"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:textColor="#606366"
+                android:textSize="12sp" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_fortune_price"
