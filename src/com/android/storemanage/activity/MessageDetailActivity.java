@@ -50,12 +50,14 @@ public class MessageDetailActivity extends BaseActivity {
 		listView.setEmptyView(tView);
 	}
 
+	private MessageDetailAdapter adapter;
 	private void initData(final String messageIdString2) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
 			params.put("messageId", messageIdString2);
 			HttpClient.post(JFConfig.MESSAGE_DETAIL, params, new AsyncHttpResponseHandler() {
+
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -69,10 +71,16 @@ public class MessageDetailActivity extends BaseActivity {
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<MessageDetailEntity> msgEntity =commonData.getMessageDetailMapList();
-						listView.setAdapter(new MessageDetailAdapter(mContext, msgEntity));
+						if(null == adapter){
+							adapter = new MessageDetailAdapter(mContext, msgEntity);
+							listView.setAdapter(new MessageDetailAdapter(mContext, msgEntity));
+						}else{
+							adapter.setLists(msgEntity);
+							adapter.notifyDataSetChanged();
+						}
 					}else {
-						CRAlertDialog dialog = new CRAlertDialog(mContext);
-						dialog.show(commonData.getCommonData().getMsg(), 2000);
+//						CRAlertDialog dialog = new CRAlertDialog(mContext);
+//						dialog.show(commonData.getCommonData().getMsg(), 2000);
 					}
 				}
 

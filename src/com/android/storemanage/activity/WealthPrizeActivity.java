@@ -88,6 +88,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 		initData(wealthIdString, sortType);
 	}
 
+	private WealthPrizeAdapter adapter;
 	private void initData(final String wealthId, final int sortType) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
@@ -95,6 +96,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 			params.put("sortType", sortType + "");
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.WEALTH_PRIZE, params, new AsyncHttpResponseHandler() {
+
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -108,7 +110,13 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<WealthPrizeEntity> msgEntity = commonData.getWealrhareaPrizeMapList();
-						listview.setAdapter(new WealthPrizeAdapter(mContext, msgEntity));
+						if(null == adapter){
+							adapter = new WealthPrizeAdapter(mContext, msgEntity);
+							listview.setAdapter(adapter);
+						}else{
+							adapter.setLists(msgEntity);
+							adapter.notifyDataSetChanged();
+						}
 					}
 				}
 

@@ -29,6 +29,13 @@ public class ClassifyListAdapter extends BaseAdapter {
 		this.brandEntities = brandEntities;
 	}
 
+	/**
+	 * @param brandEntities the brandEntities to set
+	 */
+	public void setBrandEntities(List<BrandEntity> brandEntities) {
+		this.brandEntities = brandEntities;
+	}
+
 	@Override
 	public int getCount() {
 		return null == brandEntities ? 0 : brandEntities.size();

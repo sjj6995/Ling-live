@@ -90,6 +90,7 @@ public class MyPrizeActivity extends BaseActivity {
 		}
 	}
 
+	private UserPrizeAdapter adapter;
 	public void initData() {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
@@ -97,6 +98,7 @@ public class MyPrizeActivity extends BaseActivity {
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.GET_MY_PRIZE, params,
 					new AsyncHttpResponseHandler() {
+
 						@Override
 						public void onSuccess(int statusCode, String content) {
 							log.i("content===" + content);
@@ -113,16 +115,23 @@ public class MyPrizeActivity extends BaseActivity {
 									+ commonData.getCommonData().getMsg());
 							if ("true".equals(commonData.getCommonData()
 									.getReturnStatus())) {
-								swipeListView.setAdapter(new UserPrizeAdapter(
-										mContext, commonData
-												.getUserPrizeMapList(),
-										MyPrizeActivity.this));
+								if(null == adapter){
+									adapter = new UserPrizeAdapter(
+											mContext, commonData
+											.getUserPrizeMapList(),
+											MyPrizeActivity.this);
+									swipeListView.setAdapter(adapter);
+								}else{
+									adapter.setLists(commonData
+											.getUserPrizeMapList());
+									adapter.notifyDataSetChanged();
+								}
 							} else {
-								CRAlertDialog dialog = new CRAlertDialog(
-										mContext);
-								dialog.show(
-										commonData.getCommonData().getMsg(),
-										2000);
+//								CRAlertDialog dialog = new CRAlertDialog(
+//										mContext);
+//								dialog.show(
+//										commonData.getCommonData().getMsg(),
+//										2000);
 							}
 						}
 
@@ -156,6 +165,13 @@ public class MyPrizeActivity extends BaseActivity {
 			this.lists = lists;
 			this.activity = activity;
 
+		}
+		
+		/**
+		 * @param lists the lists to set
+		 */
+		public void setLists(List<UserPrizeEntity> lists) {
+			this.lists = lists;
 		}
 
 		@Override

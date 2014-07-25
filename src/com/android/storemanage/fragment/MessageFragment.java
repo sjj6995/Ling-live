@@ -41,6 +41,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private ListView messageListView;
+	private MessageAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
+
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -75,7 +77,13 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 						List<MessageEntity> msgEntity = innderData.getData().get(0).getMessageMapList();
 						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.MESSAGE_LIST);
 						fillData(msgEntity, tempEntities);
-						messageListView.setAdapter(new MessageAdapter(getActivity(), msgEntity));
+						if (null == adapter) {
+							adapter = new MessageAdapter(getActivity(), msgEntity);
+							messageListView.setAdapter(adapter);
+						} else {
+							adapter.setLists(msgEntity);
+							adapter.notifyDataSetChanged();
+						}
 					}
 				}
 
@@ -124,12 +132,12 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 		MessageEntity entity = (MessageEntity) messageListView.getItemAtPosition(position);
 		if (null != entity) {
-			//数据保存到数据库中
+			// 数据保存到数据库中
 			DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
 			tempDataSaveEntity.setId(entity.getMessageId());
 			tempDataSaveEntity.setTime(entity.getMessageOpptime() + "");
 			db.insertDataSaveEntity(JFConfig.MESSAGE_LIST, tempDataSaveEntity);
-			
+
 			Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
 			intent.putExtra("messageId", entity.getMessageId());
 			getActivity().startActivity(intent);

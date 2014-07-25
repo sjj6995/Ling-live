@@ -32,6 +32,13 @@ public class WealthPrizeAdapter extends BaseAdapter {
 		this.lists = lists;
 	}
 
+	/**
+	 * @param lists the lists to set
+	 */
+	public void setLists(List<WealthPrizeEntity> lists) {
+		this.lists = lists;
+	}
+
 	@Override
 	public int getCount() {
 		return null != lists ? lists.size() : 0;

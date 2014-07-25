@@ -148,11 +148,11 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 										.getPrizeDetailMap();
 								fillData(entity);
 							} else {
-								CRAlertDialog dialog = new CRAlertDialog(
-										mContext);
-								dialog.show(
-										commonData.getCommonData().getMsg(),
-										2000);
+//								CRAlertDialog dialog = new CRAlertDialog(
+//										mContext);
+//								dialog.show(
+//										commonData.getCommonData().getMsg(),
+//										2000);
 							}
 						}
 

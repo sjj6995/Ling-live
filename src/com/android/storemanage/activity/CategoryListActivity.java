@@ -139,6 +139,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		}
 	}
 
+	private ClassifyListAdapter adapter;
 	private void initData(String categoryIdString2, int cBrandId2) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
@@ -146,6 +147,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			params.put("sortType", cBrandId2 + "");
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.CATEGORY_BY_ID, params, new AsyncHttpResponseHandler() {
+
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -161,10 +163,16 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 						List<BrandEntity> brandEntities = commonData.getBrandMapList();
 						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.BRAND_LIST);
 						fillData(brandEntities, tempEntities);
-						listView.setAdapter(new ClassifyListAdapter(mContext, brandEntities));
+						if(null == adapter){
+							adapter = new ClassifyListAdapter(mContext, brandEntities);
+							listView.setAdapter(adapter);
+						}else{
+							adapter.setBrandEntities(brandEntities);
+							adapter.notifyDataSetChanged();
+						}
 					} else {
-						CRAlertDialog dialog = new CRAlertDialog(mContext);
-						dialog.show(commonData.getCommonData().getMsg(), 2000);
+//						CRAlertDialog dialog = new CRAlertDialog(mContext);
+//						dialog.show(commonData.getCommonData().getMsg(), 2000);
 					}
 				}
 

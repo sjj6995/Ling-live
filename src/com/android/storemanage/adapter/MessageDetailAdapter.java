@@ -34,6 +34,13 @@ public class MessageDetailAdapter extends BaseAdapter {
 		this.mContext = mContext;
 		this.lists = lists;
 	}
+	
+	/**
+	 * @param lists the lists to set
+	 */
+	public void setLists(List<MessageDetailEntity> lists) {
+		this.lists = lists;
+	}
 
 	@Override
 	public int getCount() {

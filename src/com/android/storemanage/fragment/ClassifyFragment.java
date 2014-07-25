@@ -40,6 +40,7 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private ListView listView;
+	private ClassifyLittleAdapter adapter;
 	private TextView tvNoData;
 
 	@Override
@@ -60,6 +61,7 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 			RequestParams params = new RequestParams();
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.CLASSIFY_LIST, params, new AsyncHttpResponseHandler() {
+
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
@@ -73,7 +75,13 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<CategoryEntity> msgEntity = innderData.getData().get(0).getCategoryMapList();
-						listView.setAdapter(new ClassifyLittleAdapter(getActivity(), msgEntity));
+						if(null == adapter){
+							adapter = new ClassifyLittleAdapter(getActivity(), msgEntity);
+							listView.setAdapter(adapter);
+						}else{
+							adapter.setLists(msgEntity);
+							adapter.notifyDataSetChanged();
+						}
 					}
 				}
 
