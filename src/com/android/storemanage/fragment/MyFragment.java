@@ -249,7 +249,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(getActivity()));
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
+			HttpClient.post(JFConfig.CHECK_UPDATE, params, new AsyncHttpResponseHandler() {
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
