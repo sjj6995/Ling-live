@@ -342,7 +342,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 *            分享到朋友圈
 	 */
 	public void shareToFriends(View view) {
-		sendReq(getActivity(), "测试",
+		sendReq(getActivity(), getResources().getString(R.string.app_name),
 				BitmapFactory.decodeResource(getResources(), R.drawable.icon), Req.WXSceneTimeline);
 	}
 
@@ -356,13 +356,13 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			return;
 		}
 		WXTextObject obj = new WXTextObject();
-		obj.text = "百度";
+		obj.text = text;
 
 		String url = "http://www.baidu.com";// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
 		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
-		localWXMediaMessage.title = "百度";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
+		localWXMediaMessage.title = text;// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
 		localWXMediaMessage.description = text;
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
 		SendMessageToWX.Req localReq = new SendMessageToWX.Req();
