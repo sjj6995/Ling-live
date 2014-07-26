@@ -1,6 +1,6 @@
 package com.android.storemanage.utils;
 
-import java.net.SocketTimeoutException;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -275,7 +275,7 @@ public class CommonUtil {
 		} else if (error instanceof HttpResponseException) {
 			// 请求错误详情
 			Toast.makeText(mContext, "请求错误，请稍后重试", Toast.LENGTH_SHORT).show();
-		} else if (error instanceof SocketTimeoutException) {
+		} else if (error instanceof SocketException) {
 			// 请求超时详情
 			// mMessageBar.show(getResources().getString(R.string.load_socket_timeout_error));
 			Toast.makeText(mContext, "网络超时，请检查网络后重试", Toast.LENGTH_SHORT).show();

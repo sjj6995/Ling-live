@@ -77,13 +77,13 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 						List<MessageEntity> msgEntity = innderData.getData().get(0).getMessageMapList();
 						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.MESSAGE_LIST);
 						fillData(msgEntity, tempEntities);
-						if (null == adapter) {
-							adapter = new MessageAdapter(getActivity(), msgEntity);
-							messageListView.setAdapter(adapter);
-						} else {
-							adapter.setLists(msgEntity);
-							adapter.notifyDataSetChanged();
-						}
+//						if (null == adapter) {
+//							adapter = new MessageAdapter(getActivity(), msgEntity);
+							messageListView.setAdapter(new MessageAdapter(getActivity(), msgEntity));
+//						} else {
+//							adapter.setLists(msgEntity);
+//							adapter.notifyDataSetChanged();
+//						}
 					}
 				}
 

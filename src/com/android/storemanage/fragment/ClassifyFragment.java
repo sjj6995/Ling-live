@@ -40,7 +40,7 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private ListView listView;
-	private ClassifyLittleAdapter adapter;
+//	private ClassifyLittleAdapter adapter;
 	private TextView tvNoData;
 
 	@Override
@@ -75,13 +75,13 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<CategoryEntity> msgEntity = innderData.getData().get(0).getCategoryMapList();
-						if(null == adapter){
-							adapter = new ClassifyLittleAdapter(getActivity(), msgEntity);
-							listView.setAdapter(adapter);
-						}else{
-							adapter.setLists(msgEntity);
-							adapter.notifyDataSetChanged();
-						}
+//						if(null == adapter){
+//							adapter = new ClassifyLittleAdapter(getActivity(), msgEntity);
+							listView.setAdapter(new ClassifyLittleAdapter(getActivity(), msgEntity));
+//						}else{
+//							adapter.setLists(msgEntity);
+//							adapter.notifyDataSetChanged();
+//						}
 					}
 				}
 
