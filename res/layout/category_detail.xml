@@ -49,6 +49,7 @@
                 android:layout_marginTop="1dip"
                 android:background="@drawable/selector_button_status"
                 android:text="下载App"
+                android:padding="3dip"
                 android:gravity="center"
                 android:textColor="@android:color/white"
                 android:textSize="13sp"

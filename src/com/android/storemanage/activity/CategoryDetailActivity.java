@@ -93,7 +93,7 @@ public class CategoryDetailActivity extends BaseActivity {
 					.placeholder(R.drawable.img_empty).into(iView);
 
 			title.setText(entity.getCBrandTitle());
-			if (TextUtils.isEmpty(entity.getCBrandXzdz())) {
+			if (TextUtils.isEmpty(entity.getCBrandAndroidXzdz())) {
 				downloadTextView.setVisibility(View.INVISIBLE);
 			} else {
 				downloadTextView.setVisibility(View.VISIBLE);
@@ -104,13 +104,13 @@ public class CategoryDetailActivity extends BaseActivity {
 						try{
 							Intent intent = new Intent();
 							intent.setAction("android.intent.action.VIEW");
-							Uri content_url = Uri.parse(entity.getCBrandXzdz());
+							Uri content_url = Uri.parse(entity.getCBrandAndroidXzdz());
 							intent.setData(content_url);
 							startActivity(intent);
 							
 						}catch(Exception e){
 							Intent itt = new Intent(CategoryDetailActivity.this, WealthDetailActivity.class);
-							itt.putExtra("url", entity.getCBrandXzdz());
+							itt.putExtra("url", entity.getCBrandAndroidXzdz());
 							startActivity(itt);
 						}
 					}

@@ -6,10 +6,20 @@ public class BrandDetailEntity {
 	private String fileImgpath;
 
 	private String categoryId;
-	private String cBrandXzdz;
 	private String cBrandTitle;
 	private String cBrandId;
 	private String cBrandDetail;
+	private String cBrandAndroidXzdz;
+	
+	
+
+	public String getCBrandAndroidXzdz() {
+		return cBrandAndroidXzdz;
+	}
+
+	public void setCBrandAndroidXzdz(String cBrandAndroidXzdz) {
+		this.cBrandAndroidXzdz = cBrandAndroidXzdz;
+	}
 
 	public String getCBrandSfhavedetail() {
 		return cBrandSfhavedetail;
@@ -35,13 +45,6 @@ public class BrandDetailEntity {
 		this.categoryId = categoryId;
 	}
 
-	public String getCBrandXzdz() {
-		return cBrandXzdz;
-	}
-
-	public void setCBrandXzdz(String cBrandXzdz) {
-		this.cBrandXzdz = cBrandXzdz;
-	}
 
 	public String getCBrandTitle() {
 		return cBrandTitle;
