@@ -18,6 +18,7 @@ import com.android.storemanage.view.CRAlertDialog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -98,7 +99,8 @@ public class SplashActivity extends BaseActivity {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+//						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+						gotoWebPage(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -126,7 +128,8 @@ public class SplashActivity extends BaseActivity {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+//						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+						gotoWebPage(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -150,6 +153,21 @@ public class SplashActivity extends BaseActivity {
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void gotoWebPage(String resultString){
+		try {
+			Intent intent = new Intent();
+			intent.setAction("android.intent.action.VIEW");
+			Uri content_url = Uri.parse(resultString);
+			intent.setData(content_url);
+			startActivity(intent);
+
+		} catch (Exception e) {
+			Intent intent = new Intent(SplashActivity.this,WealthDetailActivity.class);
+			intent.putExtra("url", resultString);
+			startActivity(intent);
 		}
 	}
 

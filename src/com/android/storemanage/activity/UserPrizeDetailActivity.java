@@ -174,7 +174,7 @@ public class UserPrizeDetailActivity extends BaseActivity {
 			} else {
 				if(entity.getUserprizeValidity() <0){
 					btnUseButton.setVisibility(View.INVISIBLE);
-					tvValidateTextView.setText("该奖品已被使用");
+					tvValidateTextView.setText("该奖品已过期");
 				}else{
 					btnUseButton.setText("使用");
 					tvValidateTextView.setText("有效期剩余"
