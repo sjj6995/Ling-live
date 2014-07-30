@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dip"
                 android:singleLine="true"
-                android:text="马尔代夫7日游"
+                android:text=""
                 android:textColor="#5581A4"
                 android:textSize="15sp" />
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
-                android:text="有效期剩余10天"
+                android:text=""
                 android:textColor="#FF8A00"
                 android:textSize="13sp" />
 

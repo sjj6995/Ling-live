@@ -71,7 +71,8 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 				CRAlertDialog dialog = new CRAlertDialog(getActivity());
 				dialog.show("缓存清理完成!", 1000);
 				dismissProgressDialog();
-//				cacheSize = Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
+				// cacheSize =
+				// Picasso.with(getActivity()).getSnapshot().totalDownloadSize;
 				mCacheSize.setText("0KB");
 				break;
 			}
@@ -194,10 +195,10 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 							fileList.delete();
 						}
 					}
-//					db.deleteDataSaveEntity(JFConfig.BRAND_LIST);
-//					db.deleteDataSaveEntity(JFConfig.MESSAGE_LIST);
-//					db.deleteDataSaveEntity(JFConfig.FRONT_PAGE);
-//					db.deleteDataSaveEntity(JFConfig.PRIZE_LIST);
+					// db.deleteDataSaveEntity(JFConfig.BRAND_LIST);
+					// db.deleteDataSaveEntity(JFConfig.MESSAGE_LIST);
+					// db.deleteDataSaveEntity(JFConfig.FRONT_PAGE);
+					// db.deleteDataSaveEntity(JFConfig.PRIZE_LIST);
 					handler.sendEmptyMessage(111);
 				};
 			}.start();
@@ -287,7 +288,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		final RetryDialog dialog = new RetryDialog(getActivity());
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
-			dialog.setConfirmText("必须更新");
+			dialog.setConfirmText("更新");
 			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
@@ -303,9 +304,10 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 					}
 				}
 			});
+			dialog.show();
 			break;
 		case 1:// 可以更新
-			dialog.setConfirmText("可以更新");
+			dialog.setConfirmText("更新");
 			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
@@ -321,6 +323,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 					}
 				}
 			});
+			dialog.show();
 			break;
 		case 2:// 无需更新
 			CRAlertDialog alertDialog = new CRAlertDialog(getActivity());
@@ -343,7 +346,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 	 */
 	public void shareToFriends(View view) {
 		sendReq(getActivity(), getResources().getString(R.string.app_name),
-				BitmapFactory.decodeResource(getResources(), R.drawable.icon), Req.WXSceneTimeline);
+				BitmapFactory.decodeResource(getResources(), R.drawable.share_icon), Req.WXSceneTimeline);
 	}
 
 	public void sendReq(Context context, String text, Bitmap bmp, int type) {
@@ -356,14 +359,14 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			return;
 		}
 		WXTextObject obj = new WXTextObject();
-		obj.text = text;
+		obj.text = "零生活，凌驾你的生活！";
 
-		String url = "http://www.baidu.com";// 收到分享的好友点击信息会跳转到这个地址去
+		String url = getResources().getString(R.string.share_app_download_address);// 收到分享的好友点击信息会跳转到这个地址去
 		WXWebpageObject localWXWebpageObject = new WXWebpageObject();
 		localWXWebpageObject.webpageUrl = url;
 		WXMediaMessage localWXMediaMessage = new WXMediaMessage(localWXWebpageObject);
-		localWXMediaMessage.title = text;// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
-		localWXMediaMessage.description = text;
+		localWXMediaMessage.title = "零生活是北京地区领先的生活服务类型的媒体推介APP平台，零生活不仅为客户端用户提供商户的各类信息推介";// 不能太长，否则微信会提示出错。不过博主没验证过具体能输入多长。
+		localWXMediaMessage.description = "零生活，凌驾你的生活！";
 		localWXMediaMessage.thumbData = getBitmapBytes(bmp, false);
 		SendMessageToWX.Req localReq = new SendMessageToWX.Req();
 		localReq.transaction = String.valueOf(System.currentTimeMillis());

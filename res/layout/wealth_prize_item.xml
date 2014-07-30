@@ -70,7 +70,7 @@
                 android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5个"
+                android:text=""
                 android:textColor="#FF8A00"
                 android:textSize="12sp" />
 
@@ -86,7 +86,7 @@
                 android:id="@+id/tv_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3个"
+                android:text=""
                 android:textColor="#FF8A00"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dip"
-                android:text="200"
+                android:text=""
                 android:textColor="#FF8A00"
                 android:textSize="10sp" />
         </LinearLayout>

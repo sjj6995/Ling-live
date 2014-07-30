@@ -234,28 +234,19 @@ public class MyPrizeActivity extends BaseActivity {
 					}
 					int result = Integer.parseInt(isUsedOrNotString);
 					if (1 == result) {
-//						holder.tvValidateTimeTextView.setText("该奖品已使用");
 						holder.tvValidateTimeTextView.setText("该奖品已失效");
 					} else if (result == 0) {
-						holder.tvValidateTimeTextView.setText("有效期剩余"
-								+ entity.getUserprizeExpirydate() + "天");
+						if(entity.getUserprizeValidity() < 0){
+							holder.tvValidateTimeTextView.setText("该奖品已失效");
+						}else{
+							holder.tvValidateTimeTextView.setText("有效期剩余"
+									+ entity.getUserprizeValidity() + "天");
+						}
 					}
 				} else {
 					holder.ivImageView.setImageResource(R.drawable.btn_unused);
 				}
 				holder.tvToTime.setText("兑换时间："+ entity.getUserprizeDuihuantime());
-//				try {
-//					holder.tvToTime.setText("兑换时间："
-//							+ CommonUtil.longToString(
-//									entity.getUserprizeDuihuantime(),
-//									"yyyy-MM-dd"));
-//				} catch (NumberFormatException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (ParseException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 				holder.tvWealthTextView.setText(entity.getUserprizeNeedwealth()
 						+ "");
 				holder.deleteBtn.setOnClickListener(new OnClickListener() {
@@ -269,7 +260,6 @@ public class MyPrizeActivity extends BaseActivity {
 
 					@Override
 					public void onClick(View v) {
-						log.i("onclick()-----------------------------------------------");
 						activity.gotoUserPrizeDetailActivity(entity);
 					}
 				});

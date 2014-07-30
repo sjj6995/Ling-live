@@ -27,7 +27,7 @@
             android:hint="@string/please_input_phone"
             android:inputType="phone"
             android:padding="10dip"
-            android:text="18510030638"
+            android:text=""
             android:textSize="@dimen/button_text_siez" />
 
         <include layout="@layout/horizontal_line" />
@@ -42,7 +42,7 @@
             android:hint="@string/please_input_email"
             android:inputType="textEmailAddress"
             android:padding="10dip"
-            android:text="784379981@qq.com"
+            android:text=""
             android:textSize="@dimen/button_text_siez" />
     </LinearLayout>
 

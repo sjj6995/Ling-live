@@ -54,7 +54,7 @@
             android:layout_marginTop="5dip"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="测试三四十"
+            android:text=""
             android:textColor="#B4B4B4"
             android:textSize="12sp" />
 

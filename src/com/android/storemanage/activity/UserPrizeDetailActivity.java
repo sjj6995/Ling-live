@@ -172,11 +172,16 @@ public class UserPrizeDetailActivity extends BaseActivity {
 				tvValidateTextView.setText("该奖品已被使用");
 //				btnUseButton.setEnabled(false);
 			} else {
-				btnUseButton.setText("使用");
-				tvValidateTextView.setText("有效期剩余"
-						+ entity.getUserprizeValidity() + "天");
-				btnUseButton.setEnabled(true);
-				btnUseButton.setVisibility(View.VISIBLE);
+				if(entity.getUserprizeValidity() <0){
+					btnUseButton.setVisibility(View.INVISIBLE);
+					tvValidateTextView.setText("该奖品已被使用");
+				}else{
+					btnUseButton.setText("使用");
+					tvValidateTextView.setText("有效期剩余"
+							+ entity.getUserprizeValidity() + "天");
+					btnUseButton.setEnabled(true);
+					btnUseButton.setVisibility(View.VISIBLE);
+				}
 			}
 		}
 	}

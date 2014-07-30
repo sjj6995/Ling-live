@@ -22,7 +22,22 @@ public class UserPrizeEntity {
 	private String userprizeImgdomain;
 	private String userprizeDuihuantime;
 	private int  userprizeCategory;
-	
+	private int userprizeValidity;
+
+	/**
+	 * @return the userprizeValidity
+	 */
+	public int getUserprizeValidity() {
+		return userprizeValidity;
+	}
+
+	/**
+	 * @param userprizeValidity the userprizeValidity to set
+	 */
+	public void setUserprizeValidity(int userprizeValidity) {
+		this.userprizeValidity = userprizeValidity;
+	}
+
 	public int getUserprizeCategory() {
 		return userprizeCategory;
 	}
