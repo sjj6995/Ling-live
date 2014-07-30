@@ -307,7 +307,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
 			dialog.setConfirmText("更新");
-			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
@@ -327,7 +327,7 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			break;
 		case 1:// 可以更新
 			dialog.setConfirmText("更新");
-			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
