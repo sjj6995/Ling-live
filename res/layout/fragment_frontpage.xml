@@ -89,14 +89,6 @@
                     android:textColor="#787878"
                     android:text="兑换区" />
             </LinearLayout>
-
-            <android.support.v7.widget.GridLayout
-                android:id="@+id/menu_gridlayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:columnCount="4" >
-            </android.support.v7.widget.GridLayout>
             <GridView 
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
