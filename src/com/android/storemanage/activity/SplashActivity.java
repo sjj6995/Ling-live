@@ -58,9 +58,6 @@ public class SplashActivity extends BaseActivity {
 						return;
 					}
 					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					if(null == outerData){
-						return;
-					}
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
