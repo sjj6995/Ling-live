@@ -36,11 +36,11 @@
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180dip"
             android:layout_marginTop="10dip"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@drawable/img_empty" />
     </LinearLayout>
 

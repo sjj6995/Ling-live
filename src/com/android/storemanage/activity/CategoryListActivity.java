@@ -46,6 +46,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		setContentView(R.layout.common_listview_page);
 		rbDefault = (Button) findViewById(R.id.rb_default);
 		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
+		rbRankByWealth.setText("财富奖励");
 		rbRankByTime = (Button) findViewById(R.id.rb_update_time);
 		ivOrderByWealth = (ImageView) findViewById(R.id.iv_order_by_wealth);
 		ivOrderByTime = (ImageView) findViewById(R.id.iv_order_by_time);

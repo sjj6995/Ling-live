@@ -56,6 +56,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 		title.setText(wealthTitleString);
 		rbDefault = (Button) findViewById(R.id.rb_default);
 		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
+		rbRankByWealth.setText("所需财富");
 		rbRankByTime = (Button) findViewById(R.id.rb_update_time);
 		ivOrderByWealth = (ImageView) findViewById(R.id.iv_order_by_wealth);
 		ivOrderByTime = (ImageView) findViewById(R.id.iv_order_by_time);

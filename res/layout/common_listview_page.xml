@@ -45,7 +45,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:gravity="center"
-                android:text="财富奖励"
+                android:text="所需财富"
                 android:textColor="@color/button_normal_color"
                 android:textSize="14sp" />
 

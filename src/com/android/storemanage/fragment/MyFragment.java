@@ -8,6 +8,8 @@ import com.android.storemanage.R;
 import com.android.storemanage.activity.AboutUsActivity;
 import com.android.storemanage.activity.CommentActivity;
 import com.android.storemanage.activity.MyPrizeActivity;
+import com.android.storemanage.activity.SplashActivity;
+import com.android.storemanage.activity.WealthDetailActivity;
 import com.android.storemanage.dialog.RetryDialog;
 import com.android.storemanage.dialog.RetryDialog.OnConfirmClick;
 import com.android.storemanage.entity.CollectionData;
@@ -37,6 +39,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -282,6 +285,21 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		}
 
 	}
+	
+	private void gotoWebPage(String resultString){
+		try {
+			Intent intent = new Intent();
+			intent.setAction("android.intent.action.VIEW");
+			Uri content_url = Uri.parse(resultString);
+			intent.setData(content_url);
+			getActivity().startActivity(intent);
+
+		} catch (Exception e) {
+			Intent intent = new Intent(getActivity(),WealthDetailActivity.class);
+			intent.putExtra("url", resultString);
+			getActivity().startActivity(intent);
+		}
+	}
 
 	private void chooseDifferentStatus(final CollectionData commonData) {
 		int appversionNeedUpdate = commonData.getAppVersionData().getSfNeedUpdate();
@@ -289,14 +307,15 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
 			dialog.setConfirmText("更新");
-			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+//						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+						gotoWebPage(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -308,14 +327,15 @@ public class MyFragment extends BaseFragment implements OnClickListener {
 			break;
 		case 1:// 可以更新
 			dialog.setConfirmText("更新");
-			dialog.setContent(commonData.getAppVersionData().getUpdateExplain());
+			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+//						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+						gotoWebPage(commonData.getAppVersionData().getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
