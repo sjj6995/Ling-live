@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ListView的头部 -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:gravity="center"
+    android:orientation="horizontal" >
+
+    <!-- 箭头图像、进度条 -->
+
+
+    <!-- 箭头 -->
+
+    <ImageView
+        android:id="@+id/head_arrowImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/transparent"
+        android:src="@drawable/xd_lv_arrow" />
+
+    <!-- 提示、最近更新 -->
+
+    <LinearLayout
+        android:id="@+id/ll_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/transparent"
+        android:orientation="vertical" >
+
+        <!-- 提示 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <!-- 进度条 -->
+
+            <ProgressBar
+                android:id="@+id/head_ic_progress"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/head_tipsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:background="@color/transparent"
+                android:text="下拉刷新..."
+                android:textColor="#6c6c6c"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <!-- 最近更新 -->
+
+        <TextView
+            android:id="@+id/head_lastUpdatedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="上次更新"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>
