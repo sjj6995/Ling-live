@@ -5,7 +5,7 @@ import android.util.Log;
 public class CommonLog {
 	private String tag = "CommonLog";
 	public static int logLevel = Log.VERBOSE;
-	public static boolean isDebug = false;
+	public static boolean isDebug = true;
 	private static CommonLog log;
 
 	private CommonLog() {

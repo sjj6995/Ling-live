@@ -16,6 +16,8 @@ import com.android.storemanage.net.HttpClient;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
+import com.android.storemanage.view.PullToRefreshListView;
+import com.android.storemanage.view.PullToRefreshListView.OnPullDownRefreshListener;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,19 +33,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author liujiao
+ * 分类列表也即品牌列表
+ *
+ */
 public class CategoryListActivity extends BaseActivity implements OnClickListener {
 	private Button rbDefault, rbRankByWealth, rbRankByTime;
-	private ListView listView;
+	private PullToRefreshListView listView;
 	private String categoryIdString;
 	private int sortType = 0;
 	private TextView tView;
 	private ImageView ivOrderByWealth;
 	private ImageView ivOrderByTime;
+	private ClassifyListAdapter adapter;
+	private static final int defaultPageNum = 0;
+	private int currentPageNum;
+	private int totalPageNum;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.common_listview_page);
+		setContentView(R.layout.category_listview_page);
 		rbDefault = (Button) findViewById(R.id.rb_default);
 		rbRankByWealth = (Button) findViewById(R.id.rb_fortune);
 		rbRankByWealth.setText("财富奖励");
@@ -54,7 +65,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		rbRankByWealth.setOnClickListener(this);
 		rbRankByTime.setOnClickListener(this);
 		categoryIdString = getIntent().getStringExtra("categoryId");
-		listView = (ListView) findViewById(R.id.lv_sport);
+		listView = (PullToRefreshListView) findViewById(R.id.lv_sport);
 		tView = (TextView) findViewById(R.id.tv_no_data);
 		((TextView) findViewById(R.id.tv_title)).setText(getIntent().getStringExtra("categoryName"));
 		listView.setEmptyView(tView);
@@ -72,6 +83,12 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite(),entity.getCBrandSfhavedetail());
 				    gotoDifferentPageByType(entity);
 				}
+			}
+		});
+		listView.setonRefreshListener(new OnPullDownRefreshListener() {
+			@Override
+			public void onLoadMoring() {
+				
 			}
 		});
 	}
@@ -93,7 +110,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	protected void onResume() {
-		initData(categoryIdString, sortType);
+		initData(categoryIdString, sortType,defaultPageNum);
 		super.onResume();
 	}
 
@@ -140,12 +157,13 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		}
 	}
 
-	private ClassifyListAdapter adapter;
-	private void initData(String categoryIdString2, int cBrandId2) {
+
+	private void initData(String categoryIdString2, int cBrandId2,int pageNum) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("categoryId", categoryIdString2);
 			params.put("sortType", cBrandId2 + "");
+			params.put("pageNum", ""+pageNum);
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.CATEGORY_BY_ID, params, new AsyncHttpResponseHandler() {
 
@@ -214,7 +232,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			ivOrderByTime.setVisibility(View.INVISIBLE);
 			ivOrderByWealth.setVisibility(View.INVISIBLE);
 			sortType = 0;
-			initData(categoryIdString, sortType);
+			initData(categoryIdString, sortType,defaultPageNum);
 			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
@@ -230,7 +248,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 				ivOrderByWealth.setImageResource(R.drawable.jiantou_down);
 			}
 			ivOrderByWealth.setVisibility(View.VISIBLE);
-			initData(categoryIdString, sortType);
+			initData(categoryIdString, sortType,defaultPageNum);
 			break;
 		case R.id.rb_update_time:// 更新时间
 			ivOrderByWealth.setVisibility(View.INVISIBLE);
@@ -242,7 +260,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 				ivOrderByTime.setImageResource(R.drawable.jiantou_down);
 			}
 			ivOrderByTime.setVisibility(View.VISIBLE);
-			initData(categoryIdString, sortType);
+			initData(categoryIdString, sortType,defaultPageNum);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
 			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);
 			break;

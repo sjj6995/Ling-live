@@ -362,7 +362,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
 	}
 
 	public interface OnPullDownRefreshListener {
-		public void onRefresh();
+		//public void onRefresh();
 
 		/**
 		 * 当加载更多时回调 当加载更多完毕之后, 需要手动的调用onRefreshFinish(), 去隐藏脚布局
@@ -387,7 +387,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
 
 	private void onRefresh() {
 		if (refreshListener != null) {
-			refreshListener.onRefresh();
+			//refreshListener.onRefresh();
 		}
 	}
 

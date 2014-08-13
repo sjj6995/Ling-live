@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_layout" />
+
+    <LinearLayout
+        android:id="@+id/rg_sport"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        android:layout_margin="@dimen/app_bg_content_margin"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/rb_default"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/left_pressed"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="默认"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="#5581A4" />
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/rb_fortune"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:background="@drawable/middle_normal"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="所需财富"
+                android:textColor="@color/button_normal_color"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_order_by_wealth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dip"
+                android:visibility="invisible"
+                android:src="@drawable/jiantou_down" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="#5581A4" />
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/rb_update_time"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:background="@drawable/right_normal"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:text="更新时间"
+                android:textColor="@color/button_normal_color"
+                android:textSize="14sp" />
+            
+            <ImageView
+                android:id="@+id/iv_order_by_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dip"
+                android:visibility="invisible"
+                android:src="@drawable/jiantou_down" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include
+        android:layout_marginTop="@dimen/app_bg_content_margin"
+        layout="@layout/horizontal_line" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="暂无数据" />
+
+        <com.android.storemanage.view.PullToRefreshListView
+            android:id="@+id/lv_sport"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@null"
+            android:divider="@color/horizontal_line_color"
+            android:dividerHeight="1dip"
+            android:listSelector="@drawable/selector_listview_item" >
+        </com.android.storemanage.view.PullToRefreshListView>
+    </RelativeLayout>
+
+</LinearLayout>
