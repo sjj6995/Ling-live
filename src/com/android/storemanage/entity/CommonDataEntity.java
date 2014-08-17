@@ -1,5 +1,7 @@
 package com.android.storemanage.entity;
 
+import android.R.integer;
+
 public class CommonDataEntity {
 	private String returnStatus;
 	private String msg;
@@ -13,7 +15,34 @@ public class CommonDataEntity {
 	private String feedbackSuccess;//是否意见反馈成功
 	private String registered;//true表示已注册，false为未注册
 	private String deleteSuccess;//是否删除成功
+	private String registerSuccess;//true表示注册成功，false为失败，emailRegisted为邮箱重复，注册失败
+	private int totalPage;//listview的总共页数
+	private int pageNum;//当前页码
 	
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public String getRegisterSuccess() {
+		return registerSuccess;
+	}
+
+	public void setRegisterSuccess(String registerSuccess) {
+		this.registerSuccess = registerSuccess;
+	}
+
 	public String getDeleteSuccess() {
 		return deleteSuccess;
 	}

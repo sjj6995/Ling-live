@@ -66,6 +66,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("wPrizeId", wPrizeId);
 			params.put("userId", application.getUserId());
+			params.put(JFConfig.LSH_TOKEN, CommonUtil.getMD5(wPrizeId+JFConfig.COMMON_MD5_STR));
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.EXCHANGE_PRIZE, params,
 					new AsyncHttpResponseHandler() {

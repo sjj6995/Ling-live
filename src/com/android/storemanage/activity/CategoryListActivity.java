@@ -47,7 +47,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	private ImageView ivOrderByWealth;
 	private ImageView ivOrderByTime;
 	private ClassifyListAdapter adapter;
-	private static final int defaultPageNum = 0;
+	private static final int defaultPageNum = 1;
 	private int currentPageNum;
 	private int totalPageNum;
 
@@ -88,7 +88,11 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 		listView.setonRefreshListener(new OnPullDownRefreshListener() {
 			@Override
 			public void onLoadMoring() {
-				
+				if(currentPageNum < totalPageNum){
+					initData(categoryIdString, sortType, currentPageNum+1,true);
+				}else{
+					listView.onRefreshFinish();
+				}
 			}
 		});
 	}
@@ -110,21 +114,22 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	protected void onResume() {
-		initData(categoryIdString, sortType,defaultPageNum);
+		initData(categoryIdString, sortType,defaultPageNum,false);
 		super.onResume();
 	}
 
 	/**
 	 * 用户点击某品牌后给用户增加相应的财富值
 	 * 
-	 * @param categoryId
+	 * @param brandId
 	 * @param string
 	 */
-	protected void sendToServerGetUserWealth(final String brandTitle,String categoryId, final String imageUrl,final String type) {
+	protected void sendToServerGetUserWealth(final String brandTitle,String brandId, final String imageUrl,final String type) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
-			params.put("cBrandId", categoryId);
+			params.put("cBrandId", brandId);
 			params.put("userId", application.getUserId());
+			params.put(JFConfig.LSH_TOKEN, CommonUtil.getMD5(brandId+JFConfig.COMMON_MD5_STR));
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.GET_WEALTH_BY_CLICK_BRANCH, params, new AsyncHttpResponseHandler() {
 				@Override
@@ -158,7 +163,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 	}
 
 
-	private void initData(String categoryIdString2, int cBrandId2,int pageNum) {
+	private void initData(String categoryIdString2, int cBrandId2,int pageNum,final boolean loadMore) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("categoryId", categoryIdString2);
@@ -179,6 +184,8 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						totalPageNum = commonData.getCommonData().getTotalPage();
+						currentPageNum = commonData.getCommonData().getPageNum();
 						List<BrandEntity> brandEntities = commonData.getBrandMapList();
 						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.BRAND_LIST);
 						fillData(brandEntities, tempEntities);
@@ -186,9 +193,16 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 							adapter = new ClassifyListAdapter(mContext, brandEntities);
 							listView.setAdapter(adapter);
 						}else{
-							adapter.setBrandEntities(brandEntities);
+							if(loadMore){
+								List<BrandEntity> tempBrandEntities = adapter.getBrandEntities();
+								tempBrandEntities.addAll(brandEntities);
+								adapter.setBrandEntities(tempBrandEntities);
+							}else{
+								adapter.setBrandEntities(brandEntities);
+							}
 							adapter.notifyDataSetChanged();
 						}
+						listView.onRefreshFinish();
 					} else {
 //						CRAlertDialog dialog = new CRAlertDialog(mContext);
 //						dialog.show(commonData.getCommonData().getMsg(), 2000);
@@ -232,7 +246,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 			ivOrderByTime.setVisibility(View.INVISIBLE);
 			ivOrderByWealth.setVisibility(View.INVISIBLE);
 			sortType = 0;
-			initData(categoryIdString, sortType,defaultPageNum);
+			initData(categoryIdString, sortType,defaultPageNum,false);
 			changeBtnColor(Color.WHITE, R.color.button_normal_color, R.color.button_normal_color);
 			changeBtnBackground(R.drawable.left_pressed, R.drawable.middle_normal, R.drawable.right_normal);
 			break;
@@ -248,7 +262,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 				ivOrderByWealth.setImageResource(R.drawable.jiantou_down);
 			}
 			ivOrderByWealth.setVisibility(View.VISIBLE);
-			initData(categoryIdString, sortType,defaultPageNum);
+			initData(categoryIdString, sortType,defaultPageNum,false);
 			break;
 		case R.id.rb_update_time:// 更新时间
 			ivOrderByWealth.setVisibility(View.INVISIBLE);
@@ -260,7 +274,7 @@ public class CategoryListActivity extends BaseActivity implements OnClickListene
 				ivOrderByTime.setImageResource(R.drawable.jiantou_down);
 			}
 			ivOrderByTime.setVisibility(View.VISIBLE);
-			initData(categoryIdString, sortType,defaultPageNum);
+			initData(categoryIdString, sortType,defaultPageNum,false);
 			changeBtnBackground(R.drawable.left_normal, R.drawable.middle_normal, R.drawable.right_pressed);
 			changeBtnColor(R.color.button_normal_color, R.color.button_normal_color, Color.WHITE);
 			break;

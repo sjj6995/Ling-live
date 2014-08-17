@@ -14,6 +14,7 @@ import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.utils.PhoneUtil;
 import com.android.storemanage.view.CRAlertDialog;
+import com.tencent.mm.algorithm.MD5;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author gwj 注册
@@ -69,6 +71,7 @@ public class RegisterActivity extends BaseActivity {
 			params.put("phoneimei", deviceIdString == null ? "" : deviceIdString);
 			params.put("phonenumber", phoneString);
 			params.put("useremail", email);
+			params.put(JFConfig.LSH_TOKEN, CommonUtil.getMD5(email+JFConfig.COMMON_MD5_STR));
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.REGISTER, params, new AsyncHttpResponseHandler() {
 				@Override
@@ -82,11 +85,26 @@ public class RegisterActivity extends BaseActivity {
 					InnerData innderData = outerData.getData().get(0);
 					CollectionData commonData = innderData.getData().get(0);
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {// 注册成功
-						sp.edit().putString("userId", commonData.getCommonData().getUserId()).commit();
-						application.setUserId(commonData.getCommonData().getUserId());
-						Intent intent = new Intent(mContext, MainTabActivity.class);
-						startActivity(intent);
-						finish();
+						String registerSuccesString = commonData.getCommonData().getRegisterSuccess();
+						if(!TextUtils.isEmpty(registerSuccesString)){
+							if("true".equals(registerSuccesString)){
+								sp.edit().putString("userId", commonData.getCommonData().getUserId()).commit();
+								application.setUserId(commonData.getCommonData().getUserId());
+								Intent intent = new Intent(mContext, MainTabActivity.class);
+								startActivity(intent);
+								finish();
+							}else if("emailRegisted".equals(registerSuccesString)){
+								//Toast.makeText(mContext, "该邮箱已被注册，请更换其它邮箱", Toast.LENGTH_LONG).show();
+								CRAlertDialog dialog = new CRAlertDialog(mContext);
+								dialog.show("此邮箱已注册！", 2000);
+							}else{
+								CRAlertDialog dialog = new CRAlertDialog(mContext);
+								dialog.show(getString(R.string.register_failuer), 2000);
+							}
+						}else{
+							CRAlertDialog dialog = new CRAlertDialog(mContext);
+							dialog.show(getString(R.string.register_failuer), 2000);
+						}
 					} else {
 						CRAlertDialog dialog = new CRAlertDialog(mContext);
 						dialog.show(getString(R.string.register_failuer), 2000);
