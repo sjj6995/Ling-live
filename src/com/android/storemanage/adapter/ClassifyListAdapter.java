@@ -36,6 +36,10 @@ public class ClassifyListAdapter extends BaseAdapter {
 		this.brandEntities = brandEntities;
 	}
 
+	public List<BrandEntity> getBrandEntities() {
+		return brandEntities;
+	}
+
 	@Override
 	public int getCount() {
 		return null == brandEntities ? 0 : brandEntities.size();

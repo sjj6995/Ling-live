@@ -17,6 +17,7 @@ public class PhoneUtil {
 		if (null == id) {
 			id = "";
 		}
+		LogUtil.i("device--id---"+id);
 		return id;
 
 	}

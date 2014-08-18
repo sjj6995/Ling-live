@@ -351,6 +351,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			params.put("qrcodeInfo", resultString);
+			params.put(JFConfig.LSH_TOKEN, CommonUtil.getMD5(application.getUserId()+JFConfig.COMMON_MD5_STR));
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.SCAN_REQUEST, params,
 					new AsyncHttpResponseHandler() {
