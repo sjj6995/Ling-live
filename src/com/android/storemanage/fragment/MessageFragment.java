@@ -41,7 +41,6 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 	private TextView titleTextView;
 	private CommonLog log = CommonLog.getInstance();
 	private ListView messageListView;
-	private MessageAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -122,6 +121,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 	private void initViews(View view) {
 		messageListView = (ListView) view.findViewById(R.id.lv_message);
 		messageListView.setOnItemClickListener(this);
+		messageListView.setEmptyView(view.findViewById(R.id.tv_no_data));
 		imageButton = (ImageButton) view.findViewById(R.id.ib_back);
 		imageButton.setVisibility(View.INVISIBLE);
 		titleTextView = (TextView) view.findViewById(R.id.tv_title);

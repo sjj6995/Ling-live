@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="120dip"
+            android:layout_height="80dip"
             android:orientation="horizontal"
             android:padding="@dimen/app_bg_content_margin" >
 
@@ -30,7 +30,7 @@
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="10dip"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:orientation="vertical" >
 
                 <TextView
@@ -40,6 +40,7 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center_vertical"
                     android:singleLine="true"
+                    android:ellipsize="end"
                     android:textColor="@color/text_view_color"
                     android:textSize="15sp" />
 
