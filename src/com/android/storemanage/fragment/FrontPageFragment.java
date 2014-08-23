@@ -71,9 +71,6 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 	// 包裹小圆点的LinearLayout
 	private LinearLayout mViewPoints;
 	private ImageView imageView;
-	private int[] colors = new int[] { R.color.color_3, R.color.color_1,
-			R.color.color_2, R.color.color_3, R.color.color_4, R.color.color_5,
-			R.color.color_6, R.color.color_7 };
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -189,21 +186,13 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 								fillData(wealthEntities, tempEntities);
 								gridview.setAdapter(new WealthAdapter(
 										getActivity(), wealthEntities));
-								// createNavMenu1(wealthEntities, view);
 								ArrayList<CategoryEntity> categoryEntities = commonData
 										.getCategoryMapList();
-								// if (null == adapter) {
-								// adapter = new
-								// FrontFotruneAdapter(getChildFragmentManager(),
-								// categoryEntities);
 								initDots(categoryEntities.size());
 								viewPager.setAdapter(new FrontFotruneAdapter(
 										getChildFragmentManager(),
 										categoryEntities));
 								viewPager.setOffscreenPageLimit(1);
-								// } else {
-								// adapter.notifyDataSetChanged();
-								// }
 								viewPager.setCurrentItem(0);
 								imageButton.setText("会员："
 										+ commonData.getCommonData()
@@ -378,11 +367,7 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 								if (userAddValue > 0) {
 									dialog.show("您增加了" + userAddValue + "个财富值",
 											2000);
-									// Intent intent = new Intent(getActivity(),
-									// cls)
 								}
-							} else {
-								// dialog.show("服务器内部错误", 2000);
 							}
 							try {
 								Intent intent = new Intent();
@@ -422,69 +407,6 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			dialog.show(getString(R.string.pLease_check_network), 2000);
 		}
 	}
-
-//	/**
-//	 * create menu by {@link MenuListEntity}
-//	 * 
-//	 * @param menuEntity
-//	 */
-//	protected void createNavMenu1(List<WealthEntity> wealthEntities, View v) {
-//		int maxRows = wealthEntities.size() % 2 == 0 ? wealthEntities.size() / 2
-//				: wealthEntities.size() / 2 + 1;
-//		GridLayout gridLayout = (GridLayout) v
-//				.findViewById(R.id.menu_gridlayout);
-//		gridLayout.removeAllViews();
-//		gridLayout.setRowCount(maxRows > 4 ? 4 : maxRows);
-//		gridLayout.setColumnCount(4);
-//		GridLayout.LayoutParams lp = null;
-//		GridLayout.Spec spec = null;
-//
-//		int gridLayoutWidth = width - gridLayout.getPaddingLeft()
-//				- gridLayout.getPaddingRight();
-//		int padding = 6;
-//		gridLayout.setPadding(padding, 0, padding, 0);
-//		int itemSpace = 6;
-//		int itemWidth = (gridLayoutWidth - padding * 2
-//				- gridLayout.getPaddingLeft() - gridLayout.getPaddingRight() - itemSpace * 2) / 2;
-//		for (int index = 0; index < wealthEntities.size(); index++) {
-//			WealthEntity entity = wealthEntities.get(index);
-//			RelativeLayout ll = (RelativeLayout) getActivity()
-//					.getLayoutInflater().inflate(R.layout.icon_menu_item,
-//							gridLayout, false);
-//			ll.setOnClickListener(this);
-//			ll.setTag(entity);
-//			ll.setBackgroundResource(R.drawable.selector_gridlayout_bg);
-//
-//			TextView label = (TextView) ll
-//					.findViewById(R.id.description_textView);
-//			label.setTextColor(getResources().getColor(colors[index]));
-//			label.setText(entity.getWealthareaTitle());
-//			ImageView tvIsNew = (ImageView) ll.findViewById(R.id.iv_is_new);
-//			if (!TextUtils.isEmpty(entity.getWealthareaSfnew())
-//					&& "1".equals(entity.getWealthareaSfnew())) {
-//				if (entity.getDbOpptime() == entity.getWealthareaOpptime()) {
-//					tvIsNew.setVisibility(View.INVISIBLE);
-//				} else {
-//					tvIsNew.setVisibility(View.VISIBLE);
-//				}
-//			} else {
-//				tvIsNew.setVisibility(View.INVISIBLE);
-//			}
-//			lp = new GridLayout.LayoutParams(ll.getLayoutParams());
-//			lp.width = itemWidth;
-//			lp.height = LayoutParams.WRAP_CONTENT;
-//			lp.leftMargin = lp.rightMargin = lp.topMargin = lp.bottomMargin = itemSpace;
-//			spec = GridLayout
-//					.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);
-//			lp.columnSpec = spec;
-//			spec = GridLayout
-//					.spec(GridLayout.UNDEFINED, 2, GridLayout.BASELINE);
-//			lp.rowSpec = spec;
-//			ll.setLayoutParams(lp);
-//			gridLayout.addView(ll);
-//
-//		}
-//	}
 
 	@Override
 	public void onClick(View v) {
