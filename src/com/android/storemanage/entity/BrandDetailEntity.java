@@ -10,8 +10,22 @@ public class BrandDetailEntity {
 	private String cBrandId;
 	private String cBrandDetail;
 	private String cBrandAndroidXzdz;
+	private String cBrandImgpath;
 	
-	
+
+	/**
+	 * @return the cBrandImgpath
+	 */
+	public String getCBrandImgpath() {
+		return cBrandImgpath;
+	}
+
+	/**
+	 * @param cBrandImgpath the cBrandImgpath to set
+	 */
+	public void setCBrandImgpath(String cBrandImgpath) {
+		this.cBrandImgpath = cBrandImgpath;
+	}
 
 	public String getCBrandAndroidXzdz() {
 		return cBrandAndroidXzdz;

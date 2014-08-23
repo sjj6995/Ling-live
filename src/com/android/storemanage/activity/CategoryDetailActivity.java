@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 public class CategoryDetailActivity extends BaseActivity {
 	private ImageView iView;
+	private ImageView ivBig;
 	private TextView title;
 	private TextView downloadTextView;
 	private TextView tvDescTextView;
@@ -41,6 +42,7 @@ public class CategoryDetailActivity extends BaseActivity {
 			return;
 		}
 		iView = (ImageView) findViewById(R.id.iv_icon);
+		ivBig = (ImageView) findViewById(R.id.iv_big);
 		title = (TextView) findViewById(R.id.tv_category_name);
 		downloadTextView = (TextView) findViewById(R.id.tv_download);
 		tvDescTextView = (TextView) findViewById(R.id.tv_message_desc);
@@ -90,7 +92,11 @@ public class CategoryDetailActivity extends BaseActivity {
 		if (null != entity) {
 			Picasso.with(mContext)
 					.load(JFConfig.HOST_URL + entity.getFileImgpath())
-					.placeholder(R.drawable.img_empty).into(iView);
+					.placeholder(R.drawable.img_empty).into(ivBig);
+			
+			Picasso.with(mContext)
+			.load(JFConfig.HOST_URL + entity.getCBrandImgpath())
+			.placeholder(R.drawable.img_empty).into(iView);
 
 			title.setText(entity.getCBrandTitle());
 			if (TextUtils.isEmpty(entity.getCBrandAndroidXzdz())) {

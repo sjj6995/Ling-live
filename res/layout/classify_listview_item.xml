@@ -33,7 +33,7 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"
             android:layout_marginLeft="5dip"
-            android:layout_weight="1" >
+            android:layout_weight="2.5" >
 
             <TextView
                 android:id="@+id/tv_branch_name"
@@ -44,7 +44,7 @@
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:textColor="#606366"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_click_times"
