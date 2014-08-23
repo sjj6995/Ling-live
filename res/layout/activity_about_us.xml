@@ -46,12 +46,6 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/about_us_contact"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:text="@string/about_us_telephone"
                 android:textSize="14sp" />
 

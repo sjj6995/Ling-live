@@ -12,17 +12,15 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="80dip"
+            android:layout_height="84dip"
             android:orientation="horizontal"
             android:padding="@dimen/app_bg_content_margin" >
 
             <ImageView
                 android:id="@+id/iv_icon"
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="60dip"
+                android:layout_height="60dip"
                 android:background="@android:color/transparent"
-                android:minHeight="40dip"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_empty" />
 
@@ -30,7 +28,7 @@
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="10dip"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:orientation="vertical" >
 
                 <TextView
@@ -67,7 +65,8 @@
             android:layout_width="fill_parent"
             android:layout_height="200dip"
             android:scaleType="fitXY"
-            android:layout_margin="@dimen/app_bg_content_margin"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
             android:src="@drawable/img_empty"
             android:id="@+id/iv_big"
             />
