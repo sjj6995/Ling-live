@@ -49,36 +49,40 @@ public class SplashActivity extends BaseActivity {
 			params.put("phonetype", "android");
 			params.put("appversionNumber", CommonUtil.getVersion(mContext));
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CHECK_UPDATE, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData commonData = innderData.getData().get(0);
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						chooseDifferentStatus(commonData);
-					} else {
-						if (!TextUtils.isEmpty(userId)) {
-							gotoMain();
-						} else {
-							initData();// 看当前的用户号是否注册成功
+			HttpClient.post(JFConfig.CHECK_UPDATE, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {
+								chooseDifferentStatus(commonData);
+							} else {
+								if (!TextUtils.isEmpty(userId)) {
+									gotoMain();
+								} else {
+									initData();// 看当前的用户号是否注册成功
+								}
+							}
+
 						}
-					}
 
-				}
-
-				@Override
-				public void onFailure(Throwable error, String content) {
-					super.onFailure(error, content);
-					dismissProgressDialog();
-					CommonUtil.onFailure(error, mContext);
-				}
-			});
+						@Override
+						public void onFailure(Throwable error, String content) {
+							super.onFailure(error, content);
+							dismissProgressDialog();
+							CommonUtil.onFailure(error, mContext);
+						}
+					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(mContext.getString(R.string.pLease_check_network), 2000);
@@ -86,33 +90,36 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	private void chooseDifferentStatus(final CollectionData commonData) {
-		int appversionNeedUpdate = commonData.getAppVersionData().getSfNeedUpdate();
+		int appversionNeedUpdate = commonData.getAppVersionData()
+				.getSfNeedUpdate();
 		final RetryDialog dialog = new RetryDialog(mContext);
 		switch (appversionNeedUpdate) {
 		case 0:// 必须更新
 			dialog.setConfirmText("更新");
 			dialog.setCancelText("退出");
-			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
+			dialog.setContent(commonData.getAppVersionData()
+					.getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-//						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
-						gotoWebPage(commonData.getAppVersionData().getAppversionUpdateurl());
+						// gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+						gotoWebPage(commonData.getAppVersionData()
+								.getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
 						SplashActivity.this.finish();
 						break;
-//						dialog.dismiss();
-//						if (!TextUtils.isEmpty(userId)) {
-//							gotoMain();
-//						} else {
-//							initData();// 看当前的用户号是否注册成功
-//						}
-//						break;
+					// dialog.dismiss();
+					// if (!TextUtils.isEmpty(userId)) {
+					// gotoMain();
+					// } else {
+					// initData();// 看当前的用户号是否注册成功
+					// }
+					// break;
 					}
 				}
 			});
@@ -121,15 +128,17 @@ public class SplashActivity extends BaseActivity {
 		case 1:// 可以更新
 			dialog.setConfirmText("更新");
 			dialog.setCancelText("取消");
-			dialog.setContent(commonData.getAppVersionData().getAppversionUpdateinfo());
+			dialog.setContent(commonData.getAppVersionData()
+					.getAppversionUpdateinfo());
 			dialog.setOnConfirmClick(new OnConfirmClick() {
 
 				@Override
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-//						gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
-						gotoWebPage(commonData.getAppVersionData().getAppversionUpdateurl());
+						// gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+						gotoWebPage(commonData.getAppVersionData()
+								.getAppversionUpdateurl());
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
@@ -155,8 +164,8 @@ public class SplashActivity extends BaseActivity {
 			break;
 		}
 	}
-	
-	private void gotoWebPage(String resultString){
+
+	private void gotoWebPage(String resultString) {
 		try {
 			Intent intent = new Intent();
 			intent.setAction("android.intent.action.VIEW");
@@ -165,7 +174,8 @@ public class SplashActivity extends BaseActivity {
 			startActivity(intent);
 
 		} catch (Exception e) {
-			Intent intent = new Intent(SplashActivity.this,WealthDetailActivity.class);
+			Intent intent = new Intent(SplashActivity.this,
+					WealthDetailActivity.class);
 			intent.putExtra("url", resultString);
 			startActivity(intent);
 		}
@@ -174,44 +184,62 @@ public class SplashActivity extends BaseActivity {
 	private void initData() {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
-			params.put("phoneimei",
-					PhoneUtil.getDeviceId((TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE)));
+			params.put("phoneimei", PhoneUtil
+					.getDeviceId((TelephonyManager) mContext
+							.getSystemService(Context.TELEPHONY_SERVICE)));
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params, new AsyncHttpResponseHandler() {
-				@Override
-				public void onSuccess(int statusCode, String content) {
-					log.i("content===" + content);
-					dismissProgressDialog();
-					if (TextUtils.isEmpty(content)) {
-						return;
-					}
-					OuterData outerData = JSON.parseObject(content, OuterData.class);
-					InnerData innderData = outerData.getData().get(0);
-					CollectionData commonData = innderData.getData().get(0);
-					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						String isRegistered = commonData.getCommonData().getRegistered();
-						if (!TextUtils.isEmpty(isRegistered) && "true".equals(isRegistered)) {// 已经注册成功
-							userId = commonData.getCommonData().getUserId();
-							application.setUserId(userId);
-							gotoMain();
-						} else {
-							gotoRegister();
+			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params,
+					new AsyncHttpResponseHandler() {
+						@Override
+						public void onSuccess(int statusCode, String content) {
+							log.i("content===" + content);
+							dismissProgressDialog();
+							if (TextUtils.isEmpty(content)) {
+								return;
+							}
+							OuterData outerData = JSON.parseObject(content,
+									OuterData.class);
+							InnerData innderData = outerData.getData().get(0);
+							CollectionData commonData = innderData.getData()
+									.get(0);
+							if ("true".equals(commonData.getCommonData()
+									.getReturnStatus())) {
+								String isRegistered = commonData
+										.getCommonData().getRegistered();
+								if (!TextUtils.isEmpty(isRegistered)
+										&& "true".equals(isRegistered)) {// 已经注册成功
+									userId = commonData.getCommonData()
+											.getUserId();
+									if (TextUtils.isEmpty(userId)) {
+										Toast.makeText(getApplicationContext(),
+												"用户信息获取失败，请重试",
+												Toast.LENGTH_SHORT).show();
+										finish();
+									} else {
+										sp.edit().putString("userId", userId)
+												.commit();
+										application.setUserId(userId);
+										gotoMain();
+									}
+								} else {
+									gotoRegister();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(),
+										R.string.server_data_exception,
+										Toast.LENGTH_SHORT).show();
+								finish();
+							}
+
 						}
-					} else {
-						Toast.makeText(getApplicationContext(), R.string.server_data_exception, Toast.LENGTH_SHORT)
-								.show();
-						finish();
-					}
 
-				}
-
-				@Override
-				public void onFailure(Throwable error, String arg1) {
-					super.onFailure(error, arg1);
-					dismissProgressDialog();
-					CommonUtil.onFailure(error, mContext);
-				}
-			});
+						@Override
+						public void onFailure(Throwable error, String arg1) {
+							super.onFailure(error, arg1);
+							dismissProgressDialog();
+							CommonUtil.onFailure(error, mContext);
+						}
+					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(mContext.getString(R.string.pLease_check_network), 2000);
