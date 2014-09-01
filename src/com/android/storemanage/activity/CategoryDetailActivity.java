@@ -55,33 +55,28 @@ public class CategoryDetailActivity extends BaseActivity {
 			RequestParams params = new RequestParams();
 			params.put("cBrandId", cBrandId);
 			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CATEGORY_DETAIL, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							log.i("commonData"
-									+ commonData.getCommonData().getMsg());
-							BrandDetailEntity entity = commonData
-									.getBrandDetailMap();
-							fillData(entity);
-						}
+			HttpClient.post(JFConfig.CATEGORY_DETAIL, params, new AsyncHttpResponseHandler() {
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
+					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					BrandDetailEntity entity = commonData.getBrandDetailMap();
+					fillData(entity);
+				}
 
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-							dismissProgressDialog();
-						}
-					});
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+				}
+			});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
@@ -90,37 +85,40 @@ public class CategoryDetailActivity extends BaseActivity {
 
 	protected void fillData(final BrandDetailEntity entity) {
 		if (null != entity) {
-			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getFileImgpath())
-					.placeholder(R.drawable.img_empty).into(ivBig);
-			
-			Picasso.with(mContext)
-			.load(JFConfig.HOST_URL + entity.getCBrandImgpath())
-			.placeholder(R.drawable.img_empty).into(iView);
+			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getFileImgpath()).placeholder(R.drawable.img_empty)
+					.into(ivBig);
+
+			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getCBrandImgpath())
+					.placeholder(R.drawable.img_empty).into(iView);
 
 			title.setText(entity.getCBrandTitle());
-			if (TextUtils.isEmpty(entity.getCBrandAndroidXzdz())) {
+			final String brandXzdz = entity.getCBrandAndroidXzdz();
+			if (TextUtils.isEmpty(brandXzdz)) {
 				downloadTextView.setVisibility(View.INVISIBLE);
 			} else {
-				downloadTextView.setVisibility(View.VISIBLE);
-				downloadTextView.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						try{
-							Intent intent = new Intent();
-							intent.setAction("android.intent.action.VIEW");
-							Uri content_url = Uri.parse(entity.getCBrandAndroidXzdz());
-							intent.setData(content_url);
-							startActivity(intent);
-							
-						}catch(Exception e){
-							Intent itt = new Intent(CategoryDetailActivity.this, WealthDetailActivity.class);
-							itt.putExtra("url", entity.getCBrandAndroidXzdz());
-							startActivity(itt);
+				if (brandXzdz.startsWith("http://")) {
+					downloadTextView.setVisibility(View.INVISIBLE);
+				} else {
+					downloadTextView.setVisibility(View.VISIBLE);
+					downloadTextView.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							try {
+								Intent intent = new Intent();
+								intent.setAction("android.intent.action.VIEW");
+								Uri content_url = Uri.parse(brandXzdz);
+								intent.setData(content_url);
+								startActivity(intent);
+
+							} catch (Exception e) {
+								Intent itt = new Intent(CategoryDetailActivity.this, WealthDetailActivity.class);
+								itt.putExtra("url", brandXzdz);
+								startActivity(itt);
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 			tvDescTextView.setText(entity.getCBrandDetail());
 		}
