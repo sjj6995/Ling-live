@@ -1,10 +1,10 @@
 package com.android.storemanage.application;
 
-import com.android.storemanage.db.SqlDataBase;
 import com.android.storemanage.utils.ExceptionHandler;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 public class BaseApplication extends Application {
 	private static BaseApplication application;
@@ -13,6 +13,10 @@ public class BaseApplication extends Application {
 	
 
 	public String getUserId() {
+		if(TextUtils.isEmpty(userId)){
+			sp = getSharedPreferences("userinfor", MODE_PRIVATE);
+			userId = sp.getString("userId", "");
+		}
 		return userId;
 	}
 
