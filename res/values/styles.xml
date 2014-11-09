@@ -56,4 +56,10 @@
     <style name="ListButtonAction">
         <item name="android:layout_margin">10dp</item>
     </style>
+    <style name="Theme.Translucent" parent="android:style/Theme.Translucent">
+        <item name="android:windowBackground">@drawable/tanslucent_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorForeground">#fff</item>
+    </style>
+    <drawable name="tanslucent_background">#e0000000</drawable>
 </resources>

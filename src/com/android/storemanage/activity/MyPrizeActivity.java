@@ -72,20 +72,42 @@ public class MyPrizeActivity extends BaseActivity {
 
 	private void gotoUserPrizeDetailActivity(UserPrizeEntity entity) {
 		if (null != entity) {
-			if(entity.getUserprizeCategory() == 1){
+			String isUsed = entity.getUserprizeSfused();
+			if("01".equals(entity.getUserprizeCategory())){//电话卡
 				Intent intent = new Intent(MyPrizeActivity.this,
 						UserPrizeDetailActivity2.class);
 				intent.putExtra("userprizeId", entity.getUserprizeId());
 				intent.putExtra("isused",
 						"1".equals(entity.getUserprizeSfused()) ? true : false);
 				startActivity(intent);
-			}else{
+			}else if("99".equals(entity.getUserprizeCategory())){//普通奖品
 				Intent intent = new Intent(MyPrizeActivity.this,
 						UserPrizeDetailActivity.class);
 				intent.putExtra("userprizeId", entity.getUserprizeId());
 				intent.putExtra("isused",
 						"1".equals(entity.getUserprizeSfused()) ? true : false);
+				//intent.putExtra("订单是否已下过",...)
 				startActivity(intent);
+			}else{//实物奖品
+				if("0".equals(isUsed)){
+					Intent intent = new Intent(MyPrizeActivity.this,
+							UserAddressActivity.class);
+					intent.putExtra("userprizeId", entity.getUserprizeId());
+					intent.putExtra("isused",
+							"1".equals(entity.getUserprizeSfused()) ? true : false);
+					//intent.putExtra("订单是否已下过",...)
+					startActivity(intent);
+				}else{
+					Intent intent = new Intent(MyPrizeActivity.this,
+							UserShiWuPrizeDetailActivity.class);
+					intent.putExtra("userprizeId", entity.getUserprizeId());
+					intent.putExtra("isused",
+							"1".equals(entity.getUserprizeSfused()) ? true : false);
+					intent.putExtra("uSwddId", entity.getUSwddId());
+					//intent.putExtra("订单是否已下过",...)
+					startActivity(intent);
+				}
+				
 			}
 		}
 	}
@@ -220,11 +242,12 @@ public class MyPrizeActivity extends BaseActivity {
 				holder.tvNameTextView.setText(entity.getUserprizeTitle());
 
 				Picasso.with(mContext)
-						.load(JFConfig.HOST_URL + entity.getUserprizeImgpath())
+						.load(JFConfig.IMA_URL + entity.getUserprizeImgpath())
 						.placeholder(R.drawable.img_empty)
 						.into(holder.ivIconImageView);
-				String isUsedOrNotString = entity.getUserprizeSfused();
+				String isUsedOrNotString = entity.getUserprizeSfused().toString().trim();
 				if (!TextUtils.isEmpty(isUsedOrNotString)) {
+					
 					if ("1".equals(isUsedOrNotString)) {
 						holder.ivImageView
 								.setImageResource(R.drawable.btn_hasused);
@@ -232,17 +255,38 @@ public class MyPrizeActivity extends BaseActivity {
 						holder.ivImageView
 								.setImageResource(R.drawable.btn_unused);
 					}
-					int result = Integer.parseInt(isUsedOrNotString);
-					if (1 == result) {
-						holder.tvValidateTimeTextView.setText("该奖品已失效");
-					} else if (result == 0) {
-						if(entity.getUserprizeValidity() < 0){
+					log.i(isUsedOrNotString+"-------------------------------");
+					System.out.println("-----------------------------"+isUsedOrNotString);
+//					int result = Integer.parseInt(isUsedOrNotString);
+					
+                    if("02".equals(entity.getUserprizeCategory())){//02实物奖品
+                    	holder.ivImageView.setVisibility(View.INVISIBLE);
+						if("0".equals(isUsedOrNotString)){
+							holder.tvValidateTimeTextView.setText("尚未填写收货信息");
+						}else if("chz".equals(isUsedOrNotString)){
+							holder.tvValidateTimeTextView.setText("出货中");
+						}else if("yfh".equals(isUsedOrNotString)){
+							holder.tvValidateTimeTextView.setText("已发货");
+						} else{
+							holder.tvValidateTimeTextView.setText("已收货");
+						}
+					}else if("01".equals(entity.getUserprizeCategory())){//电话充值 卡 
+						holder.tvValidateTimeTextView.setText("请及时使用");
+						holder.ivImageView.setVisibility(View.INVISIBLE);
+					}else{//普通奖品
+						if ("1".equals(isUsedOrNotString)) {
 							holder.tvValidateTimeTextView.setText("该奖品已失效");
-						}else{
-							holder.tvValidateTimeTextView.setText("有效期剩余"
-									+ entity.getUserprizeValidity() + "天");
+						} else if ( "0".equals(isUsedOrNotString)) {
+							if(entity.getUserprizeValidity() < 0){
+								holder.tvValidateTimeTextView.setText("该奖品已失效");
+							}else{
+								holder.tvValidateTimeTextView.setText("有效期剩余"
+										+ entity.getUserprizeValidity() + "天");
+							}
 						}
 					}
+					
+					
 				} else {
 					holder.ivImageView.setImageResource(R.drawable.btn_unused);
 				}

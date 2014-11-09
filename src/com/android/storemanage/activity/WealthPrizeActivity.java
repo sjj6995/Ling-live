@@ -77,6 +77,7 @@ public class WealthPrizeActivity extends BaseActivity implements OnClickListener
 				if (null != entity) {
 					Intent itt = new Intent(WealthPrizeActivity.this, WealthPrizeDetailActivity.class);
 					itt.putExtra("wPrizeId", entity.getWPrizeId());
+					itt.putExtra("imageUrl", entity.getWPrizeDetailFj());
 					startActivity(itt);
 				}
 			}

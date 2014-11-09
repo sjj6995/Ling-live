@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,8 @@ public class UserPrizeDetailActivity2 extends BaseActivity {
 	private void initViews() {
 		tvTitleTextView = (TextView) findViewById(R.id.tv_chongzhi);
 		ivImageView = (ImageView) findViewById(R.id.iv_icon);
+
+		
 	}
 
 	private void initData(String userPrizeId2) {
@@ -101,7 +104,7 @@ public class UserPrizeDetailActivity2 extends BaseActivity {
 
 	protected void fillData(UserPrizeDetailEntity entity) {
 		tvTitleTextView.setText(entity.getUserprizeTitle());
-		Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getUserprizeImgpath()).placeholder(R.drawable.img_empty)
+		Picasso.with(mContext).load(JFConfig.IMA_URL + entity.getUserprizeImgpath()).placeholder(R.drawable.img_empty)
 				.into(ivImageView);
 	}
 }

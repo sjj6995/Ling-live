@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.android.storemanage.R;
 import com.android.storemanage.activity.CategoryListActivity;
+import com.android.storemanage.activity.ZhaoPinListActivity;
 import com.android.storemanage.adapter.ClassifyBigAdapter;
 import com.android.storemanage.entity.CategoryEntity;
 import com.android.storemanage.utils.DisplayUtil;
@@ -42,10 +43,18 @@ public class FrontGridFragment extends Fragment implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		CategoryEntity entity = (CategoryEntity) arg0.getItemAtPosition(arg2);
 		if (null != entity) {
-			Intent intent = new Intent(getActivity(), CategoryListActivity.class);
-			intent.putExtra("categoryId", entity.getCategoryId());
-			intent.putExtra("categoryName", entity.getCategoryTitle());
-			startActivity(intent);
+			if("招聘".equals(entity.getCategoryTitle())){
+				Intent intent = new Intent(getActivity(), ZhaoPinListActivity.class);
+				intent.putExtra("categoryId", entity.getCategoryId());
+				intent.putExtra("categoryName", entity.getCategoryTitle());
+				startActivity(intent);
+			}else{
+				Intent intent = new Intent(getActivity(), CategoryListActivity.class);
+				intent.putExtra("categoryId", entity.getCategoryId());
+				intent.putExtra("categoryName", entity.getCategoryTitle());
+				startActivity(intent);
+			}
+			
 		}
 	}
 

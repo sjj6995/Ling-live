@@ -1,5 +1,8 @@
 package com.android.storemanage.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.android.storemanage.R;
 import com.android.storemanage.application.BaseApplication;
 import com.android.storemanage.db.SqlDataBase;
@@ -14,14 +17,20 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class BaseActivity extends Activity {
 	protected BaseApplication application;
 	protected Context mContext;
 	protected CommonLog log;
-	protected SharedPreferences sp;
+	protected static SharedPreferences sp;
 	protected SqlDataBase db;
+	protected Button register,changedevice; 
+	protected TextView tv_title;
+	protected ImageButton back_login;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,4 +109,6 @@ public class BaseActivity extends Activity {
 	public void onBackClicked(View view) {
 		finish();
 	}
+
+
 }

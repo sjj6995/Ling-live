@@ -16,8 +16,12 @@ import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +34,7 @@ public class MessageDetailActivity extends BaseActivity {
 	private TextView titleTextView;
 	private ListView listView;
 	private TextView tView;
+	private List<MessageDetailEntity> msgEntity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,17 @@ public class MessageDetailActivity extends BaseActivity {
 		titleTextView.setText("消息详情");
 		listView = (ListView) findViewById(R.id.lv_message);
 		listView.setEmptyView(tView);
+//		listView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				Intent intent = new Intent(MessageDetailActivity.this,
+//						WebViewActivity.class);
+//				intent.putExtra("url", msgEntity.get(arg2).getHdWebpath());
+//				startActivity(intent);
+//			}
+//		});
 	}
 
 	private MessageDetailAdapter adapter;
@@ -70,7 +86,7 @@ public class MessageDetailActivity extends BaseActivity {
 					CollectionData commonData = innderData.getData().get(0);
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
-						List<MessageDetailEntity> msgEntity =commonData.getMessageDetailMapList();
+						msgEntity =commonData.getMessageDetailMapList();
 						if(null == adapter){
 							adapter = new MessageDetailAdapter(mContext, msgEntity);
 							listView.setAdapter(new MessageDetailAdapter(mContext, msgEntity));

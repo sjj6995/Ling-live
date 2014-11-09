@@ -2,6 +2,8 @@ package com.android.storemanage.activity;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
+import com.android.storemanage.dialog.RetryDialog;
+import com.android.storemanage.dialog.RetryDialog.OnConfirmClick;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
@@ -27,11 +29,11 @@ import android.widget.Toast;
  * 
  */
 public class WealthPrizeDetailActivity extends BaseActivity {
-	private ImageView iv;
+	private ImageView iv,image_detail;
 	private TextView title;
 	private TextView wealthTitle;
 	private TextView wealthValue;
-	private String wPrizeId;
+	private String wPrizeId,imageUrl;
 	private Button btnGotoExchange;
 	private TextView tvValidateTime;
 	private TextView tvMessageDesc;
@@ -41,6 +43,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wealth_pride_detail);
 		iv = (ImageView) findViewById(R.id.iv_icon);
+		image_detail = (ImageView) findViewById(R.id.image_detail);
 		btnGotoExchange = (Button) findViewById(R.id.btn_goto_change);
 		title = (TextView) findViewById(R.id.tv_title);
 		title.setText("奖品详情");
@@ -48,6 +51,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 		wealthTitle = (TextView) findViewById(R.id.tv_pride_name);
 		wealthValue = (TextView) findViewById(R.id.tv_wealth_value);
 		wPrizeId = getIntent().getStringExtra("wPrizeId");
+		imageUrl = getIntent().getStringExtra("imageUrl");
 		tvMessageDesc = (TextView) findViewById(R.id.tv_message_desc);
 		if (TextUtils.isEmpty(wPrizeId)) {
 			Toast.makeText(mContext, R.string.server_data_exception,
@@ -62,6 +66,26 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 	 *            兑换
 	 */
 	public void gotoExchange(View view) {
+		final RetryDialog rDialog=new RetryDialog(mContext,"确定兑换该物品吗");
+		rDialog.setOnConfirmClick(new OnConfirmClick() {
+			
+			@Override
+			public void onClick(View view) {
+				switch (view.getId()) {
+				case R.id.sureBtn:// 确定
+					useInterface();
+					break;
+				case R.id.cancelBtn:// 取消
+					rDialog.dismiss();
+					break;
+				}
+				
+			}
+		});
+		rDialog.show();
+	}
+
+	private void useInterface(){
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
 			params.put("wPrizeId", wPrizeId);
@@ -95,7 +119,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 										CRAlertDialog dialog = new CRAlertDialog(
 												mContext);
 										dialog.show("兑换成功", 1000);
-
+									
 //									}
 									// btnGotoExchange.setText("已兑换");
 									// btnGotoExchange.setEnabled(false);
@@ -118,9 +142,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 			CRAlertDialog dialog = new CRAlertDialog(mContext);
 			dialog.show(getString(R.string.pLease_check_network), 2000);
 		}
-
 	}
-
 	private void initData(final String wPrizeId) {
 		if (CommonUtil.checkNetState(mContext)) {
 			RequestParams params = new RequestParams();
@@ -174,7 +196,7 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 	protected void fillData(WealthPrizeDetailEntity entity) {
 		if (null != entity) {
 			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getWPrizeImgpath())
+					.load(JFConfig.IMA_URL + entity.getWPrizeImgpath())
 					.placeholder(R.drawable.img_empty).into(iv);
 			tvValidateTime.setText("自领取之日起" + entity.getWPrizeExpirydate()
 					+ "日内有效");
@@ -191,6 +213,13 @@ public class WealthPrizeDetailActivity extends BaseActivity {
 					btnGotoExchange.setEnabled(false);
 				}
 				btnGotoExchange.setVisibility(View.VISIBLE);
+			}
+			if("".equals(entity.getWPrizeDetailFj())){
+				image_detail.setVisibility(View.GONE);
+			}else{
+				Picasso.with(mContext)
+				.load(entity.getWPrizeDetailFj())
+				.placeholder(R.drawable.img_empty).into(image_detail);
 			}
 		}
 	}

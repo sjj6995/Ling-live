@@ -75,7 +75,7 @@ public class MessageAdapter extends BaseAdapter {
 		}
 		MessageEntity entity = lists.get(position);
 		if (null != entity) {
-			holder.tvDateTextView.setText(entity.getMessagePubdate());
+			holder.tvDateTextView.setText(entity.getMessagePubtime());
 //			try {
 //				holder.tvDateTextView.setText(CommonUtil.longToString(Long.parseLong(entity.getMessagePubdate()),
 //						"yyyy-MM-dd HH:mm"));
@@ -84,8 +84,8 @@ public class MessageAdapter extends BaseAdapter {
 //			} catch (ParseException e) {
 //				e.printStackTrace();
 //			}
-			holder.tvMessageNameTextView.setText(entity.getMessageTitle());
-			holder.tvMessageDescTextView.setText(entity.getMessageDetail());
+			holder.tvMessageNameTextView.setText(entity.getHdTitle());
+			holder.tvMessageDescTextView.setText(entity.getHdDjj());
 			if (!TextUtils.isEmpty(entity.getMessageSfnew()) ) {
 				if("1".equals(entity.getMessageSfnew())){
 					if(entity.getDbOpptime() == entity.getMessageOpptime()){
@@ -99,7 +99,7 @@ public class MessageAdapter extends BaseAdapter {
 			}else{
 				holder.ivNewTextView.setVisibility(View.INVISIBLE);
 			}
-			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getMessageImgpath())
+			Picasso.with(mContext).load(entity.getHdLogo())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;

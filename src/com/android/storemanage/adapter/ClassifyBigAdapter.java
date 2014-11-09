@@ -64,7 +64,7 @@ public class ClassifyBigAdapter extends BaseAdapter {
 			params.height = itemWidth;
 			params.width = itemWidth;
 			holder.ivImageView.setLayoutParams(params);
-			Picasso.with(context).load(JFConfig.HOST_URL + entity.getCategoryBigimgpath())
+			Picasso.with(context).load(JFConfig.IMA_URL + entity.getCategoryBigimgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;

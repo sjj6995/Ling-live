@@ -12,6 +12,15 @@ public class UserInforEntity {
 	private String userid;// 用户的id
 	private String phoneimei;// 手机串号
 	private String opptime;
+	private String minDay;
+
+	public String getMinDay() {
+		return minDay;
+	}
+
+	public void setMinDay(String minDay) {
+		this.minDay = minDay;
+	}
 
 	public String getPhonenumber() {
 		return phonenumber;

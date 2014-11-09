@@ -85,10 +85,10 @@ public class CategoryDetailActivity extends BaseActivity {
 
 	protected void fillData(final BrandDetailEntity entity) {
 		if (null != entity) {
-			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getFileImgpath()).placeholder(R.drawable.img_empty)
+			Picasso.with(mContext).load(JFConfig.IMA_URL + entity.getFileImgpath()).placeholder(R.drawable.img_empty)
 					.into(ivBig);
 
-			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getCBrandImgpath())
+			Picasso.with(mContext).load(JFConfig.IMA_URL + entity.getCBrandImgpath())
 					.placeholder(R.drawable.img_empty).into(iView);
 
 			title.setText(entity.getCBrandTitle());

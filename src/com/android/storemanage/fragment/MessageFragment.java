@@ -5,6 +5,8 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.activity.MessageDetailActivity;
+import com.android.storemanage.activity.WebViewActivity;
+import com.android.storemanage.activity.WebViewActivity1;
 import com.android.storemanage.adapter.MessageAdapter;
 import com.android.storemanage.entity.CollectionData;
 import com.android.storemanage.entity.DataSaveEntity;
@@ -21,6 +23,7 @@ import com.android.storemanage.utils.JFConfig;
 import com.android.storemanage.view.CRAlertDialog;
 
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -45,6 +48,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_message, null);
+		sp  = getActivity().getSharedPreferences("messagetime",getActivity().getApplicationContext().MODE_PRIVATE); 
 		initViews(view);
 		return view;
 	}
@@ -65,6 +69,47 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
 					dismissProgressDialog();
+					if (TextUtils.isEmpty(content)) {
+						return;
+					}
+					OuterData outerData = JSON.parseObject(content, OuterData.class);
+					InnerData innderData = outerData.getData().get(0);
+					CollectionData commonData = innderData.getData().get(0);
+					log.i("commonData" + commonData.getCommonData().getMsg());
+					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
+						List<MessageEntity> msgEntity = innderData.getData().get(0).getMessageMapList();
+						if(msgEntity.size()>0){
+							String lastTime = msgEntity.get(0).getPuntimeStamp();
+							Editor d = sp.edit();
+							d.putString("date",lastTime);
+							d.commit();
+						}
+						
+						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.MESSAGE_LIST);
+						fillData(msgEntity, tempEntities);
+//						if (null == adapter) {
+//							adapter = new MessageAdapter(getActivity(), msgEntity);
+							messageListView.setAdapter(new MessageAdapter(getActivity(), msgEntity));
+//						} else {
+//							adapter.setLists(msgEntity);
+//							adapter.notifyDataSetChanged();
+//						}
+					}
+				}
+
+				@Override
+				public void onFailure(Throwable arg0, String arg1) {
+					super.onFailure(arg0, arg1);
+					dismissProgressDialog();
+					CommonUtil.onFailure(arg0, getActivity());
+				}
+			});
+			//用户消息提示网络请求
+			HttpClient.post(JFConfig.MESSAGE_CENTER, params, new AsyncHttpResponseHandler() {
+
+				@Override
+				public void onSuccess(int statusCode, String content) {
+					log.i("content===" + content);
 					if (TextUtils.isEmpty(content)) {
 						return;
 					}
@@ -107,7 +152,7 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 				String tempId = temp.getId();
 				for (int j = 0; j < messageEntities.size(); j++) {
 					MessageEntity entity = messageEntities.get(j);
-					String id = entity.getMessageId();
+					String id = entity.getId();
 					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
 						entity.setDbOpptime(Long.parseLong(temp.getTime()));
 					}
@@ -134,12 +179,14 @@ public class MessageFragment extends BaseFragment implements OnItemClickListener
 		if (null != entity) {
 			// 数据保存到数据库中
 			DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
-			tempDataSaveEntity.setId(entity.getMessageId());
+			tempDataSaveEntity.setId(entity.getId());
 			tempDataSaveEntity.setTime(entity.getMessageOpptime() + "");
 			db.insertDataSaveEntity(JFConfig.MESSAGE_LIST, tempDataSaveEntity);
 
-			Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
-			intent.putExtra("messageId", entity.getMessageId());
+			Intent intent = new Intent(getActivity(), WebViewActivity1.class);
+			intent.putExtra("messageId", entity.getId());
+			intent.putExtra("title", entity.getHdTitle());
+			intent.putExtra("url", entity.getHdWebpath());
 			getActivity().startActivity(intent);
 		}
 	}

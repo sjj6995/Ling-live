@@ -6,6 +6,7 @@ import com.android.storemanage.R;
 import com.android.storemanage.entity.WealthEntity;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class WealthAdapter extends BaseAdapter {
 			} else {
 				hodler.ivIsNew.setVisibility(View.INVISIBLE);
 			}
-			hodler.tvTitle.setText(entity.getWealthareaTitle());
+			hodler.tvTitle.setText(Html.fromHtml("<b>"+entity.getWealthareaTitle()+"</b>"));
 			hodler.tvTitle.setTextColor(mContext.getResources().getColor(colors[position]));
 		}
 		return convertView;

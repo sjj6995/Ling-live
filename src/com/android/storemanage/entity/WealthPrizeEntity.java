@@ -22,6 +22,14 @@ public class WealthPrizeEntity {
 	private String wPrizeImgname;
 	private String wPrizeEndtime;
 	private String wPrizeTitle;
+	private String wPrizeDetailFj;
+	
+	public void setWPrizeDetailFj(String wPrizeDetailFj){
+		this.wPrizeDetailFj = wPrizeDetailFj;
+	}
+	public String getWPrizeDetailFj(){
+		return wPrizeDetailFj;
+	}
 	
 //	  "wPrizeImgpath": "pages/FileUpload/images/wealthareaPrize/1401694437606_427184925465328228.jpg",
 //      "wPrizeId": "ad2986f624be4046b09a7ec882935f95",

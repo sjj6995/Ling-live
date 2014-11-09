@@ -13,7 +13,15 @@ public class WealthPrizeDetailEntity {
 	private int wPrizeRemainnumber;
 	private String wPrizeTitle;
 	private int wPrizeTotalnumber;
+	private String wPrizeDetailFj;
 
+	public void setWPrizeDetailFj(String wPrizeDetailFj) {
+		this.wPrizeDetailFj = wPrizeDetailFj;
+	}
+
+	public String getWPrizeDetailFj() {
+		return wPrizeDetailFj;
+	}
 	/**
 	 * @return the sfkDuiHuan
 	 */

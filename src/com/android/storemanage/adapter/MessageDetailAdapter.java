@@ -101,7 +101,7 @@ public class MessageDetailAdapter extends BaseAdapter {
 			}
 			// holder.tvNewTextView.setText(entity.getMessageSfnew());
 			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getMDetailImgpath())
+					.load(JFConfig.IMA_URL + entity.getMDetailImgpath())
 					.placeholder(R.drawable.img_empty).into(holder.ivImageView);
 		}
 		return convertView;

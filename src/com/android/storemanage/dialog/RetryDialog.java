@@ -12,7 +12,21 @@ import android.widget.TextView;
 
 public class RetryDialog extends Dialog {
 	private OnConfirmClick confirmClick;
+	private TextView content;
+	private String tip = "";
+	public String getTip() {
+		return tip;
+	}
 
+	public void setTip(String tip) {
+		this.tip = tip;
+	}
+
+	public RetryDialog(Context context,String tip) {
+		super(context);
+		this.tip = tip;
+		init(context);
+	}
 	public RetryDialog(Context context) {
 		super(context);
 		init(context);
@@ -31,6 +45,10 @@ public class RetryDialog extends Dialog {
 	private void init(Context context) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.retry);
+		content = (TextView) findViewById(R.id.content);
+		if(!"".equals(tip)){
+			content.setText(tip.toString());
+		}
 		findViewById(R.id.sureBtn).setOnClickListener(new View.OnClickListener() {
 
 			@Override

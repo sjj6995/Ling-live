@@ -66,14 +66,16 @@ public class ClassifyListAdapter extends BaseAdapter {
 			holder.tvClickTime = (TextView) convertView.findViewById(R.id.tv_click_times);
 			holder.tvWealth = (TextView) convertView.findViewById(R.id.tv_fortune_price);
 			holder.ivIsNew = (ImageView) convertView.findViewById(R.id.iv_is_new);
+			holder.tv_branch_content = (TextView) convertView.findViewById(R.id.tv_branch_content);
 			convertView.setTag(holder);
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
 		BrandEntity entity = brandEntities.get(position);
 		if (null != entity) {
-			Picasso.with(mContext).load(JFConfig.HOST_URL + entity.getCBrandImgpath())
+			Picasso.with(mContext).load(entity.getCBrandXtbpath())
 					.placeholder(R.drawable.img_empty).into(holder.iv);
+			holder.tv_branch_content.setText(entity.getCBrandFbt());
 
 			if (!TextUtils.isEmpty(entity.getCBrandSfnew())) {
 				if ("1".equals(entity.getCBrandSfnew())) {
@@ -102,6 +104,7 @@ public class ClassifyListAdapter extends BaseAdapter {
 		TextView tvTitle;
 		TextView tvClickTime;
 		TextView tvWealth;
+		TextView tv_branch_content;
 		ImageView ivIsNew;
 	}
 

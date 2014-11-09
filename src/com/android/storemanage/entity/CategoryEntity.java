@@ -19,6 +19,23 @@ public class CategoryEntity implements Serializable{
 	private String categoryLittleimgsize;
 	private String categoryLittleimgid;
 	private String categoryOpptime;
+	private String categorySfnew;
+	private long dbOpptime = 0;
+	public String getCategorySfnew() {
+		return categorySfnew;
+	}
+
+	public long getDbOpptime() {
+		return dbOpptime;
+	}
+
+	public void setDbOpptime(long dbOpptime) {
+		this.dbOpptime = dbOpptime;
+	}
+
+	public void setCategorySfnew(String categorySfnew) {
+		this.categorySfnew = categorySfnew;
+	}
 
 	public String getCategoryBigimgpath() {
 		return categoryBigimgpath;

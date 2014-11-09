@@ -21,9 +21,17 @@ public class UserPrizeEntity {
 	private String userprizeDetail;
 	private String userprizeImgdomain;
 	private String userprizeDuihuantime;
-	private int  userprizeCategory;
+	private String  userprizeCategory;
 	private int userprizeValidity;
+	private String uSwddId;
 
+	public String getUSwddId(){
+		return uSwddId;
+	}
+
+	public void setUSwddId(String uSwddId){
+		this.uSwddId = uSwddId;
+	}
 	/**
 	 * @return the userprizeValidity
 	 */
@@ -38,11 +46,12 @@ public class UserPrizeEntity {
 		this.userprizeValidity = userprizeValidity;
 	}
 
-	public int getUserprizeCategory() {
+
+	public String getUserprizeCategory() {
 		return userprizeCategory;
 	}
 
-	public void setUserprizeCategory(int userprizeCategory) {
+	public void setUserprizeCategory(String userprizeCategory) {
 		this.userprizeCategory = userprizeCategory;
 	}
 

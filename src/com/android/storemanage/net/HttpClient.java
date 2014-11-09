@@ -35,7 +35,7 @@ public class HttpClient {
 	}
 
 	private static String getAbsoluteUrl(String relativeUrl) {
-		return JFConfig.HOST_URL + relativeUrl;
+		return JFConfig.HOST_URL+ relativeUrl;
 	}
 
 }

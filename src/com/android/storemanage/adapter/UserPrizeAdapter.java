@@ -91,7 +91,7 @@ public class UserPrizeAdapter extends BaseAdapter {
 			holder.tvValidateTimeTextView.setText("有效期剩余"
 					+ entity.getUserprizeOpptime());
 			Picasso.with(mContext)
-					.load(JFConfig.HOST_URL + entity.getUserprizeImgpath())
+					.load(JFConfig.IMA_URL + entity.getUserprizeImgpath())
 					.placeholder(R.drawable.img_empty)
 					.into(holder.ivIconImageView);
 			String isUsedOrNotString = entity.getUserprizeSfused();

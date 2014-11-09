@@ -5,9 +5,12 @@ import java.util.List;
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
 import com.android.storemanage.activity.CategoryListActivity;
+import com.android.storemanage.activity.ZhaoPinListActivity;
 import com.android.storemanage.adapter.ClassifyLittleAdapter;
+import com.android.storemanage.entity.BrandEntity;
 import com.android.storemanage.entity.CategoryEntity;
 import com.android.storemanage.entity.CollectionData;
+import com.android.storemanage.entity.DataSaveEntity;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
@@ -65,6 +68,7 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 				@Override
 				public void onSuccess(int statusCode, String content) {
 					log.i("content===" + content);
+					System.out.println("ClassifyFragmentContent =="+content);
 					dismissProgressDialog();
 					if (TextUtils.isEmpty(content)) {
 						return;
@@ -75,6 +79,8 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 					log.i("commonData" + commonData.getCommonData().getMsg());
 					if ("true".equals(commonData.getCommonData().getReturnStatus())) {
 						List<CategoryEntity> msgEntity = innderData.getData().get(0).getCategoryMapList();
+						List<DataSaveEntity> tempEntities = db.queryAll(JFConfig.CATEGORY_LIST);
+						fillData(msgEntity, tempEntities);
 //						if(null == adapter){
 //							adapter = new ClassifyLittleAdapter(getActivity(), msgEntity);
 							listView.setAdapter(new ClassifyLittleAdapter(getActivity(), msgEntity));
@@ -123,10 +129,49 @@ public class ClassifyFragment extends BaseFragment implements OnClickListener, O
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		CategoryEntity entity = (CategoryEntity) arg0.getItemAtPosition(arg2);
 		if (null != entity) {
-			Intent intent = new Intent(getActivity(), CategoryListActivity.class);
-			intent.putExtra("categoryId", entity.getCategoryId());
-			intent.putExtra("categoryName", entity.getCategoryTitle());
-			startActivity(intent);
+			//把数据保存到数据库中
+			DataSaveEntity tempDataSaveEntity = new DataSaveEntity();
+			tempDataSaveEntity.setId(entity.getCategoryId());
+			tempDataSaveEntity.setTime(entity.getCategoryOpptime() + "");
+			db.insertDataSaveEntity(JFConfig.CATEGORY_LIST, tempDataSaveEntity);
+//			sendToServerGetUserWealth(entity.getCBrandTitle(),entity.getCBrandId(), entity.getCBrangSite(),entity.getCBrandSfhavedetail());
+		    if("招聘".equals(entity.getCategoryTitle())){
+		    	gotoZhaoPin(entity);
+		    }else{
+		    	gotoDifferentPageByType(entity);
+		    }
+			
+			
 		}
+	}
+	public void gotoZhaoPin(CategoryEntity entity){
+		Intent intent = new Intent(getActivity(), ZhaoPinListActivity.class);
+		intent.putExtra("categoryId", entity.getCategoryId());
+		intent.putExtra("categoryName", entity.getCategoryTitle());
+		startActivity(intent);
+	}
+	public void gotoDifferentPageByType(CategoryEntity entity){
+		Intent intent = new Intent(getActivity(), CategoryListActivity.class);
+		intent.putExtra("categoryId", entity.getCategoryId());
+		intent.putExtra("categoryName", entity.getCategoryTitle());
+		startActivity(intent);
+	}
+	//填充数据
+	protected void fillData(List<CategoryEntity> categoryEntities, List<DataSaveEntity> tempEntities) {
+		if (null != tempEntities && tempEntities.size() > 0) {
+			for (int i = 0; i < tempEntities.size(); i++) {
+				DataSaveEntity temp = tempEntities.get(i);
+				String tempId = temp.getId();
+				for (int j = 0; j < categoryEntities.size(); j++) {
+					CategoryEntity entity = categoryEntities.get(j);
+					String id = entity.getCategoryId();
+					if (!TextUtils.isEmpty(tempId) && !TextUtils.isEmpty(id) && id.equals(tempId)) {
+						entity.setDbOpptime(Long.parseLong(temp.getTime()));
+					}
+				}
+
+			}
+		}
+
 	}
 }

@@ -1,19 +1,53 @@
 package com.android.storemanage.entity;
 
 public class MessageEntity {
-	private String messageId;
+	private String id;
 	private String messageImgname;
 	private String messageSfnew;
 	private String messageImgpath;
-	private String messageTitle;
+	private String hdTitle;
+	public String getHdTitle() {
+		return hdTitle;
+	}
+	public void setHdTitle(String hdTitle) {
+		this.hdTitle = hdTitle;
+	}
 	private long messageOpptime=0;
 	private String messageImgid;
-	private String messagePubdate;
+	private String messagePubtime;
 	private String messageImgsize;
 
 	private String messageImgdomain;
 	private String messageDetail;
 	private long dbOpptime = 0;
+	private String hdWebpath;
+	private String hdDjj;
+	private String hdLogo;
+	private String puntimeStamp;
+	public String getPuntimeStamp() {
+		return puntimeStamp;
+	}
+	public void setPuntimeStamp(String puntimeStamp) {
+		this.puntimeStamp = puntimeStamp;
+	}
+	public String getHdLogo() {
+		return hdLogo;
+	}
+	public void setHdLogo(String hdLogo) {
+		this.hdLogo = hdLogo;
+	}
+	public String getHdDjj() {
+		return hdDjj;
+	}
+	public void setHdDjj(String hdDjj) {
+		this.hdDjj = hdDjj;
+	}
+	public String getHdWebpath() {
+		return hdWebpath;
+	}
+	public void setHdWebpath(String hdWebpath) {
+		this.hdWebpath = hdWebpath;
+	}
 	
 	/**
 	 * @return the dbOpptime
@@ -35,20 +69,23 @@ public class MessageEntity {
 
 	public MessageEntity(String messageId, String messageImgname,
 			String messageSfnew, String messageImgpath, String messageTitle,
-			long messageOpptime, String messageImgid, String messagePubdate,
-			String messageImgsize, String messageImgdomain, String messageDetail) {
+			long messageOpptime, String messageImgid, String messagePubtime,
+			String messageImgsize, String messageImgdomain, String messageDetail,String hdDjj,String hdLogo,String hdWebpath) {
 		super();
-		this.messageId = messageId;
+		this.id = messageId;
 		this.messageImgname = messageImgname;
 		this.messageSfnew = messageSfnew;
 		this.messageImgpath = messageImgpath;
-		this.messageTitle = messageTitle;
+		this.hdTitle = messageTitle;
 		this.messageOpptime = messageOpptime;
 		this.messageImgid = messageImgid;
-		this.messagePubdate = messagePubdate;
+		this.messagePubtime = messagePubtime;
 		this.messageImgsize = messageImgsize;
 		this.messageImgdomain = messageImgdomain;
 		this.messageDetail = messageDetail;
+		this.hdDjj = hdDjj;
+		this.hdLogo = hdLogo;
+		this.hdWebpath = hdWebpath;
 	}
 
 	public String getMessageImgname() {
@@ -75,13 +112,7 @@ public class MessageEntity {
 		this.messageImgpath = messageImgpath;
 	}
 
-	public String getMessageTitle() {
-		return messageTitle;
-	}
 
-	public void setMessageTitle(String messageTitle) {
-		this.messageTitle = messageTitle;
-	}
 
 	public long getMessageOpptime() {
 		return messageOpptime;
@@ -97,14 +128,6 @@ public class MessageEntity {
 
 	public void setMessageImgid(String messageImgid) {
 		this.messageImgid = messageImgid;
-	}
-
-	public String getMessagePubdate() {
-		return messagePubdate;
-	}
-
-	public void setMessagePubdate(String messagePubdate) {
-		this.messagePubdate = messagePubdate;
 	}
 
 	public String getMessageImgsize() {
@@ -130,13 +153,19 @@ public class MessageEntity {
 	public void setMessageDetail(String messageDetail) {
 		this.messageDetail = messageDetail;
 	}
-
-	public String getMessageId() {
-		return messageId;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getMessagePubtime() {
+		return messagePubtime;
+	}
+	public void setMessagePubtime(String messagePubtime) {
+		this.messagePubtime = messagePubtime;
 	}
 
-	public void setMessageId(String messageId) {
-		this.messageId = messageId;
-	}
+
 
 }

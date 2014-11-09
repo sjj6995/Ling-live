@@ -7,6 +7,7 @@ import com.android.storemanage.db.SqlDataBase;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Window;
@@ -19,6 +20,7 @@ public class BaseFragment extends Fragment {
 //	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	protected BaseApplication application;
 	protected SqlDataBase db;
+	protected SharedPreferences sp;
 	
 	
 	

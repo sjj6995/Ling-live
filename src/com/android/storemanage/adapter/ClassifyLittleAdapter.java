@@ -8,6 +8,7 @@ import com.android.storemanage.utils.JFConfig;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -58,6 +59,7 @@ public class ClassifyLittleAdapter extends BaseAdapter {
 			convertView = View.inflate(mContext, R.layout.classify_little_item, null);
 			holder = new ViewHolder();
 			holder.tView = (TextView) convertView.findViewById(R.id.tv_classify_name);
+			holder.isNew = (ImageView) convertView.findViewById(R.id.iv_class_new);
 			holder.ivImageView = (ImageView) convertView.findViewById(R.id.iv_icon);
 			convertView.setTag(holder);
 		} else {
@@ -65,18 +67,31 @@ public class ClassifyLittleAdapter extends BaseAdapter {
 		}
 		CategoryEntity entity = lists.get(position);
 		if(null != entity){
-			
 			holder.tView.setText(entity.getCategoryTitle());
 			Picasso.with(mContext)
-			.load(JFConfig.HOST_URL + entity.getCategoryLittleimgpath()).placeholder(R.drawable.img_empty)
+			.load(JFConfig.IMA_URL + entity.getCategoryLittleimgpath()).placeholder(R.drawable.img_empty)
 			.into(holder.ivImageView);
+			if (!TextUtils.isEmpty(entity.getCategorySfnew())) {
+				if ("1".equals(entity.getCategorySfnew())) {
+//					holder.ivIsNew.setVisibility(View.VISIBLE);
+					if (entity.getDbOpptime() == Long.parseLong(entity.getCategoryOpptime())) {
+						holder.isNew.setVisibility(View.INVISIBLE);
+					} else {
+						holder.isNew.setVisibility(View.VISIBLE);
+					}
+				} else {
+					holder.isNew.setVisibility(View.INVISIBLE);
+				}
+			} else {
+				holder.isNew.setVisibility(View.INVISIBLE);
+			}
 		}
 		
 		return convertView;
 	}
 	
 	class ViewHolder{
-		ImageView ivImageView;
+		ImageView ivImageView,isNew;
 		TextView tView;
 	}
 	

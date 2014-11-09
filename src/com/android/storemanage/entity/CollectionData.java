@@ -17,7 +17,42 @@ public class CollectionData {
 	private AppVersionEntity appVersionData;//版本信息
 	private UserPrizeDetailEntity userprizeDetailMap;//用户奖品详情
 	private BrandDetailEntity brandDetailMap;//品牌详情
-	
+	private InputAddress inputAddress;//下单地址
+	private SignEntity signEntity;//签到
+	private SignCount signCount;//签到天数
+	private List<ZhaoPin> recruitMapList;
+	public List<ZhaoPin> getRecruitMapList() {
+		return recruitMapList;
+	}
+
+	public void setRecruitMapList(List<ZhaoPin> recruitMapList) {
+		this.recruitMapList = recruitMapList;
+	}
+
+	public SignCount getSignCount() {
+		return signCount;
+	}
+
+	public void setSignCount(SignCount signCount) {
+		this.signCount = signCount;
+	}
+
+	public SignEntity getSignEntity() {
+		return signEntity;
+	}
+
+	public void setSignEntity(SignEntity signEntity) {
+		this.signEntity = signEntity;
+	}
+
+	public InputAddress getInputAddress() {
+		return inputAddress;
+	}
+
+	public void setInputAddress(InputAddress inputAddress) {
+		this.inputAddress = inputAddress;
+	}
+
 	public BrandDetailEntity getBrandDetailMap() {
 		return brandDetailMap;
 	}

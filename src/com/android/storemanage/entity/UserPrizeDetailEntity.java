@@ -21,6 +21,51 @@ public class UserPrizeDetailEntity {
 	private String userprizeDuihuantime;
 	private String userprizeDetail;
 	private String userprizeImgdomain;
+	//订单属性
+	private String shrxm;//收货人姓名
+	private String shrdz;//收货人地址
+	private String shrlxdh;//收货人联系电话
+	private String shryzbm;//收货人邮政编码
+	private String wPrizeId;
+	
+	public String getWPrizeId(){
+		return wPrizeId;
+	}
+	public void setWPrizeId(String wPrizeId){
+		this.wPrizeId = wPrizeId;
+	}
+
+	public String getShrxm() {
+		return shrxm;
+	}
+
+	public void setShrxm(String shrxm) {
+		this.shrxm = shrxm;
+	}
+
+	public String getShrdz() {
+		return shrdz;
+	}
+
+	public void setShrdz(String shrdz) {
+		this.shrdz = shrdz;
+	}
+
+	public String getShrlxdh() {
+		return shrlxdh;
+	}
+
+	public void setShrlxdh(String shrlxdh) {
+		this.shrlxdh = shrlxdh;
+	}
+
+	public String getShryzbm() {
+		return shryzbm;
+	}
+
+	public void setShryzbm(String shryzbm) {
+		this.shryzbm = shryzbm;
+	}
 
 	public UserPrizeDetailEntity() {
 		super();

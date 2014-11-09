@@ -10,6 +10,7 @@ import com.android.storemanage.entity.OuterData;
 import com.android.storemanage.net.AsyncHttpResponseHandler;
 import com.android.storemanage.net.RequestParams;
 import com.android.storemanage.net.HttpClient;
+import com.android.storemanage.service.TipMessageService;
 import com.android.storemanage.service.UpdateService;
 import com.android.storemanage.utils.CommonUtil;
 import com.android.storemanage.utils.JFConfig;
@@ -38,6 +39,7 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.activity_splash);
 		userId = application.getUserId();
 		gotoCheckUpdate();// 先检查版本更新
+//		gotoTipMessage();//开启消息提醒
 	}
 
 	/**
@@ -58,6 +60,7 @@ public class SplashActivity extends BaseActivity {
 							if (TextUtils.isEmpty(content)) {
 								return;
 							}
+							
 							OuterData outerData = JSON.parseObject(content,
 									OuterData.class);
 							InnerData innderData = outerData.getData().get(0);
@@ -67,11 +70,7 @@ public class SplashActivity extends BaseActivity {
 									.getReturnStatus())) {
 								chooseDifferentStatus(commonData);
 							} else {
-								if (!TextUtils.isEmpty(userId)) {
-									gotoMain();
-								} else {
-									initData();// 看当前的用户号是否注册成功
-								}
+								gotoLogin();
 							}
 
 						}
@@ -105,7 +104,7 @@ public class SplashActivity extends BaseActivity {
 				public void onClick(View view) {
 					switch (view.getId()) {
 					case R.id.sureBtn:
-						// gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
+//						 gotoUpdateService(commonData.getAppVersionData().getAppversionUpdateurl());
 						gotoWebPage(commonData.getAppVersionData()
 								.getAppversionUpdateurl());
 						break;
@@ -142,11 +141,7 @@ public class SplashActivity extends BaseActivity {
 						break;
 					case R.id.cancelBtn:
 						dialog.dismiss();
-						if (!TextUtils.isEmpty(userId)) {
-							gotoMain();
-						} else {
-							initData();// 看当前的用户号是否注册成功
-						}
+						gotoLogin();
 						break;
 					}
 				}
@@ -154,11 +149,7 @@ public class SplashActivity extends BaseActivity {
 			dialog.show();
 			break;
 		case 2:// 无需更新
-			if (!TextUtils.isEmpty(userId)) {
-				gotoMain();
-			} else {
-				initData();
-			}
+			gotoLogin();
 			break;
 		default:
 			break;
@@ -182,70 +173,16 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		if (CommonUtil.checkNetState(mContext)) {
-			RequestParams params = new RequestParams();
-			params.put("phoneimei", PhoneUtil
-					.getDeviceId((TelephonyManager) mContext
-							.getSystemService(Context.TELEPHONY_SERVICE)));
-			showProgressDialog(R.string.please_waiting);
-			HttpClient.post(JFConfig.CHECK_ISORNOT_REGISTERED, params,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(int statusCode, String content) {
-							log.i("content===" + content);
-							dismissProgressDialog();
-							if (TextUtils.isEmpty(content)) {
-								return;
-							}
-							OuterData outerData = JSON.parseObject(content,
-									OuterData.class);
-							InnerData innderData = outerData.getData().get(0);
-							CollectionData commonData = innderData.getData()
-									.get(0);
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
-								String isRegistered = commonData
-										.getCommonData().getRegistered();
-								if (!TextUtils.isEmpty(isRegistered)
-										&& "true".equals(isRegistered)) {// 已经注册成功
-									userId = commonData.getCommonData()
-											.getUserId();
-									if (TextUtils.isEmpty(userId)) {
-										Toast.makeText(getApplicationContext(),
-												"用户信息获取失败，请重试",
-												Toast.LENGTH_SHORT).show();
-										finish();
-									} else {
-										sp.edit().putString("userId", userId)
-												.commit();
-										application.setUserId(userId);
-										gotoMain();
-									}
-								} else {
-									gotoRegister();
-								}
-							} else {
-								Toast.makeText(getApplicationContext(),
-										R.string.server_data_exception,
-										Toast.LENGTH_SHORT).show();
-								finish();
-							}
-
-						}
-
-						@Override
-						public void onFailure(Throwable error, String arg1) {
-							super.onFailure(error, arg1);
-							dismissProgressDialog();
-							CommonUtil.onFailure(error, mContext);
-						}
-					});
-		} else {
-			CRAlertDialog dialog = new CRAlertDialog(mContext);
-			dialog.show(mContext.getString(R.string.pLease_check_network), 2000);
-		}
+		//先跳到签到页面
+		gotoLogin();
 	}
 
+	private void gotoLogin() {
+//		Intent loginIntent = new Intent(this, SignInActivity.class);
+		Intent loginIntent = new Intent(this, LoginActivity.class);
+		startActivity(loginIntent);
+		finish();
+	}
 	private void gotoRegister() {
 		Intent itt = new Intent(this, RegisterActivity.class);
 		startActivity(itt);
@@ -257,7 +194,10 @@ public class SplashActivity extends BaseActivity {
 		itt.putExtra("url", url);
 		startService(itt);
 	}
-
+	private void gotoTipMessage(){
+		Intent itt = new Intent(this, TipMessageService.class);
+		startService(itt);
+	}
 	private void gotoMain() {
 		Intent itt = new Intent(this, MainTabActivity.class);
 		startActivity(itt);

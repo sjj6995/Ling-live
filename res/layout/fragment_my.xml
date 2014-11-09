@@ -54,6 +54,23 @@
             <include layout="@layout/horizontal_line" />
 
             <TextView
+                android:id="@+id/my_sign"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_right"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:onClick="gotoMySign"
+                android:padding="10dip"
+                android:text="我的签到"
+                android:textColor="@color/text_view_color"
+                android:textSize="@dimen/my_text_size" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
                 android:id="@+id/tv_my_prize"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -65,6 +82,23 @@
                 android:onClick="gotoMyPrize"
                 android:padding="10dip"
                 android:text="我的奖品"
+                android:textColor="@color/text_view_color"
+                android:textSize="@dimen/my_text_size" />
+
+            <include layout="@layout/horizontal_line" />
+
+            <TextView
+                android:id="@+id/fix_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_right"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:onClick="gotoFixPassword"
+                android:padding="10dip"
+                android:text="修改密码"
                 android:textColor="@color/text_view_color"
                 android:textSize="@dimen/my_text_size" />
 
@@ -150,18 +184,19 @@
             </RelativeLayout>
 
             <include layout="@layout/horizontal_line" />
+         
 
             <TextView
-                android:id="@+id/tv_share_to_friends"
+                android:id="@+id/tv_share_all"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
-                android:onClick="shareToFriends"
+                android:onClick="umShareToAll"
                 android:padding="10dip"
-                android:text="分享至好友圈"
+                android:text="分享"
                 android:textColor="@color/text_view_color"
                 android:textSize="@dimen/my_text_size" />
 

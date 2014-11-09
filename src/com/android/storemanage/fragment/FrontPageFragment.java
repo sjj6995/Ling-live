@@ -1,6 +1,9 @@
 package com.android.storemanage.fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +32,16 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.android.storemanage.R;
+import com.android.storemanage.activity.InputPwdActivity;
 import com.android.storemanage.activity.WealthDetailActivity;
 import com.android.storemanage.activity.WealthPrizeActivity;
 import com.android.storemanage.adapter.FrontFotruneAdapter;
 import com.android.storemanage.adapter.WealthAdapter;
+import com.android.storemanage.dialog.SignDialog;
+import com.android.storemanage.dialog.SignDialog.OnConfirmClick1;
 import com.android.storemanage.entity.CategoryEntity;
 import com.android.storemanage.entity.CollectionData;
+import com.android.storemanage.entity.DataLimit;
 import com.android.storemanage.entity.DataSaveEntity;
 import com.android.storemanage.entity.InnerData;
 import com.android.storemanage.entity.OuterData;
@@ -317,6 +325,8 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		CRAlertDialog dialog = new CRAlertDialog(
+				getActivity());
 		if (data == null) {
 			return;
 		}
@@ -324,7 +334,10 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			if (resultCode == Activity.RESULT_OK) {
 				String resultString = data.getStringExtra("result");
 				if (!TextUtils.isEmpty(resultString)) {
-					sendMessageToServer(resultString);
+				
+						sendMessageToServer(resultString);
+					
+					
 				}
 			}
 		}
@@ -340,7 +353,8 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 			RequestParams params = new RequestParams();
 			params.put("userId", application.getUserId());
 			params.put("qrcodeInfo", resultString);
-			params.put(JFConfig.LSH_TOKEN, CommonUtil.getMD5(application.getUserId()+JFConfig.COMMON_MD5_STR));
+			params.put("useremail",application.getUserEmail());
+			params.put(JFConfig.LSH_TOKEN, CommonUtil.getMD5(application.getUserEmail()+JFConfig.COMMON_MD5_STR));
 			showProgressDialog(R.string.please_waiting);
 			HttpClient.post(JFConfig.SCAN_REQUEST, params,
 					new AsyncHttpResponseHandler() {
@@ -360,27 +374,41 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 									getActivity());
 							log.i("commonData"
 									+ commonData.getCommonData().getMsg());
-							if ("true".equals(commonData.getCommonData()
-									.getReturnStatus())) {
+							if (!"true".equals(commonData.getCommonData()
+									.getQrcodeExist())) {
+							if(resultString.startsWith("http://")||resultString.startsWith("https://")){
+								Intent  i  = new Intent(Intent.ACTION_VIEW,Uri.parse(resultString));
+								startActivity(i);
+							}else{
+								Intent  i  = new Intent(Intent.ACTION_VIEW,Uri.parse("http://"+resultString));
+								startActivity(i);
+							}
+							}else if("true".equals(commonData.getCommonData().getSfHavePassword())){
+								openView(resultString);
+							}else if("true".equals(commonData.getCommonData().getSfScan())){
+								dialog.show("您已经扫描过了",
+										2000);
+							}else if(!"true".equals(commonData.getCommonData().getSfEnough())){
+								dialog.show("财富值不足！",
+										2000);
+							}else if(!"true".equals(commonData.getCommonData().getAddSuccess())){
+								dialog.show("失败，请重试！",
+										2000);
+							}else {
 								int userAddValue = commonData.getCommonData()
-										.getUserAddWealthValue();
-								if (userAddValue > 0) {
-									dialog.show("您增加了" + userAddValue + "个财富值",
-											2000);
-								}
+										.getAddWealth();
+								final SignDialog wealthDialog = new SignDialog(getActivity(),"增加财富值:"+userAddValue);
+								wealthDialog.setOnConfirmClick(new OnConfirmClick1() {
+									
+									@Override
+									public void onClick(View view) {
+										wealthDialog.dismiss();
+										
+									}
+								});
+								wealthDialog.show();
 							}
-							try {
-								Intent intent = new Intent();
-								intent.setAction("android.intent.action.VIEW");
-								Uri content_url = Uri.parse(resultString);
-								intent.setData(content_url);
-								getActivity().startActivity(intent);
-
-							} catch (Exception e) {
-								Intent intent = new Intent(getActivity(),WealthDetailActivity.class);
-								intent.putExtra("url", resultString);
-								getActivity().startActivity(intent);
-							}
+//							openView(resultString);
 						}
 
 						@Override
@@ -388,23 +416,37 @@ public class FrontPageFragment extends BaseFragment implements OnClickListener {
 							super.onFailure(arg0, arg1);
 							dismissProgressDialog();
 							CommonUtil.onFailure(arg0, getActivity());
-							try {
-								Intent intent = new Intent();
-								intent.setAction("android.intent.action.VIEW");
-								Uri content_url = Uri.parse(resultString);
-								intent.setData(content_url);
-								getActivity().startActivity(intent);
-
-							} catch (Exception e) {
-								Intent intent = new Intent(getActivity(),WealthDetailActivity.class);
-								intent.putExtra("url", resultString);
-								getActivity().startActivity(intent);
-							}
+							CRAlertDialog dialog = new CRAlertDialog(
+									getActivity());
+							dialog.show("網絡異常",
+									2000);
 						}
 					});
 		} else {
 			CRAlertDialog dialog = new CRAlertDialog(getActivity());
 			dialog.show(getString(R.string.pLease_check_network), 2000);
+		}
+	}
+	
+	
+
+	public void openView(String resultString){
+		if(resultString == null){
+			return;
+		}
+		try {
+	
+			//打开web浏览器
+			Intent intent = new Intent();
+			intent.setAction("android.intent.action.VIEW");
+			Uri content_url = Uri.parse(resultString);
+			intent.setData(content_url);
+			getActivity().startActivity(intent);
+
+		} catch (Exception e) {
+			Intent intent = new Intent(getActivity(),InputPwdActivity.class);
+			intent.putExtra("url", resultString);
+			getActivity().startActivity(intent);
 		}
 	}
 
