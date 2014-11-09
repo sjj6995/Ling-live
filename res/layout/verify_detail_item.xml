@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?><ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include layout="@layout/title_layout" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/app_bg_content_margin"
+            android:paddingRight="@dimen/app_bg_content_margin"
+            android:paddingTop="@dimen/app_bg_content_margin" >
+
+            <ImageView
+                android:id="@+id/iv_icon3"
+                android:layout_width="0dip"
+                android:layout_height="80dip"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.5"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_empty" />
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="3.5" >
+
+                <TextView
+                    android:id="@+id/tv_validate_time3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dip"
+                    android:textColor="#FF9A22"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_pride_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/tv_validate_time3"
+                    android:layout_marginBottom="4dip"
+                    android:textColor="#5581A4"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_validate_time3"
+                    android:layout_marginTop="6dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="《本奖品只能使用一次》"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btn_use"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dip"
+                        android:background="@drawable/selector_button_status"
+                        android:onClick="gotoUse"
+                        android:paddingBottom="2dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="2dip"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@android:color/white"
+                        android:visibility="invisible" />
+                    <!-- </RelativeLayout> -->
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:text="说明:"
+            android:textColor="#5D87A8"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_message_desc3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="5dip"
+            android:lineSpacingExtra="10dip"
+            android:textColor="#646464"
+            android:textSize="15sp" />
+        <include layout="@layout/horizontal_line"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:text="订单详情"
+            android:textColor="#5D87A8"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/rect_white_gray_line"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="收件人:" />
+
+                <EditText
+                    android:id="@+id/user_name3"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dip"
+                   	android:enabled="false"
+                    android:textSize="@dimen/button_text_siez" />
+            </LinearLayout>
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="联系电话:" />
+
+                <EditText
+                    android:id="@+id/user_tel3"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:inputType="textEmailAddress"
+                    android:enabled="false"
+                    android:padding="5dip"
+                    android:textSize="@dimen/button_text_siez" />
+            </LinearLayout>
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="邮编:" />
+
+                <EditText
+                    android:id="@+id/user_postcode3"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dip"
+                    android:enabled="false"
+                    android:textSize="@dimen/button_text_siez" />
+            </LinearLayout>
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="收件地址:" />
+
+                <EditText
+                    android:id="@+id/user_address3"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:padding="5dip"
+                    android:enabled="false"
+                    android:textSize="@dimen/button_text_siez" />
+
+                <requestFocus />
+            </LinearLayout>
+          <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/regist_bg"
+            android:onClick="verifyOrder"
+            android:paddingBottom="8dip"
+            android:paddingTop="8dip"
+            android:text="确认收货"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_siez" />
+    </LinearLayout>
+
+</LinearLayout>
+      
+
+</ScrollView>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/layout_title"
+        layout="@layout/title_layout" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.android.storemanage.webview.TestWebView
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/hello_world" />
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/regist_bg"
+            android:onClick="addWealth"
+            android:visibility="invisible"
+            android:paddingBottom="8dip"
+            android:paddingTop="8dip"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_siez" />
+
+       
+    </RelativeLayout>
+
+</LinearLayout>

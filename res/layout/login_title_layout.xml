@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="42dip"
+     android:background="#5D829F"
+    android:orientation="vertical" >
+   
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@android:color/white"
+        android:text="零生活"
+        android:textSize="17sp" />
+    
+     <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dip"
+        android:layout_marginLeft="5dip"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/white"
+        android:onClick="onRegisterClicked"
+        android:text="注册"/>
+     <Button
+        android:id="@+id/changedevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dip"
+        android:layout_marginLeft="5dip"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/white"
+        android:onClick="onChangeClicked"
+        android:text="更改设备"/>
+      <ImageButton
+        android:id="@+id/back_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"
+        android:background="@android:color/transparent"
+        android:onClick="onBackToLoginClicked"
+        android:src="@drawable/arrow_right" />
+
+</RelativeLayout>

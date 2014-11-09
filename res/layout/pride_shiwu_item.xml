@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include layout="@layout/title_layout" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/app_bg_content_margin"
+            android:paddingRight="@dimen/app_bg_content_margin"
+            android:paddingTop="@dimen/app_bg_content_margin" >
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="0dip"
+                android:layout_height="80dip"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.5"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_empty" />
+
+            <RelativeLayout
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="3.5" >
+
+                <TextView
+                    android:id="@+id/tv_validate_time"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dip"
+                    android:textColor="#FF9A22"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_pride_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/tv_validate_time"
+                    android:layout_marginBottom="4dip"
+                    android:textColor="#5581A4"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_validate_time"
+                    android:layout_marginTop="6dip"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="《本奖品只能使用一次》"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btn_use"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dip"
+                        android:background="@drawable/selector_button_status"
+                        android:onClick="gotoUse"
+                        android:paddingBottom="2dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="2dip"
+                        android:singleLine="true"
+                        android:text="确认收货"
+                        android:textColor="@android:color/white"
+                        android:visibility="invisible" />
+                    <!-- </RelativeLayout> -->
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:text="说明:"
+            android:textColor="#5D87A8"
+            android:textSize="15sp" />
+
+        <include layout="@layout/horizontal_line" />
+
+        <TextView
+            android:id="@+id/tv_message_desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="5dip"
+            android:lineSpacingExtra="10dip"
+            android:textColor="#646464"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</ScrollView>

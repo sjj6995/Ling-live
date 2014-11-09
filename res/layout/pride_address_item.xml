@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include layout="@layout/title_layout" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/app_bg_content_margin"
+            android:paddingRight="@dimen/app_bg_content_margin"
+            android:paddingTop="@dimen/app_bg_content_margin" >
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:text="订单详情"
+            android:textColor="#5D87A8"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="5dip"
+            android:background="@drawable/rect_white_gray_line"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="收件人:" />
+
+                <EditText
+                    android:id="@+id/user_name2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dip"
+                    android:text=""
+                    android:textSize="@dimen/button_text_siez" />
+            </LinearLayout>
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="联系电话:" />
+
+                <EditText
+                    android:id="@+id/user_tel2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:inputType="phone"
+                    android:padding="5dip"
+                    android:textSize="@dimen/button_text_siez" />
+            </LinearLayout>
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="邮编:" />
+
+                <EditText
+                    android:id="@+id/user_postcode2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:inputType="number"
+                    android:padding="5dip"
+                    android:text=""
+                    android:textSize="@dimen/button_text_siez" />
+            </LinearLayout>
+
+            <include layout="@layout/horizontal_line" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="@dimen/app_bg_content_margin"
+                android:layout_marginRight="@dimen/app_bg_content_margin"
+                android:layout_marginTop="5dip"
+                android:background="@null"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:drawablePadding="8dip"
+                    android:text="收件地址:" />
+
+                <EditText
+                    android:id="@+id/user_address2"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:background="@drawable/rect_white_gray_line"
+                    android:drawablePadding="8dip"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:minLines="5"
+                    android:padding="5dip"
+                    android:text=""
+                    android:textSize="@dimen/button_text_siez" />
+
+                <requestFocus />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_pride"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="@dimen/app_bg_content_margin"
+            android:layout_marginRight="@dimen/app_bg_content_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/regist_bg"
+            android:paddingBottom="8dip"
+            android:paddingTop="8dip"
+            android:text="下单"
+            android:onClick="saveOrder"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/button_text_siez" />
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title_layout" />
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/zp_no_data"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="暂无数据" />
+
+        <com.android.storemanage.view.PullToRefreshListView
+            android:id="@+id/zp_sport"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@null"
+            android:divider="@color/horizontal_line_color"
+            android:dividerHeight="1dip"
+            android:listSelector="@drawable/selector_listview_item" >
+        </com.android.storemanage.view.PullToRefreshListView>
+    </RelativeLayout>
+
+</LinearLayout>

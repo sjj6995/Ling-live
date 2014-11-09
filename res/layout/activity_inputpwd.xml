@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_bg_color"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/input_pwd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:drawablePadding="8dip"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:padding="10dip"
+        android:text=""
+        android:textSize="@dimen/button_text_siez" />
+
+    <include layout="@layout/horizontal_line" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="@dimen/app_bg_content_margin"
+        android:layout_marginRight="@dimen/app_bg_content_margin"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/regist_bg"
+        android:onClick="gotoOtherView"
+        android:paddingBottom="8dip"
+        android:paddingTop="8dip"
+        android:text="登陆"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/button_text_siez" />
+
+</LinearLayout>
